@@ -82,10 +82,12 @@
                                     <group>
                                         <field name="basic_salary"/>
                                         <field name="working_period"/>
+
                                     </group>
                                     <group>
                                         <field name="min_months"/>
-                                        <field name="period_details"/>
+                                         <field name="period_details"/>
+<!--                                        <field name="period_in_years"/>-->
                                     </group>
                                 </group>
                             </page>

@@ -61,6 +61,7 @@ class Settlement(models.Model):
                               ], _('Status'), readonly=True, copy=False, default='draft',
                              help=_("Gives the status of the Settlement"), select=True)
 
+
     @api.model
     def create(self, values):
         res = super(Settlement, self).create(values)
@@ -72,7 +73,7 @@ class Settlement(models.Model):
             if res.balance_days > res.employee_id.remaining_allocate_leaves:
                 raise UserError(_('You Can not reconcile days greater than balance of Employee.'))
         return res
-        
+
     @api.multi
     def button_cancel(self):
         if self.state not in ['approved', 'approved2']:
@@ -84,7 +85,7 @@ class Settlement(models.Model):
                       ('is_reconciled', '=', True)]
             leaves = self.env['hr.leave'].search(domain)
             for l in leaves:
-                l.is_reconciled = False
+                l.write({'is_reconciled':False})
             if self.leave_reconcile_id:
                 self.leave_reconcile_id.action_refuse()
                 self.leave_reconcile_id.action_draft()
@@ -127,9 +128,9 @@ class Settlement(models.Model):
         domain = [('holiday_status_id', 'in', leave_type), ('state', '=', 'validate'),
                   ('request_date_from', '<=', self.reconcile_date), ('reconcile_option', '=', 'yes'),
                   ('is_reconciled', '=', False)]
-        leaves = self.env['hr.leave'].search(domain)
+        leaves = self.env['hr.leave'].sudo().search(domain)
         for l in leaves:
-            l.is_reconciled = True
+            l.write({'is_reconciled':True})
         self.write({'termination_code': termination_code, 'state': 'approved'})
 
     @api.onchange('reconcile_type', 'reconcile_date')
@@ -141,7 +142,7 @@ class Settlement(models.Model):
                       ('employee_id', '=', line.employee_id.id),
                       ('request_date_from', '<=', line.reconcile_date), ('reconcile_option', '=', 'yes'),
                       ('is_reconciled', '=', False)]
-            leave = self.env['hr.leave'].search(domain)
+            leave = self.env['hr.leave'].sudo().search(domain)
             leave_days = sum([l.number_of_days for l in leave])
             line.vacation_days_comp = leave_days
 
@@ -153,7 +154,6 @@ class Settlement(models.Model):
 
     @api.multi
     def validate_termination(self):
-        
         move_obj = self.env['account.move']
         timenow = time.strftime('%Y-%m-%d')
         line_ids = []

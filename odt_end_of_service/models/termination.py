@@ -1,15 +1,23 @@
+from __future__ import division
+
 import time
 from odoo import exceptions, models, fields, api, _
 from dateutil.relativedelta import relativedelta
-from datetime import datetime,timedelta
+from datetime import datetime, timedelta
 from .. import utils
 from odoo.exceptions import Warning
+
 
 
 class AccountMove(models.Model):
     _inherit = 'account.move'
 
     termination_id = fields.Many2one('hr.termination', 'Termination', help='Termination Record')
+
+
+def daterangeleave(start_date, end_date):
+    for n in range(int((end_date - start_date).days + 1)):
+        yield start_date + timedelta(n)
 
 
 class Termination(models.Model):
@@ -75,7 +83,8 @@ class Termination(models.Model):
     to_years = fields.Float('To Years', readonly=True, states={'draft': [('readonly', False)]})
     basic_salary = fields.Float('Total Salary', readonly=True, states={'draft': [('readonly', False)]})
     min_months = fields.Float('Min Months', readonly=True, states={'draft': [('readonly', False)]})
-    working_period = fields.Float('Working Period', readonly=True, states={'draft': [('readonly', False)]})
+    working_period = fields.Float('Working Period(months)',digits=(16, 4), readonly=True, states={'draft': [('readonly', False)]})
+    # period_in_years = fields.Float('Period in Years', readonly=True, states={'draft': [('readonly', False)]})
     period_details = fields.Char('Period Details', readonly=True, states={'draft': [('readonly', False)]})
     vacation_days = fields.Float('Vacation Days', readonly=True, states={'draft': [('readonly', False)]})
     salary_amount = fields.Float('Salary Amount', readonly=True, states={'draft': [('readonly', False)]})
@@ -111,10 +120,20 @@ class Termination(models.Model):
                                    ('3', 'Employee resignation')], string='EOS Reason')
 
     @api.model
-    def create(self, vals):
+    def create(self, values):
+        res = super(Termination, self).create(values)
+        if res.employee_id.on_vacation:
+            raise Warning(_('You cannot Create a termination for employee %s on vacation .') % res.employee_id.name)
         termination_code = self.env['ir.sequence'].get('hr.termination.code')
-        vals['termination_code'] = termination_code
-        return super(Termination, self).create(vals)
+        res.termination_code = termination_code
+        return res
+
+    @api.multi
+    def write(self, values):
+        res = super(Termination, self).write(values)
+        if self.employee_id.on_vacation:
+            raise Warning(_('You cannot Create a termination for employee %s on vacation .') % self.employee_id.name)
+        return res
 
     @api.multi
     def get_employee_balance_leave(self):
@@ -122,11 +141,30 @@ class Termination(models.Model):
             days_to_allocate = 0.0
             if holiday.job_ending_date and holiday.employee_id.eligible and holiday.employee_id.holiday_line_ids:
                 date_end = fields.Datetime.from_string(holiday.job_ending_date)
-                allocate_date_dt = (date_end + relativedelta(day=1))
-                allocate_date = fields.Datetime.from_string(allocate_date_dt)
+                date_from = (date_end + relativedelta(day=1))
+                clause_1 = ['&', ('return_date', '<=', date_end), ('return_date', '>=', date_from)]
+                # OR if it starts between the given dates
+                clause_2 = ['&', ('date_from', '<=', date_end), ('date_from', '>=', date_from)]
+                # OR if it starts before the date_from and finish after the date_end (or never finish)
+                clause_3 = ['&', ('date_from', '<=', date_from), ('date_from', '>=', date_end)]
+
+                clause_final = [('state', 'in', ['validate', 'validate1']),
+                                ('employee_id', '=', holiday.employee_id.id), '|',
+                                '|'] + clause_1 + clause_2 + clause_3
+                request_leaves = self.env['hr.leave'].search(clause_final)
+                leave_days = 0.0
+                for line in request_leaves:
+                    return_date = datetime.strptime(str(line.return_date), "%Y-%m-%d").date()
+                    return_date = str(return_date + timedelta(days=1))
+                    r_date_from = fields.Datetime.from_string(str(line.date_from))
+                    r_date_to = fields.Datetime.from_string(return_date)
+                    if r_date_from and r_date_to:
+                        for date in daterangeleave(r_date_from, r_date_to):
+                            if date_from <= date <= date_end:
+                                leave_days += 1
+                work_days = date_end.day - date_from.day + 1
                 for line in holiday.employee_id.holiday_line_ids:
-                    days_to_allocate = (line.days_to_allocate / 30) * (
-                            date_end.day - allocate_date.day + 1)
+                    days_to_allocate = (line.days_to_allocate / 30) * (work_days - leave_days)
             return days_to_allocate
 
     @api.onchange('job_ending_date')
@@ -243,7 +281,6 @@ class Termination(models.Model):
             months = (year * 12) + month + (day / 30)
             self.working_period = months
             self.period_details = str(year) + ' Y ' + str(month) + ' M ' + str(day) + ' D '
-
 
     @api.one
     @api.depends('working_period', 'eos_reason', 'basic_salary')

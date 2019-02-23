@@ -24,6 +24,7 @@
             <field name="inherit_id" ref="hr_holidays.hr_leave_allocation_view_form"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='number_of_days']" position="before">
+                    <field name="company_id" groups="base.group_multi_company"/>
                     <field name="last_allocation_date"  attrs="{'required':[('leave_on_employee','=',True)],'readonly':[('state','in',['validate','validate1'])],'invisible':[('leave_on_employee','=',False)]}" groups="hr_holidays.group_hr_holidays_user"/>
                     <field name="date_change" invisible="1"/>
                     <field name="leave_on_employee" invisible="1"/>
@@ -38,6 +39,7 @@
             <field name="inherit_id" ref="hr_holidays.hr_leave_view_form"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='name']" position="before">
+                    <field name="company_id" groups="base.group_multi_company"/>
                     <field name="leave_on_employee" invisible="1"/>
                     <field name="reconcile_option" attrs="{'required':[('leave_on_employee','=',True)],'readonly':[('state','in',['validate','validate1'])],'invisible':[('leave_on_employee','=',False)]}"/>
                     <field name="is_reconciled"  attrs="{'readonly':1,'invisible':[('leave_on_employee','=',False)]}"/>
