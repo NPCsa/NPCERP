@@ -1,0 +1,56 @@
+<odoo>
+    <data>
+
+        <record id="form_view_for_effective_date" model="ir.ui.view">
+            <field name="name">Effective Date</field>
+            <field name="model">hr.effective.date</field>
+            <field name="arch" type="xml">
+                <form string="Effective Date">
+                    <header>
+                        <button name="button_confirm" states="submit" string="Confirm" type="object"
+                                class="oe_highlight"/>
+                        <button name="button_submit" states="draft" string="Submited" type="object"
+                                class="oe_highlight"/>
+                        <button name="button_cancel" states="cancel" string="Cancel" type="object"
+                                attrs="{'invisible':[('state','=','confirm')]}"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,submit,confirm,cancel"
+                               statusbar_colors="{}"/>
+                    </header>
+                    <sheet>
+                        <group col="2">
+                            <field name="employee_id"
+                                   attrs="{'readonly': [('state','in', ['submit','confirm','cancel'])]}"/>
+                            <field name="department_id" readonly="1"/>
+                            <field name="start_work"
+                                   attrs="{'readonly': [('state','in', ['submit','confirm','cancel'])]}"/>
+                            <field name="note" attrs="{'readonly': [('state','in', ['submit','confirm','cancel'])]}"/>
+                        </group>
+                    </sheet>
+                </form>
+
+            </field>
+        </record>
+
+        <record id="tree_view_for_effective_date" model="ir.ui.view">
+            <field name="name">Effective Date</field>
+            <field name="model">hr.effective.date</field>
+            <field name="arch" type="xml">
+                <tree string="Effective Date">
+                    <field name="employee_id"/>
+                    <field name="emp_id"/>
+                    <field name="department_id"/>
+                    <field name="start_work"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_hr_effective_date" model="ir.actions.act_window">
+            <field name="name">Effective Date Notice</field>
+            <field name="res_model">hr.effective.date</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem name="Effective Date Notice" parent="hr.menu_hr_root" id="menu_hr_effective_date"
+                  action="action_hr_effective_date"/>
+    </data>
+</odoo>

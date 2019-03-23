@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_employee_form_in" model="ir.ui.view">
+            <field name="name">hr.employee.form</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//notebook//page[@name='hr_settings']" position="inside">
+
+
+                    <group col="2">
+                        <group string="Vacation" name="vacation_group">
+                            <field name="on_vacation"/>
+                            <field name="return_work"/>
+                            <field name="absent_ids">
+                                <tree editable="bottom" create="false">
+                                    <field name="absent_from"/>
+                                    <field name="absent_to"/>
+                                    <field name="absent_days"/>
+                                </tree>
+                            </field>
+                        </group>
+                        <group string="Overtime" name="overtime_group">
+                            <field name="fixed_overtime"/>
+                        </group>
+                    </group>
+
+
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

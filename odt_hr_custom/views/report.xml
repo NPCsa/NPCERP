@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <report
+                id="report_hr_clearance_form"
+                model="hr.clearance"
+                string="HR Clearance"
+                report_type="qweb-pdf"
+                name="odt_hr_custom.clearance_form_report"
+                file="odt_hr_custom.clearance_form_report"
+                attachment_use="False"
+        />
+    </data>
+</odoo>

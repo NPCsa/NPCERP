@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="clearance_form_report">
+            <style type="text/css">
+                table, td, th {
+                border: 2px solid black;
+                border-collapse: collapse;
+                }
+
+                th, td {
+                padding: 5px;
+                text-align: center;
+                }
+
+                th {
+                padding: 5px;
+                text-align: left;
+                height:35px;
+                }
+
+                td {
+                padding: 5px;
+                text-align: left;
+                }
+            </style>
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <div class="font">
+                        <div class="page">
+                            <table style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th colspan="3" bgcolor="#a9a9a9" style="text-align: center">Employee
+                                            Information
+
+                                            <br/>
+                                            معلومات الموظف
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td bgcolor="#a9a9a9">Employee Name</td>
+                                        <td>
+                                            <span t-esc="o.employee_id.name"/>
+                                        </td>
+                                        <td bgcolor="#a9a9a9">اسم الموظف</td>
+                                    </tr>
+                                    <tr>
+                                        <td bgcolor="#a9a9a9">ID Number</td>
+                                        <td>
+                                            <span t-esc="o.employee_id.identification_id"/>
+                                        </td>
+                                        <td bgcolor="#a9a9a9">الرقم الوظيفي</td>
+                                    </tr>
+                                    <tr>
+                                        <td bgcolor="#a9a9a9">Job Title</td>
+                                        <td>
+                                            <span t-esc="o.employee_id.job_id.name"/>
+                                        </td>
+                                        <td bgcolor="#a9a9a9">المسمى الوظيفي</td>
+                                    </tr>
+                                    <tr>
+                                        <td bgcolor="#a9a9a9">Grade</td>
+                                        <td>
+                                            <span t-esc="o.grade"/>
+                                        </td>
+                                        <td bgcolor="#a9a9a9">االدرجة الوظيفية</td>
+                                    </tr>
+                                    <tr>
+                                        <td bgcolor="#a9a9a9">Department</td>
+                                        <td>
+                                            <span t-esc="o.employee_id.department_id.name"/>
+                                        </td>
+                                        <td bgcolor="#a9a9a9">الإدارة</td>
+                                    </tr>
+                                    <tr>
+                                        <td bgcolor="#a9a9a9">Section</td>
+                                        <td>
+                                            <span t-esc="o.section"/>
+                                        </td>
+                                        <td bgcolor="#a9a9a9">القسم</td>
+                                    </tr>
+                                    <tr>
+                                        <td bgcolor="#a9a9a9">Direct Manager Name</td>
+                                        <td>
+                                            <span t-esc="o.employee_id.coach_id.name"/>
+                                        </td>
+                                        <td bgcolor="#a9a9a9">ااسم المدير المباشر</td>
+                                    </tr>
+                                    <tr>
+                                        <td bgcolor="#a9a9a9">Date</td>
+                                        <td>
+                                            <span t-esc="o.clearance_date"/>
+                                        </td>
+                                        <td bgcolor="#a9a9a9">التاريخ</td>
+                                    </tr>
+                                    <tr>
+                                        <td bgcolor="#a9a9a9">Signature</td>
+                                        <td><![CDATA[&nbsp;]]></td>
+                                        <td bgcolor="#a9a9a9">التوقيع</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <table style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th colspan="3" bgcolor="#a9a9a9" style="text-align: center">Leaving Reason
+                                            <br/>
+                                            سبب ترك العمل
+                                        </th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <t t-if="o.leave_reason=='resg'">
+                                            <td bgcolor="#a9a9a9">Employee Name [√] استقاله</td>
+                                            <td>Contract Termination [ ] انتهاء عقد العمل</td>
+                                            <td bgcolor="#a9a9a9">Termination [ ] انهاء</td>
+                                        </t>
+                                        <t t-if="o.leave_reason=='con_term'">
+                                            <td bgcolor="#a9a9a9">Employee Name [ ] استقاله</td>
+                                            <td>Contract Termination [√] انتهاء عقد العمل</td>
+                                            <td bgcolor="#a9a9a9">Termination [ ] انهاء</td>
+                                        </t>
+                                        <t t-if="o.leave_reason=='term'">
+                                            <td bgcolor="#a9a9a9">Employee Name [ ] استقاله</td>
+                                            <td>Contract Termination [ ] انتهاء عقد العمل</td>
+                                            <td bgcolor="#a9a9a9">Termination [√] انهاء</td>
+                                        </t>
+
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <table border="1" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th bgcolor="#a9a9a9">Employee’s Department</th>
+
+                                        <th style="direction: rtl;text-align: right" bgcolor="#a9a9a9">
+                                            إدارة الموظف
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <t t-foreach="o.depart_asset" t-as="l1">
+                                                <span t-esc="l1.name"/>
+                                                [<span t-esc="l1.asset_answer"/>]
+                                                <br/>
+                                            </t>
+
+                                        </td>
+                                        <td style="direction: rtl;text-align: right">
+                                            الاسم :
+                                            <br/>
+                                            التوقيع :
+                                            <br/>
+                                            التاريخ :
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <!--</table>-->
+
+                                <!--<table border="1" width="100%">-->
+                                <thead>
+                                    <tr>
+                                        <th bgcolor="#a9a9a9">Support Services Department</th>
+
+                                        <th style="direction: rtl;text-align: right" bgcolor="#a9a9a9">
+                                            إدارة الخدمات المساندة
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <t t-foreach="o.support_service_asset" t-as="l2">
+                                                <span t-esc="l2.name"/>
+                                                [<span t-esc="l2.asset_answer"/>]
+                                                <br/>
+                                            </t>
+                                        </td>
+                                        <td style="direction: rtl;text-align: right">
+                                            الاسم :
+                                            <br/>
+                                            التوقيع :
+                                            <br/>
+                                            التاريخ :
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <!--</table>-->
+                                <!--<table border="1" width="100%">-->
+                                <thead>
+                                    <tr>
+                                        <th bgcolor="#a9a9a9">Gov. &amp; Public Relations Department</th>
+
+                                        <th style="direction: rtl;text-align: right" bgcolor="#a9a9a9">
+                                            إدارة العلاقات الحكومية و العامة
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <t t-foreach="o.gov_public_asset" t-as="l3">
+                                                <span t-esc="l3.name"/>
+                                                [<span t-esc="l3.asset_answer"/>]
+                                                <br/>
+                                            </t>
+                                        </td>
+                                        <td style="direction: rtl;text-align: right">
+                                            الاسم :
+                                            <br/>
+                                            التوقيع :
+                                            <br/>
+                                            التاريخ :
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <!--</table>-->
+                                <!--<table border="1" width="100%">-->
+                                <thead>
+                                    <tr>
+                                        <th bgcolor="#a9a9a9">Operation and Marketing &amp; Sales Department</th>
+
+                                        <th style="direction: rtl;text-align: right" bgcolor="#a9a9a9">
+                                            إدارة التشغيل والتسويق والمبيعات
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <t t-foreach="o.opmarket_asset" t-as="l4">
+                                                <span t-esc="l4.name"/>
+                                                [<span t-esc="l4.asset_answer"/>]
+                                                <br/>
+                                            </t>
+                                        </td>
+                                        <td style="direction: rtl;text-align: right">
+                                            الاسم :
+                                            <br/>
+                                            التوقيع :
+                                            <br/>
+                                            التاريخ :
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <!--</table>-->
+                                <!--<table border="1" width="100%">-->
+                                <thead>
+                                    <tr>
+                                        <th bgcolor="#a9a9a9">IT Department</th>
+
+                                        <th style="direction: rtl;text-align: right" bgcolor="#a9a9a9">
+                                            إدارة الموظف
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <t t-foreach="o.it_asset" t-as="l5">
+                                                <span t-esc="l5.name"/>
+                                                [<span t-esc="l5.asset_answer"/>]
+                                                <br/>
+                                            </t>
+                                        </td>
+                                        <td style="direction: rtl;text-align: right">
+                                            الاسم :
+                                            <br/>
+                                            التوقيع :
+                                            <br/>
+                                            التاريخ :
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <!--</table>-->
+                                <!--<table border="1" width="100%">-->
+                                <thead>
+                                    <tr>
+                                        <th bgcolor="#a9a9a9">Finance Department</th>
+
+                                        <th style="direction: rtl;text-align: right" bgcolor="#a9a9a9">
+                                            الادارة المالية
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <t t-foreach="o.finance_asset" t-as="l6">
+                                                <span t-esc="l6.name"/>
+                                                [<span t-esc="l6.asset_answer"/>]
+                                                <br/>
+                                            </t>
+                                        </td>
+                                        <td style="direction: rtl;text-align: right">
+                                            الاسم :
+                                            <br/>
+                                            التوقيع :
+                                            <br/>
+                                            التاريخ :
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <table border="1" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th bgcolor="#a9a9a9">HR Management</th>
+
+                                        <th>
+                                            توقيع المخولين بالاستلام
+                                        </th>
+                                        <th style="direction: rtl;text-align: right" bgcolor="#a9a9a9">إدارة الموارد
+                                            البشرية
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <t t-foreach="o.hr_asset" t-as="l7">
+                                                <span t-esc="l7.name"/>
+                                                [<span t-esc="l7.asset_answer"/>]
+                                                <br/>
+                                            </t>
+                                        </td>
+                                        <td><![CDATA[&nbsp;]]></td>
+                                        <td style="direction: rtl;text-align: right">
+                                            الاسم :
+                                            <br/>
+                                            التوقيع :
+                                            <br/>
+                                            التاريخ :
+                                            <span/>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

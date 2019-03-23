@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="hr_contract_form_in_inherit" model="ir.ui.view">
+            <field name="name">hr.contract.form.in.inherit</field>
+            <field name="model">hr.contract</field>
+            <field name="inherit_id" ref="hr_payroll.hr_contract_form_inherit"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//sheet/group/group[2]" position="after">
+                        <group>
+                            <separator colspan="2" string="Allowance"/>
+                           <field name="is_trans"/>
+                            <field name="transportation_allowance"/>
+                            <field name="is_house"/>
+                            <field name="housing_allowance"/>
+                            <field name="is_mobile"/>
+                            <field name="mobile_allowance"/>
+                            <field name="is_over"/>
+                            <field name="overtime_allowance"/>
+                            <field name="is_work"/>
+                            <field name="work_allowance"/>
+                            <field name="is_reward"/>
+                            <field name="reward"/>
+                            <field name="is_other"/>
+                            <field name="other_allowance"/>
+                        </group>
+                         <group>
+                            <field name="gosi" attrs="{'invisible':[('country_name','!=','SA')]}"/>
+                            <field  name="gosi_in_payslip" attrs="{'invisible':[('country_name','!=','SA')]}"/>
+                            <field name="country_name" invisible="1"/>
+                        </group>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+        <record id="hr_contract_tree_in_inherit" model="ir.ui.view">
+            <field name="name">hr.contract.tree.in.inherit</field>
+            <field name="model">hr.contract</field>
+            <field name="inherit_id" ref="hr_contract.hr_contract_view_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='type_id']" position="before">
+                    <field name="emp_id"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

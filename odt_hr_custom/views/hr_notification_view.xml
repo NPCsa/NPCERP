@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <record forcecreate="True" id="odt_hr_reminder" model="ir.cron">
+            <field name="name">HR Expiration Reminder</field>
+            <field name="model_id" ref="model_hr_notification"/>
+            <field name="state">code</field>
+            <field name="code">
+                model.mail_remainder()
+            </field>
+            <field eval="True" name="active"/>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field eval="False" name="doall"/>
+        </record>
+    </data>
+
+    <data>
+        <record model="mail.template" id="email_template_for_iqama">
+            <field name="name">Iqama Expiration Alert</field>
+            <field name="model_id" ref="hr.model_hr_employee"/>
+            <field name="subject">Iqama Expiration Alert</field>
+            <field name="email_to">${object.work_email}</field>
+            <field name="partner_to">${object.address_home_id and object.address_home_id.id or ''}</field>
+            <field name="lang">${object.user_id and object.user_id.lang or ''}</field>
+            <field name="email_from">${object.company_id.email or ''|safe}</field>
+            <field name="body_html"><![CDATA[<p>Dear ${object.name or 'employee'},</p>
+                <p>Your Iqama will be expire within short period.</p>
+                <p>Please Contact Hr Section for further support.</p>
+                <p>Kind regards,</p>
+                <br/>]]>
+            </field>
+        </record>
+
+        <record model="mail.template" id="email_template_for_passport">
+            <field name="name">Passport Expiration Alert</field>
+            <field name="model_id" ref="hr.model_hr_employee"/>
+            <field name="subject">Passport Expiration Alert</field>
+            <field name="email_to">${object.work_email}</field>
+            <field name="partner_to">${object.address_home_id and object.address_home_id.id or ''}</field>
+            <field name="lang">${object.user_id and object.user_id.lang or ''}</field>
+            <field name="email_from">${object.company_id.email or ''|safe}</field>
+            <field name="body_html"><![CDATA[<p>Dear ${object.name or 'employee'},</p>
+                <p>Your Passport will be expire within short period.</p>
+                <p>Please Contact Hr Section for further support.</p>
+                <p>Kind regards,</p>
+                <br/>]]>
+            </field>
+        </record>
+
+        <record model="mail.template" id="email_template_for_contract">
+            <field name="name">Contract Expiration Alert</field>
+            <field name="model_id" ref="hr.model_hr_employee"/>
+            <field name="subject">Contract Expiration Alert</field>
+            <field name="email_to">${object.work_email}</field>
+            <field name="partner_to">${object.address_home_id and object.address_home_id.id or ''}</field>
+            <field name="lang">${object.user_id and object.user_id.lang or ''}</field>
+            <field name="email_from">${object.company_id.email or ''|safe}</field>
+            <field name="body_html"><![CDATA[<p>Dear ${object.name or 'employee'},</p>
+                <p>Your Contract will be expire within short period.</p>
+                <p>Please Contact Hr Section for further support.</p>
+                <p>Kind regards,</p>
+                <br/>]]>
+            </field>
+        </record>
+        <record model="mail.template" id="email_template_for_insurance">
+            <field name="name">Insurance Expiration Alert</field>
+            <field name="model_id" ref="hr.model_hr_employee"/>
+            <field name="subject">Insurance Expiration Alert</field>
+            <field name="email_to">${object.work_email}</field>
+            <field name="partner_to">${object.address_home_id and object.address_home_id.id or ''}</field>
+            <field name="lang">${object.user_id and object.user_id.lang or ''}</field>
+            <field name="email_from">${object.company_id.email or ''|safe}</field>
+            <field name="body_html"><![CDATA[<p>Dear ${object.name or 'employee'},</p>
+                <p>Your Insurance will be expire within short period.</p>
+                <p>Please Contact Hr Section for further support.</p>
+                <p>Kind regards,</p>
+                <br/>]]>
+            </field>
+        </record>
+
+        <record model="mail.template" id="email_template_for_trial">
+            <field name="name">Trail Expiration Alert</field>
+            <field name="model_id" ref="hr.model_hr_employee"/>
+            <field name="subject">Trail Expiration Alert</field>
+            <field name="email_to">${object.work_email}</field>
+            <field name="partner_to">${object.address_home_id and object.address_home_id.id or ''}</field>
+            <field name="lang">${object.user_id and object.user_id.lang or ''}</field>
+            <field name="email_from">${object.company_id.email or ''|safe}</field>
+            <field name="body_html"><![CDATA[<p>Dear ${object.name or 'employee'},</p>
+                <p>Your Trial Period will be expire within short period.</p>
+                <p>Please Contact Hr Section for further support.</p>
+                <p>Kind regards,</p>
+                <br/>]]>
+            </field>
+        </record>
+
+        <record model="mail.template" id="email_template_for_com">
+            <field name="name">Commercial Expiration Alert</field>
+            <field name="model_id" ref="base.model_res_company"/>
+            <field name="subject">Commercial Expiration Alert</field>
+            <field name="email_to">${object.email}</field>
+            <field name="lang">${object.partner_id and object.partner_id.lang or ''}</field>
+            <field name="partner_to">${object.partner_id and object.partner_id.id or ''}</field>
+            <field name="email_from">${object.email or ''|safe}</field>
+            <field name="body_html"><![CDATA[<p>Dear ${object.name or 'Company'},</p>
+                <p>Your Commercial  will be expire within short period.</p>
+                <p>Please Contact Hr Section for further support.</p>
+                <p>Kind regards,</p>
+                <br/>]]>
+            </field>
+        </record>
+
+        <record model="mail.template" id="email_template_for_mu">
+            <field name="name">Municipal Expiration Alert</field>
+            <field name="model_id" ref="base.model_res_company"/>
+            <field name="subject">Municipal Expiration Alert</field>
+            <field name="lang">${object.partner_id and object.partner_id.lang or ''}</field>
+            <field name="email_to">${object.email}</field>
+            <field name="partner_to">${object.partner_id and object.partner_id.id or ''}</field>
+            <field name="email_from">${object.email or ''|safe}</field>
+            <field name="body_html"><![CDATA[<p>Dear ${object.name or 'Company'},</p>
+                <p>Your Municipal will be expire within short period.</p>
+                <p>Please Contact Hr Section for further support.</p>
+                <p>Kind regards,</p>
+                <br/>]]>
+            </field>
+        </record>
+    </data>
+</odoo>

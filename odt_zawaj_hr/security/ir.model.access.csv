@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_course_user_custom,hr.training.course,model_hr_training_course,,1,1,1,1
+access_idara_user_custom,hr.idara,model_hr_idara,,1,1,1,1

@@ -1,0 +1,1026 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* odootec_hr_custom
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-04-11 12:23+0000\n"
+"PO-Revision-Date: 2017-04-13 11:42+0300\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=(n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5);\n"
+"Language: ar\n"
+"X-Generator: Poedit 2.0.1\n"
+
+#. module: odootec_hr_custom
+#: view:website:odootec_hr_custom.clearance_form_report
+msgid "&nbsp;"
+msgstr "&nbsp;"
+
+#. module: odt_zawaj_hr
+#: field:hr.employee,zw_rank:0
+msgid "Rank"
+msgstr "المرتبه "
+
+#. module: hr
+#: field:hr.employee,coach_id:0
+msgid "Direct Manager"
+msgstr "الرئيس المباشر "
+
+#. module: odootec_hr_custom
+#: model:ir.actions.act_window,help:odootec_hr_custom.action_clearance_menu
+msgid ""
+"<p class=\"oe_view_nocontent_create\">\n"
+"                    Add Employee Clearance Details.\n"
+"                </p>\n"
+"            "
+msgstr ""
+"<p class=\"oe_view_nocontent_create\">\n"
+"                    Add Employee Clearance Details.\n"
+"                </p>\n"
+"            "
+
+#. module: odootec_hr_custom
+#: model:email.template,body_html:odootec_hr_custom.email_template_for_iqama
+msgid ""
+"<p>Dear ${object.name or 'employee'},</p>\n"
+"                <p>Your Iqama will be expire within short period.</p>\n"
+"                <p>Please Contact Hr Section for further support.</p>\n"
+"                <p>Kind regards,</p>\n"
+"                <br/>\n"
+"            "
+msgstr ""
+"<p>Dear ${object.name or 'employee'},</p>\n"
+"                <p>Your Iqama will be expire within short period.</p>\n"
+"                <p>Please Contact Hr Section for further support.</p>\n"
+"                <p>Kind regards,</p>\n"
+"                <br/>\n"
+"            "
+
+#. module: odootec_hr_custom
+#: model:email.template,body_html:odootec_hr_custom.email_template_for_passport
+msgid ""
+"<p>Dear ${object.name or 'employee'},</p>\n"
+"                <p>Your Passport will be expire within short period.</p>\n"
+"                <p>Please Contact Hr Section for further support.</p>\n"
+"                <p>Kind regards,</p>\n"
+"                <br/>\n"
+"            "
+msgstr ""
+"<p>Dear ${object.name or 'employee'},</p>\n"
+"                <p>Your Passport will be expire within short period.</p>\n"
+"                <p>Please Contact Hr Section for further support.</p>\n"
+"                <p>Kind regards,</p>\n"
+"                <br/>\n"
+"            "
+
+#. module: odootec_hr_custom
+#: field:hr.employee,age:0 field:res.partner,age:0
+msgid "Age"
+msgstr "عمر "
+
+#. module: odootec_hr_custom
+#: field:department.asset,name:0
+msgid "Asset Name"
+msgstr "اسم الاصل "
+
+#. module: odootec_hr_custom
+#: field:hr.family,birthday1:0 field:res.partner,birthday:0
+msgid "Birth Day"
+msgstr "تاريخ الميلاد "
+
+#. module: odootec_hr_custom
+#: view:hr.clearance:odootec_hr_custom.hr_clearance_form_view
+msgid "Cancel"
+msgstr "حذف "
+
+#. module: odootec_hr_custom
+#: view:hr.employee:odootec_hr_custom.view_employee_form1
+#: field:hr.employee,place_of_birth_city:0
+msgid "City"
+msgstr "مدينه "
+
+#. module: odootec_hr_custom
+#: field:hr.clearance,clearance_date:0
+msgid "Clearance Date"
+msgstr "تاريخ الانتهاء "
+
+#. module: odootec_hr_custom
+#: view:res.partner:odootec_hr_custom.view_partner_tree
+msgid "Company"
+msgstr "شركة"
+
+#. module: odootec_hr_custom
+#: view:hr.clearance:odootec_hr_custom.hr_clearance_form_view
+msgid "Confirm"
+msgstr "اعتماد"
+
+#. module: odootec_hr_custom
+#: view:hr.employee:odootec_hr_custom.view_employee_form
+msgid "Contact Information"
+msgstr "معلومات التواصل"
+
+#. module: odootec_hr_custom
+#: selection:hr.clearance,leave_reason:0
+msgid "Contract Termination"
+msgstr "انهاء التعاقد "
+
+#. module: odootec_hr_custom
+#: view:website:odootec_hr_custom.clearance_form_report
+msgid "Contract Termination [ ] انتهاء عقد العمل"
+msgstr "Contract Termination [ ] انتهاء عقد العمل"
+
+#. module: odootec_hr_custom
+#: view:website:odootec_hr_custom.clearance_form_report
+msgid "Contract Termination [√] انتهاء عقد العمل"
+msgstr "Contract Termination [√] انتهاء عقد العمل"
+
+#. module: odootec_hr_custom
+#: view:hr.employee:odootec_hr_custom.view_employee_form1
+msgid "Country"
+msgstr "بلد"
+
+#. module: odootec_hr_custom
+#: field:department.asset,create_uid:0 field:hr.clearance,create_uid:0
+#: field:hr.education.level,create_uid:0 field:hr.employee.grade,create_uid:0
+#: field:hr.family,create_uid:0 field:hr.family.member.type,create_uid:0
+#: field:hr.insurance,create_uid:0 field:hr.insurance.company,create_uid:0
+#: field:hr.insurance.type,create_uid:0 field:hr.notification,create_uid:0
+#: field:hr.religion,create_uid:0 field:hr.status,create_uid:0
+msgid "Created by"
+msgstr "انشأ بواسطة"
+
+#. module: odootec_hr_custom
+#: field:department.asset,create_date:0 field:hr.clearance,create_date:0
+#: field:hr.education.level,create_date:0 field:hr.employee.grade,create_date:0
+#: field:hr.family,create_date:0 field:hr.family.member.type,create_date:0
+#: field:hr.insurance,create_date:0 field:hr.insurance.company,create_date:0
+#: field:hr.insurance.type,create_date:0 field:hr.notification,create_date:0
+#: field:hr.religion,create_date:0 field:hr.status,create_date:0
+msgid "Created on"
+msgstr "انشأ في "
+
+#. module: odootec_hr_custom
+#: view:website:odootec_hr_custom.clearance_form_report
+msgid "Date"
+msgstr "تاريخ"
+
+#. module: odootec_hr_custom
+#: field:hr.employee,iqama_date_of_expiry:0
+#: field:hr.employee,passport_date_of_expiry:0 field:hr.family,date_of_expiry:0
+msgid "Date of Expiry"
+msgstr "تاريخ الانتهاء"
+
+#. module: odootec_hr_custom
+#: field:hr.employee,iqama_date_of_issue:0
+#: field:hr.employee,passport_date_of_issue:0 field:hr.family,date_of_issue:0
+msgid "Date of Issue"
+msgstr "تاريخ الانتهاء"
+
+#. module: odootec_hr_custom
+#: help:hr.clearance,message_last_post:0
+msgid "Date of the last message posted on the record."
+msgstr "تاريخ آخر رسالة تم نشرها في السجل."
+
+#. module: odootec_hr_custom
+#: view:hr.clearance:odootec_hr_custom.hr_clearance_search_view
+#: field:hr.clearance,department_id:0
+#: view:website:odootec_hr_custom.clearance_form_report
+msgid "Department"
+msgstr "ادارة"
+
+#. module: odootec_hr_custom
+#: model:ir.model,name:odootec_hr_custom.model_department_asset
+msgid "Department Assets"
+msgstr "ادارة الاصول"
+
+#. module: odootec_hr_custom
+#: field:department.asset,department:0
+msgid "Department Type"
+msgstr "نوع الادارة"
+
+#. module: odootec_hr_custom
+#: view:hr.employee:odootec_hr_custom.view_employee_filter
+#: selection:hr.employee,employee_type:0
+msgid "Direct Employee"
+msgstr "توظيف مباشر"
+
+#. module: odootec_hr_custom
+#: field:hr.clearance,coach_id:0
+msgid "Direct Manager"
+msgstr "المدير المباشر "
+
+#. module: odootec_hr_custom
+#: view:website:odootec_hr_custom.clearance_form_report
+msgid "Direct Manager Name"
+msgstr "اسم المدير المباشر "
+
+#. module: odootec_hr_custom
+#: field:department.asset,display_name:0 field:hr.clearance,display_name:0
+#: field:hr.education.level,display_name:0
+#: field:hr.employee.grade,display_name:0 field:hr.family,display_name:0
+#: field:hr.family.member.type,display_name:0 field:hr.insurance,display_name:0
+#: field:hr.insurance.company,display_name:0
+#: field:hr.insurance.type,display_name:0 field:hr.notification,display_name:0
+#: field:hr.religion,display_name:0 field:hr.status,display_name:0
+msgid "Display Name"
+msgstr "الاسم الايضاحي "
+
+#. module: odootec_hr_custom
+#: view:hr.clearance:odootec_hr_custom.hr_clearance_form_view
+#: selection:hr.clearance,state:0
+msgid "Done"
+msgstr "تم"
+
+#. module: odootec_hr_custom
+#: selection:hr.clearance,state:0
+msgid "Draft"
+msgstr "افتراضي"
+
+#. module: odootec_hr_custom
+#: field:hr.employee,educational_level_id:0
+msgid "Education Level"
+msgstr "مستوي التعليم"
+
+#. module: odootec_hr_custom
+#: field:hr.clearance,email:0
+msgid "Email"
+msgstr "ايميل"
+
+#. module: odootec_hr_custom
+#: view:hr.clearance:odootec_hr_custom.hr_clearance_search_view
+#: field:hr.clearance,employee_id:0
+#: model:ir.model,name:odootec_hr_custom.model_hr_employee
+msgid "Employee"
+msgstr "الموظف"
+
+#. module: odootec_hr_custom
+#: view:website:odootec_hr_custom.clearance_form_report
+msgid ""
+"Employee\n"
+"                                            Information"
+msgstr ""
+"Employee\n"
+"                                            Information"
+
+#. module: odootec_hr_custom
+#: view:hr.clearance:odootec_hr_custom.hr_clearance_form_view
+#: view:hr.clearance:odootec_hr_custom.hr_clearance_tree_view
+#: model:ir.actions.act_window,name:odootec_hr_custom.action_clearance_menu
+#: model:ir.model,name:odootec_hr_custom.model_hr_clearance
+#: model:ir.ui.menu,name:odootec_hr_custom.menu_emp_clearance
+msgid "Employee Clearance"
+msgstr "اخلاء طرف الموظف "
+
+#. module: odootec_hr_custom
+#: selection:department.asset,department:0 field:department.asset,emp_dep:0
+#: field:hr.clearance,depart_asset:0
+msgid "Employee Department"
+msgstr "ادارة الموظف "
+
+#. module: odootec_hr_custom
+#: field:hr.employee,employee_grade:0
+msgid "Employee Grade"
+msgstr "مستوي الموظف "
+
+#. module: odootec_hr_custom
+#: field:hr.clearance,identification_id:0
+msgid "Employee ID"
+msgstr "هوية الموظف "
+
+#. module: odootec_hr_custom
+#: view:hr.clearance:odootec_hr_custom.hr_clearance_form_view
+msgid "Employee Information"
+msgstr "بيانات الموظف "
+
+#. module: odootec_hr_custom
+#: view:website:odootec_hr_custom.clearance_form_report
+msgid "Employee Name"
+msgstr "اسم الموظف"
+
+#. module: odootec_hr_custom
+#: view:website:odootec_hr_custom.clearance_form_report
+msgid "Employee Name [ ] استقاله"
+msgstr "اسم الموظف  [ ] استقاله"
+
+#. module: odootec_hr_custom
+#: view:website:odootec_hr_custom.clearance_form_report
+msgid "Employee Name [√] استقاله"
+msgstr "اسم الموظف [√] استقاله"
+
+#. module: odootec_hr_custom
+#: view:hr.employee:odootec_hr_custom.view_employee_filter
+msgid "Employee Status"
+msgstr "حالة الموظف"
+
+#. module: odootec_hr_custom
+#: field:hr.employee,employee_type:0
+msgid "Employee Type"
+msgstr "نوع الموظف"
+
+#. module: odootec_hr_custom
+#: field:hr.family,employee_id:0 field:hr.insurance,employee_id:0
+msgid "Employee id"
+msgstr "هوية الموظف "
+
+#. module: odootec_hr_custom
+#: view:hr.employee:odootec_hr_custom.view_employee_filter
+msgid "Employees"
+msgstr "الموظفون"
+
+#. module: odootec_hr_custom
+#: view:hr.clearance:odootec_hr_custom.hr_clearance_form_view
+#: view:website:odootec_hr_custom.clearance_form_report
+msgid "Employee’s Department"
+msgstr "ادارة الموظفين "
+
+#. module: odootec_hr_custom
+#: field:hr.insurance,end_date:0
+msgid "End Date"
+msgstr "تاريخ الانتهاء "
+
+#. module: odootec_hr_custom
+#: field:hr.employee,entry_number:0
+msgid "Entry Number"
+msgstr "رقم الادخال "
+
+#. module: odootec_hr_custom
+#: view:hr.employee:odootec_hr_custom.view_employee_form
+#: field:hr.employee,family_member_ids:0
+msgid "Family Details"
+msgstr "تفاصيل العائلة "
+
+#. module: odootec_hr_custom
+#: selection:res.partner,gender:0
+msgid "Female"
+msgstr "انثي "
+
+#. module: odootec_hr_custom
+#: selection:department.asset,department:0
+msgid "Finanace"
+msgstr "المالية "
+
+#. module: odootec_hr_custom
+#: field:department.asset,finance_id:0
+#: view:hr.clearance:odootec_hr_custom.hr_clearance_form_view
+#: field:hr.clearance,finance_asset:0
+#: view:website:odootec_hr_custom.clearance_form_report
+msgid "Finance Department"
+msgstr "الادارة المالية "
+
+#. module: odootec_hr_custom
+#: field:hr.clearance,message_follower_ids:0
+msgid "Followers"
+msgstr "متابع "
+
+#. module: odootec_hr_custom
+#: field:res.partner,gender:0
+msgid "Gender"
+msgstr "نوع "
+
+#. module: odootec_hr_custom
+#: view:hr.employee:odootec_hr_custom.view_employee_form
+msgid "General Information"
+msgstr "معلومات عامه "
+
+#. module: odootec_hr_custom
+#: selection:department.asset,department:0
+msgid "Gov. & Public Relations"
+msgstr "ادارة العلاقات العامه والحكومية "
+
+#. module: odootec_hr_custom
+#: field:department.asset,gov_id:0
+#: view:hr.clearance:odootec_hr_custom.hr_clearance_form_view
+#: field:hr.clearance,gov_public_asset:0
+#: view:website:odootec_hr_custom.clearance_form_report
+msgid "Gov. & Public Relations Department"
+msgstr "ادارة العلاقات العامه والحكومية "
+
+#. module: odootec_hr_custom
+#: field:hr.clearance,grade:0
+#: view:website:odootec_hr_custom.clearance_form_report
+msgid "Grade"
+msgstr "تصنيف "
+
+#. module: odootec_hr_custom
+#: view:hr.clearance:odootec_hr_custom.hr_clearance_search_view
+msgid "Group By..."
+msgstr "فرز بواسطة..."
+
+#. module: odootec_hr_custom
+#: selection:department.asset,department:0
+msgid "HR"
+msgstr "شئون الموظفين "
+
+#. module: odootec_hr_custom
+#: model:ir.actions.report.xml,name:odootec_hr_custom.report_hr_clearance_form
+msgid "HR Clearance"
+msgstr "اجراءات شئون الموظفين "
+
+#. module: odootec_hr_custom
+#: field:department.asset,hr_id:0
+#: view:hr.clearance:odootec_hr_custom.hr_clearance_form_view
+#: field:hr.clearance,hr_asset:0
+msgid "HR Department"
+msgstr "ادارة شئون الموظفين "
+
+#. module: odootec_hr_custom
+#: view:website:odootec_hr_custom.clearance_form_report
+msgid "HR Management"
+msgstr "ادارة شئون الموظفين "
+
+#. module: odootec_hr_custom
+#: field:department.asset,reviewed_by:0
+msgid "Handled By"
+msgstr "أنجز من قبل"
+
+#. module: odootec_hr_custom
+#: help:hr.clearance,message_summary:0
+msgid "Holds the Chatter summary (number of messages, ...). This summary is directly in html format in order to be inserted in kanban views."
+msgstr "يحمل ملخص الدردشة (عدد الرسائل، ...). هذا الملخص هو مباشرة في شكل هتمل من أجل إدراجها في وجهات نظر ."
+
+#. module: odootec_hr_custom
+#: field:department.asset,id:0 field:hr.clearance,id:0
+#: field:hr.education.level,id:0 field:hr.employee.grade,id:0
+#: field:hr.family,id:0 field:hr.family.member.type,id:0
+#: field:hr.insurance,id:0 field:hr.insurance.company,id:0
+#: field:hr.insurance.type,id:0 field:hr.notification,id:0
+#: field:hr.religion,id:0 field:hr.status,id:0
+msgid "ID"
+msgstr "هوية "
+
+#. module: odootec_hr_custom
+#: view:website:odootec_hr_custom.clearance_form_report
+msgid "ID Number"
+msgstr "رقم الهوية "
+
+#. module: odootec_hr_custom
+#: field:hr.family,identification_no:0
+msgid "ID#"
+msgstr "هوية#"
+
+#. module: odootec_hr_custom
+#: selection:department.asset,department:0
+msgid "IT"
+msgstr "حاسب الالي "
+
+#. module: odootec_hr_custom
+#: field:department.asset,it_id:0
+#: view:hr.clearance:odootec_hr_custom.hr_clearance_form_view
+#: field:hr.clearance,it_asset:0
+#: view:website:odootec_hr_custom.clearance_form_report
+msgid "IT Department"
+msgstr "ادارة الحاسب الالي "
+
+#. module: odootec_hr_custom
+#: view:hr.employee:odootec_hr_custom.view_employee_form
+msgid "Identification Details"
+msgstr "تفاصيل الهوية"
+
+#. module: odootec_hr_custom
+#: field:hr.employee,identification_type:0
+#: field:hr.family,identification_type:0
+msgid "Identification type"
+msgstr "نوع التعريف "
+
+#. module: odootec_hr_custom
+#: help:hr.clearance,message_unread:0
+msgid "If checked new messages require your attention."
+msgstr "إذا كانت الرسائل الجديدة المحددة تتطلب انتباهك."
+
+#. module: odootec_hr_custom
+#: field:hr.insurance,insurance_company_id:0
+msgid "Insurance Company"
+msgstr "شركه التأمين "
+
+#. module: odootec_hr_custom
+#: view:hr.employee:odootec_hr_custom.view_employee_form
+#: field:hr.employee,insurance_ids:0
+msgid "Insurance Details"
+msgstr "تفاصيل التأمين "
+
+#. module: odootec_hr_custom
+#: field:hr.insurance,insurance_type_id:0
+msgid "Insurance Type"
+msgstr "نوع الاصدار "
+
+#. module: odootec_hr_custom
+#: selection:hr.employee,identification_type:0
+#: selection:hr.family,identification_type:0
+msgid "Iqama"
+msgstr "اقامة"
+
+#. module: odootec_hr_custom
+#: model:email.template,subject:odootec_hr_custom.email_template_for_iqama
+msgid "Iqama Expiration Alert"
+msgstr "تحذير انتهاء الاقامة"
+
+#. module: odootec_hr_custom
+#: view:hr.employee:odootec_hr_custom.view_employee_form
+msgid "Iqama No"
+msgstr "رقم الاقامة "
+
+#. module: odootec_hr_custom
+#: field:hr.clearance,message_is_follower:0
+msgid "Is a Follower"
+msgstr "انه متابع "
+
+#. module: odootec_hr_custom
+#: field:hr.employee,passport_issuing_authority:0
+msgid "Issuing Authority"
+msgstr "مسئولية الاصدار "
+
+#. module: odootec_hr_custom
+#: field:hr.employee,iqama_issuing_city:0
+msgid "Issuing City"
+msgstr "مدينه الاصدار "
+
+#. module: odootec_hr_custom
+#: selection:hr.employee,sponsor_type:0
+msgid "Jehan"
+msgstr "جهان "
+
+#. module: odootec_hr_custom
+#: field:hr.clearance,job_id:0
+#: view:website:odootec_hr_custom.clearance_form_report
+msgid "Job Title"
+msgstr "المسمي الوظيفي "
+
+#. module: odootec_hr_custom
+#: field:hr.employee,joining_date:0
+msgid "Joining Date"
+msgstr "تاريخ الالتحاق "
+
+#. module: odootec_hr_custom
+#: field:hr.clearance,message_last_post:0
+msgid "Last Message Date"
+msgstr "تاريخ اخر رسالة "
+
+#. module: odootec_hr_custom
+#: field:department.asset,__last_update:0 field:hr.clearance,__last_update:0
+#: field:hr.education.level,__last_update:0
+#: field:hr.employee.grade,__last_update:0 field:hr.family,__last_update:0
+#: field:hr.family.member.type,__last_update:0
+#: field:hr.insurance,__last_update:0
+#: field:hr.insurance.company,__last_update:0
+#: field:hr.insurance.type,__last_update:0
+#: field:hr.notification,__last_update:0 field:hr.religion,__last_update:0
+#: field:hr.status,__last_update:0
+msgid "Last Modified on"
+msgstr "اخر تعديل في "
+
+#. module: odootec_hr_custom
+#: field:department.asset,write_uid:0 field:hr.clearance,write_uid:0
+#: field:hr.education.level,write_uid:0 field:hr.employee.grade,write_uid:0
+#: field:hr.family,write_uid:0 field:hr.family.member.type,write_uid:0
+#: field:hr.insurance,write_uid:0 field:hr.insurance.company,write_uid:0
+#: field:hr.insurance.type,write_uid:0 field:hr.notification,write_uid:0
+#: field:hr.religion,write_uid:0 field:hr.status,write_uid:0
+msgid "Last Updated by"
+msgstr "اخر تحديث بواسطه "
+
+#. module: odootec_hr_custom
+#: field:department.asset,write_date:0 field:hr.clearance,write_date:0
+#: field:hr.education.level,write_date:0 field:hr.employee.grade,write_date:0
+#: field:hr.family,write_date:0 field:hr.family.member.type,write_date:0
+#: field:hr.insurance,write_date:0 field:hr.insurance.company,write_date:0
+#: field:hr.insurance.type,write_date:0 field:hr.notification,write_date:0
+#: field:hr.religion,write_date:0 field:hr.status,write_date:0
+msgid "Last Updated on"
+msgstr "اخر تحديث في "
+
+#. module: odootec_hr_custom
+#: field:hr.clearance,leave_reason:0
+#: view:website:odootec_hr_custom.clearance_form_report
+msgid "Leaving Reason"
+msgstr "سبب الترك "
+
+#. module: odootec_hr_custom
+#: selection:res.partner,gender:0
+msgid "Male"
+msgstr "ذكر"
+
+#. module: odootec_hr_custom
+#: field:hr.clearance,message_ids:0
+msgid "Messages"
+msgstr "رسائل"
+
+#. module: odootec_hr_custom
+#: help:hr.clearance,message_ids:0
+msgid "Messages and communication history"
+msgstr "تاريخ الرسائل و الاتصالات"
+
+#. module: odootec_hr_custom
+#: view:hr.employee:odootec_hr_custom.view_employee_form
+msgid "Mobile Number"
+msgstr "رقم الجوال "
+
+#. module: odootec_hr_custom
+#: field:hr.employee,mobile_phone_2:0
+msgid "Mobile-2 No"
+msgstr "جوال -رقم2"
+
+#. module: odootec_hr_custom
+#: selection:department.asset,asset_answer:0
+msgid "NO"
+msgstr "لا"
+
+#. module: odootec_hr_custom
+#: field:hr.clearance,name:0 field:hr.education.level,name:0
+#: field:hr.employee.grade,name:0 field:hr.family,name:0
+#: field:hr.family.member.type,name:0 field:hr.insurance.company,name:0
+#: field:hr.insurance.type,name:0 field:hr.religion,name:0
+#: field:hr.status,name:0
+msgid "Name"
+msgstr "الاسم "
+
+#. module: odootec_hr_custom
+#: view:hr.employee:odootec_hr_custom.view_employee_form
+#: selection:hr.employee,identification_type:0
+#: selection:hr.family,identification_type:0
+msgid "National ID"
+msgstr "الهوية الوطنية "
+
+#. module: odootec_hr_custom
+#: field:res.partner,identification_no:0
+msgid "National ID/Iqama"
+msgstr "رقم الهوية الوطنية"
+
+#. module: odootec_hr_custom
+#: field:hr.employee,nationality:0
+msgid "Nationality"
+msgstr "الجنسية "
+
+#. module: odootec_hr_custom
+#: selection:department.asset,asset_answer:0
+msgid "No Answer"
+msgstr "بدون اجابة "
+
+#. module: odootec_hr_custom
+#: field:department.asset,notes:0
+msgid "Notes"
+msgstr "ملاحظات "
+
+#. module: odootec_hr_custom
+#: selection:department.asset,department:0
+msgid "Operation and Marketing & Sales"
+msgstr "التشغيل والتسويق والمبيعات"
+
+#. module: odootec_hr_custom
+#: field:department.asset,op_id:0
+#: view:hr.clearance:odootec_hr_custom.hr_clearance_form_view
+#: field:hr.clearance,opmarket_asset:0
+#: view:website:odootec_hr_custom.clearance_form_report
+msgid "Operation and Marketing & Sales Department"
+msgstr "ادارة التشغيل والتسويق والمبيعات"
+
+#. module: odootec_hr_custom
+#: selection:hr.employee,sponsor_type:0
+msgid "Other"
+msgstr "اخري"
+
+#. module: odootec_hr_custom
+#: view:hr.employee:odootec_hr_custom.view_employee_form
+msgid "Other Information ..."
+msgstr "معلومات أخرى ..."
+
+#. module: odootec_hr_custom
+#: view:hr.employee:odootec_hr_custom.view_employee_filter
+#: selection:hr.employee,employee_type:0
+msgid "Outsourced Commercial"
+msgstr "الاستعانة بمصادر خارجية تجارية "
+
+#. module: odootec_hr_custom
+#: view:hr.employee:odootec_hr_custom.view_employee_filter
+#: selection:hr.employee,employee_type:0
+msgid "Outsourced Domestic"
+msgstr "الاستعانة بمصادر خارجية المحلية"
+
+#. module: odootec_hr_custom
+#: model:ir.model,name:odootec_hr_custom.model_res_partner
+msgid "Partner"
+msgstr "شريك"
+
+#. module: odootec_hr_custom
+#: view:hr.employee:odootec_hr_custom.view_employee_form
+msgid "Passport Details"
+msgstr "تفاصيل جواز السفر "
+
+#. module: odootec_hr_custom
+#: model:email.template,subject:odootec_hr_custom.email_template_for_passport
+msgid "Passport Expiration Alert"
+msgstr "تحذير تاريخ انتهاء جواز السفر "
+
+#. module: odootec_hr_custom
+#: field:hr.clearance,contact_phone:0
+msgid "Phone"
+msgstr "هاتف "
+
+#. module: odootec_hr_custom
+#: view:hr.employee:odootec_hr_custom.view_employee_form1
+msgid "Place Of Birth"
+msgstr "مكان الميلاد "
+
+#. module: odootec_hr_custom
+#: view:hr.employee:odootec_hr_custom.view_employee_form
+msgid "Position"
+msgstr "منصب"
+
+#. module: odootec_hr_custom
+#: view:hr.clearance:odootec_hr_custom.hr_clearance_form_view
+msgid "Print Form"
+msgstr "صيغه الطباعة"
+
+#. module: odootec_hr_custom
+#: code:addons/odootec_hr_custom/models/hr_family.py:9
+#: model:ir.model,name:odootec_hr_custom.model_hr_family
+#, python-format
+msgid "Property Details"
+msgstr "تفاصيل الممتلكات "
+
+#. module: odootec_hr_custom
+#: selection:hr.clearance,state:0
+msgid "Refused"
+msgstr "رفض "
+
+#. module: odootec_hr_custom
+#: view:hr.employee:odootec_hr_custom.view_employee_form
+msgid "Related Partner"
+msgstr "علاقة الشراكه "
+
+#. module: odootec_hr_custom
+#: view:hr.employee:odootec_hr_custom.view_employee_form
+msgid "Related User"
+msgstr "مستخدم مرتبط"
+
+#. module: odootec_hr_custom
+#: field:hr.family,relationship_id:0
+msgid "Relationship"
+msgstr "علاقة القرابة "
+
+#. module: odootec_hr_custom
+#: field:hr.employee,religion_id:0
+msgid "Religion"
+msgstr "ديانه "
+
+#. module: odootec_hr_custom
+#: selection:hr.clearance,leave_reason:0
+msgid "Resignation"
+msgstr "استقالة "
+
+#. module: odootec_hr_custom
+#: view:hr.clearance:odootec_hr_custom.hr_clearance_search_view
+msgid "Search Employee Clearance"
+msgstr "بحث عن فصل الموظف "
+
+#. module: odootec_hr_custom
+#: view:hr.insurance.type:odootec_hr_custom.hr_insurance_type_view_search
+msgid "Search insurance Type"
+msgstr "بحث ان نوع التامين "
+
+#. module: odootec_hr_custom
+#: view:hr.insurance.company:odootec_hr_custom.hr_insurance_company_view_search
+msgid "Search insurance company"
+msgstr "بحث عن شركه تامين"
+
+#. module: odootec_hr_custom
+#: field:hr.clearance,section:0
+#: view:website:odootec_hr_custom.clearance_form_report
+msgid "Section"
+msgstr "قسم "
+
+#. module: odootec_hr_custom
+#: view:hr.clearance:odootec_hr_custom.hr_clearance_form_view
+msgid "Select Employee..."
+msgstr "اختيار الموظف..."
+
+#. module: odootec_hr_custom
+#: view:hr.clearance:odootec_hr_custom.hr_clearance_form_view
+msgid "Set to Draft"
+msgstr "اعداده افتراضي "
+
+#. module: odootec_hr_custom
+#: view:website:odootec_hr_custom.clearance_form_report
+msgid "Signature"
+msgstr "التوقيع"
+
+#. module: odootec_hr_custom
+#: field:hr.employee,sponsor_id:0
+msgid "Sponsor ID"
+msgstr "هوية الكفيل "
+
+#. module: odootec_hr_custom
+#: field:hr.employee,sponsor_name:0
+msgid "Sponsor Name"
+msgstr "اسم الكفيل "
+
+#. module: odootec_hr_custom
+#: field:hr.employee,sponsor_type:0
+msgid "Sponsor Type"
+msgstr "نوع الكفالة "
+
+#. module: odootec_hr_custom
+#: field:hr.insurance,start_date:0
+msgid "Start Date"
+msgstr "تاريخ البدء "
+
+#. module: odootec_hr_custom
+#: field:department.asset,asset_answer:0 field:hr.clearance,state:0
+#: field:hr.employee,employee_status_id:0
+msgid "Status"
+msgstr "حالة "
+
+#. module: odootec_hr_custom
+#: field:hr.clearance,message_summary:0
+msgid "Summary"
+msgstr "ملخص "
+
+#. module: odootec_hr_custom
+#: selection:department.asset,department:0 field:department.asset,supp_id:0
+#: view:hr.clearance:odootec_hr_custom.hr_clearance_form_view
+#: field:hr.clearance,support_service_asset:0
+#: view:website:odootec_hr_custom.clearance_form_report
+msgid "Support Services Department"
+msgstr "اداره خدمه الدعم الفني "
+
+#. module: odootec_hr_custom
+#: selection:hr.clearance,leave_reason:0
+msgid "Termination"
+msgstr "فصل "
+
+#. module: odootec_hr_custom
+#: view:website:odootec_hr_custom.clearance_form_report
+msgid "Termination [ ] انهاء"
+msgstr "Termination [ ] انهاء"
+
+#. module: odootec_hr_custom
+#: view:website:odootec_hr_custom.clearance_form_report
+msgid "Termination [√] انهاء"
+msgstr "Termination [√] انهاء"
+
+#. module: odootec_hr_custom
+#: field:hr.clearance,message_unread:0
+msgid "Unread Messages"
+msgstr "رسائل غير مقروءة "
+
+#. module: odootec_hr_custom
+#: selection:hr.clearance,state:0
+msgid "Waiting Approval"
+msgstr "في انتظار الاعتماد "
+
+#. module: odootec_hr_custom
+#: code:addons/odootec_hr_custom/models/hr_clearance.py:22
+#, python-format
+msgid "Warning!"
+msgstr "تحذير !"
+
+#. module: odootec_hr_custom
+#: selection:department.asset,asset_answer:0
+msgid "YES"
+msgstr "نعم "
+
+#. module: odootec_hr_custom
+#: code:addons/odootec_hr_custom/models/hr_clearance.py:22
+#, python-format
+msgid "You cannot remove the record which is in %s state!"
+msgstr ""
+
+#. module: odootec_hr_custom
+#: view:hr.insurance.type:odootec_hr_custom.hr_insurance_type_view_form
+#: view:hr.insurance.type:odootec_hr_custom.hr_insurance_type_view_search
+#: view:hr.insurance.type:odootec_hr_custom.hr_insurance_type_view_tree
+msgid "insurance Type"
+msgstr "نوع التأمين "
+
+#. module: odootec_hr_custom
+#: model:ir.actions.act_window,name:odootec_hr_custom.action_hr_insurance_type
+#: model:ir.ui.menu,name:odootec_hr_custom.hr_menu_insurance_type
+msgid "insurance Types"
+msgstr "انواع التامين "
+
+#. module: odootec_hr_custom
+#: model:ir.actions.act_window,name:odootec_hr_custom.action_hr_insurance_company
+#: model:ir.ui.menu,name:odootec_hr_custom.hr_menu_insurance_company
+msgid "insurance companies"
+msgstr "شركات التأمين "
+
+#. module: odootec_hr_custom
+#: view:hr.insurance.company:odootec_hr_custom.hr_insurance_company_view_form
+#: view:hr.insurance.company:odootec_hr_custom.hr_insurance_company_view_search
+#: view:hr.insurance.company:odootec_hr_custom.hr_insurance_company_view_tree
+msgid "insurance company"
+msgstr "شركه التأمين "
+
+#. module: odootec_hr_custom
+#: view:website:odootec_hr_custom.clearance_form_report
+msgid "إدارة التشغيل والتسويق والمبيعات"
+msgstr "إدارة التشغيل والتسويق والمبيعات"
+
+#. module: odootec_hr_custom
+#: view:website:odootec_hr_custom.clearance_form_report
+msgid "إدارة الخدمات المساندة"
+msgstr "إدارة الخدمات المساندة"
+
+#. module: odootec_hr_custom
+#: view:website:odootec_hr_custom.clearance_form_report
+msgid "إدارة العلاقات الحكومية و العامة"
+msgstr "إدارة العلاقات الحكومية و العامة"
+
+#. module: odootec_hr_custom
+#: view:website:odootec_hr_custom.clearance_form_report
+msgid ""
+"إدارة الموارد\n"
+"                                            البشرية"
+msgstr ""
+"إدارة الموارد\n"
+"                                            البشرية"
+
+#. module: odootec_hr_custom
+#: view:website:odootec_hr_custom.clearance_form_report
+msgid "إدارة الموظف"
+msgstr "إدارة الموظف"
+
+#. module: odootec_hr_custom
+#: view:website:odootec_hr_custom.clearance_form_report
+msgid "ااسم المدير المباشر"
+msgstr "ااسم المدير المباشر"
+
+#. module: odootec_hr_custom
+#: view:website:odootec_hr_custom.clearance_form_report
+msgid "االدرجة الوظيفية"
+msgstr "االدرجة الوظيفية"
+
+#. module: odootec_hr_custom
+#: view:website:odootec_hr_custom.clearance_form_report
+msgid "اسم الموظف"
+msgstr "اسم الموظف"
+
+#. module: odootec_hr_custom
+#: view:website:odootec_hr_custom.clearance_form_report
+msgid "الإدارة"
+msgstr "الإدارة"
+
+#. module: odootec_hr_custom
+#: view:website:odootec_hr_custom.clearance_form_report
+msgid "الادارة المالية"
+msgstr "الادارة المالية"
+
+#. module: odootec_hr_custom
+#: view:website:odootec_hr_custom.clearance_form_report
+msgid "الاسم :"
+msgstr "الاسم :"
+
+#. module: odootec_hr_custom
+#: view:website:odootec_hr_custom.clearance_form_report
+msgid "التاريخ"
+msgstr "التاريخ"
+
+#. module: odootec_hr_custom
+#: view:website:odootec_hr_custom.clearance_form_report
+msgid "التاريخ :"
+msgstr "التاريخ :"
+
+#. module: odootec_hr_custom
+#: view:website:odootec_hr_custom.clearance_form_report
+msgid "التوقيع"
+msgstr "التوقيع"
+
+#. module: odootec_hr_custom
+#: view:website:odootec_hr_custom.clearance_form_report
+msgid "التوقيع :"
+msgstr "التوقيع :"
+
+#. module: odootec_hr_custom
+#: view:website:odootec_hr_custom.clearance_form_report
+msgid "الرقم الوظيفي"
+msgstr "الرقم الوظيفي"
+
+#. module: odootec_hr_custom
+#: view:website:odootec_hr_custom.clearance_form_report
+msgid "القسم"
+msgstr "القسم"
+
+#. module: odootec_hr_custom
+#: view:website:odootec_hr_custom.clearance_form_report
+msgid "المسمى الوظيفي"
+msgstr "المسمى الوظيفي"
+
+#. module: odootec_hr_custom
+#: view:website:odootec_hr_custom.clearance_form_report
+msgid "توقيع المخولين بالاستلام"
+msgstr "توقيع المخولين بالاستلام"
+
+#. module: odootec_hr_custom
+#: view:website:odootec_hr_custom.clearance_form_report
+msgid "سبب ترك العمل"
+msgstr "سبب ترك العمل"
+
+#. module: odootec_hr_custom
+#: view:website:odootec_hr_custom.clearance_form_report
+msgid "معلومات الموظف"
+msgstr "معلومات الموظف"
