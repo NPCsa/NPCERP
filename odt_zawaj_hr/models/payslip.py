@@ -23,12 +23,13 @@ class HrPayslip(models.Model):
     def _compute_age_service(self):
         if self.employee_id.birthday:
             today = fields.date.today()
-            born = datetime.strptime(str(self.employee_id.birthday), '%Y-%m-%d')
+            born = datetime.strptime(self.employee_id.birthday, '%Y-%m-%d')
             self.age = today.year - born.year - ((today.month, today.day) < (born.month, born.day))
         if self.employee_id.joining_date:
             today = fields.date.today()
             join_date = datetime.strptime(str(self.employee_id.joining_date), '%Y-%m-%d')
-            self.service_period = today.year - join_date.year - ((today.month, today.day) < (join_date.month, join_date.day))
+            diff = today - join_date.date()
+            self.service_period = round((diff.days / 365) * 12, 2)
 
 
     @api.onchange('employee_id', 'date_from', 'date_to')
@@ -37,9 +38,12 @@ class HrPayslip(models.Model):
         if self.employee_id.birthday:
             today = fields.date.today()
             born = datetime.strptime(str(self.employee_id.birthday), '%Y-%m-%d')
-            join_date = datetime.strptime(str(self.employee_id.joining_date), '%Y-%m-%d')
             self.age = today.year - born.year - ((today.month, today.day) < (born.month, born.day))
-            self.service_period = today.year - join_date.year - ((today.month, today.day) < (join_date.month, join_date.day))
+        if self.employee_id.joining_date:
+            today = fields.date.today()
+            join_date = datetime.strptime(str(self.employee_id.joining_date), '%Y-%m-%d')
+            diff = today - join_date.date()
+            self.service_period = round((diff.days / 365) * 12, 2)
         if self.date_from:
             date_from = fields.Datetime.from_string(self.date_from)
             self.date_to = str(date_from + relativedelta.relativedelta(months=+1, day=1, days=-1))[:10]
