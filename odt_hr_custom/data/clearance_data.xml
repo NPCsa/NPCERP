@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Employee’s Department -->
+        <record model="department.asset" id="odt_hr_custom.clearance_dept_0">
+            <field name="department">dep</field>
+            <field name="name">Full Clearance of duties &amp; Responsibilities</field>
+            <field name="asset_answer">No Answer</field>
+        </record>
+        <!-- Support Services Department -->
+        <record model="department.asset" id="odt_hr_custom.clearance_dept_1">
+            <field name="department">supp</field>
+            <field name="name">Car</field>
+            <field name="asset_answer">No Answer</field>
+        </record>
+        <record model="department.asset" id="odt_hr_custom.clearance_dept_2">
+            <field name="department">supp</field>
+            <field name="name">Accommodation</field>
+            <field name="asset_answer">No Answer</field>
+        </record>
+        <record model="department.asset" id="odt_hr_custom.clearance_dept_3">
+            <field name="department">supp</field>
+            <field name="name">Car</field>
+            <field name="asset_answer">No Answer</field>
+        </record>
+        <record model="department.asset" id="odt_hr_custom.clearance_dept_4">
+            <field name="department">supp</field>
+            <field name="name">Keys</field>
+            <field name="asset_answer">No Answer</field>
+        </record>
+        <record model="department.asset" id="odt_hr_custom.clearance_dept_5">
+            <field name="department">supp</field>
+            <field name="name">Other</field>
+            <field name="asset_answer">No Answer</field>
+        </record>
+        <!-- Gov. & Public Relations Department -->
+         <record model="department.asset" id="odt_hr_custom.clearance_dept_6">
+            <field name="department">gov</field>
+            <field name="name">Any Items belong to the Department</field>
+            <field name="asset_answer">No Answer</field>
+        </record>
+
+        <!--Operation and Marketing & Sales Department -->
+         <record model="department.asset" id="odt_hr_custom.clearance_dept_7">
+            <field name="department">op</field>
+            <field name="name">Any Items belong to the Department</field>
+            <field name="asset_answer">No Answer</field>
+        </record>
+
+
+        <!-- IT Department -->
+        <record model="department.asset" id="odt_hr_custom.clearance_dept_8">
+            <field name="department">it</field>
+            <field name="name">PC/Laptop</field>
+            <field name="asset_answer">No Answer</field>
+        </record>
+
+        <record model="department.asset" id="odt_hr_custom.clearance_dept_9">
+            <field name="department">it</field>
+            <field name="name">Telephone</field>
+            <field name="asset_answer">No Answer</field>
+        </record>
+
+        <record model="department.asset" id="odt_hr_custom.clearance_dept_10">
+            <field name="department">it</field>
+            <field name="name">Mobile</field>
+            <field name="asset_answer">No Answer</field>
+        </record>
+
+        <record model="department.asset" id="odt_hr_custom.clearance_dept_11">
+            <field name="department">it</field>
+            <field name="name">Other Devices</field>
+            <field name="asset_answer">No Answer</field>
+        </record>
+        <!-- HR Department -->
+        <record model="department.asset" id="odt_hr_custom.clearance_dept_12">
+            <field name="department">hr</field>
+            <field name="name">Employee ID Card</field>
+            <field name="asset_answer">No Answer</field>
+        </record>
+        <record model="department.asset" id="odt_hr_custom.clearance_dept_13">
+            <field name="department">hr</field>
+            <field name="name">Medical Card</field>
+            <field name="asset_answer">No Answer</field>
+        </record>
+        <record model="department.asset" id="odt_hr_custom.clearance_dept_14">
+            <field name="department">hr</field>
+            <field name="name">GOSI</field>
+            <field name="asset_answer">No Answer</field>
+        </record>
+        <record model="department.asset" id="odt_hr_custom.clearance_dept_15">
+            <field name="department">hr</field>
+            <field name="name">Payroll</field>
+            <field name="asset_answer">No Answer</field>
+        </record>
+        <record model="department.asset" id="odt_hr_custom.clearance_dept_16">
+            <field name="department">hr</field>
+            <field name="name">Certificate</field>
+            <field name="asset_answer">No Answer</field>
+        </record>
+        <record model="department.asset" id="odt_hr_custom.clearance_dept_17">
+            <field name="department">hr</field>
+            <field name="name">Clearance Letter</field>
+            <field name="asset_answer">No Answer</field>
+        </record>
+
+        <!-- Finance Department -->
+        <record model="department.asset" id="odt_hr_custom.clearance_dept_18">
+            <field name="department">finance</field>
+            <field name="name">Petty Cash</field>
+            <field name="asset_answer">No Answer</field>
+        </record>
+        <record model="department.asset" id="odt_hr_custom.clearance_dept_19">
+            <field name="department">finance</field>
+            <field name="name">Loan</field>
+            <field name="asset_answer">No Answer</field>
+        </record>
+        <record model="department.asset" id="odt_hr_custom.clearance_dept_20">
+            <field name="department">finance</field>
+            <field name="name">Other</field>
+            <field name="asset_answer">No Answer</field>
+        </record>
+    </data>
+</odoo>

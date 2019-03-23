@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!--inherit employee form in hr-->
+        <record id="view_employee_form" model="ir.ui.view">
+            <field name="name">hr.employee.form</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[1]" position="replace">
+                    <page string="Public Information" name="public">
+                        <group>
+                            <field name="employee_status_id" placeholder="Employee Status ..."/>
+                            <group string="Contact Information">
+                                <field name="employee_type"/>
+                                <!--<field name="employee_id"/>-->
+                                <field name="work_address"/>
+                                <field name="mobile_phone"/>
+                                <field name="work_location"/>
+                                <field name="joining_date"/>
+                            </group>
+                            <group string="Position">
+                                <field name="department_id"/>
+                                <field name="employee_grade"/>
+                                <field name="job_id"/>
+                                <field name="job_title"/>
+                                <field name="parent_id"/>
+                                <field name="coach_id"/>
+                                <field name="resource_calendar_id" required="1"/>
+                                <field name="tz"/>
+                            </group>
+                            <group>
+                                <field name="company_id" groups="base.group_multi_company"/>
+                                <field name="user_id" string="Related User"
+                                       context="{'default_groups_ref': ['base.group_user']}"/>
+                            </group>
+                        </group>
+                        <field name="notes" placeholder="Other Information ..." colspan="4"/>
+                    </page>
+                </xpath>
+                <field name="marital" position="after">
+                    <field name="educational_level_id"/>
+                </field>
+                <xpath expr="//field[@name='identification_id']" position="replace">
+                </xpath>
+                <xpath expr="//field[@name='passport_id']" position="replace">
+                </xpath>
+                <xpath expr="//field[@name='address_home_id']" position="attributes">
+                    <attribute name="string">Related Partner</attribute>
+                </xpath>
+                <xpath expr="//page[3]" position="after">
+                    <page string="Identification Details">
+                        <group>
+                            <group>
+                                <field name="religion_id"/>
+                                <field name="birthday" required="0"/>
+                                <field name="age"/>
+                            </group>
+
+                            <group>
+                                <group>
+                                    <!--<label for="identification_type" string="Identificatin Type"/>-->
+                                    <field name="identification_type" widget="radio"/>
+                                    <label for="identification_id" string="Iqama No"
+                                           attrs="{'invisible': [('identification_type','=','national_id')]}"/>
+                                    <label for="identification_id" string="National ID"
+                                           attrs="{'invisible': [('identification_type','=','iqama')]}"/>
+                                    <field name="identification_id" nolabel="1" required="0"/>
+                                </group>
+                                <group>
+                                    <field name="iqama_date_of_issue"/>
+                                    <field name="iqama_date_of_expiry"/>
+                                    <!--<field name="iqama_issuing_authority" />-->
+                                    <field name="iqama_issuing_city"/>
+                                    <field name="entry_number"/>
+                                </group>
+                            </group>
+                            <group>
+                                <field name="sponsor_name"/>
+                                <field name="sponsor_id"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group colspan="2" string="Passport Details">
+                                <field name="passport_id" required="0"/>
+                                <field name="passport_issuing_authority"/>
+                                <field name="passport_date_of_issue"/>
+                                <field name="passport_date_of_expiry"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group colspan="2" string="Trial Details">
+                                <field name="trail_from"/>
+                                <field name="trail_to"/>
+                            </group>
+                        </group>
+                    </page>
+                    <page string="Insurance Details">
+                        <field name="insurance_ids">
+                            <tree editable="bottom">
+                                <field name="insurance_type_id"/>
+                                <field name="insurance_company_id"/>
+                                <field name="start_date"/>
+                                <field name="end_date"/>
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+                <field name="address_home_id" position="after">
+                    <field name="mobile_phone_2" string="Mobile Number"/>
+                </field>
+                <xpath expr="//page[3]" position="before">
+                    <page string="Family Details">
+                        <field name="family_member_ids">
+                            <tree editable="true">
+                                <field name="name"/>
+                                <field name="relationship_id"/>
+                                <field name="birthday1"/>
+                                <field name="identification_type"/>
+                                <field name="identification_no"/>
+                                <field name="date_of_issue"/>
+                                <field name="date_of_expiry"/>
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+        <!--inherit employee form in hr_contract-->
+        <record id="view_employee_form1" model="ir.ui.view">
+            <field name="name">hr.employee.form</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr_contract.hr_hr_employee_view_form2"/>
+            <field name="arch" type="xml">
+                <field name="children" position="replace">
+                </field>
+                <field name="place_of_birth" position="replace">
+                    <label for="place_of_birth" string="Place Of Birth"/>
+                    <div>
+                        <field name="place_of_birth" class="oe_inline" placeholder="Country" required="0"/>
+                        <field name="place_of_birth_city" class="oe_inline" placeholder="City"/>
+                    </div>
+                </field>
+            </field>
+        </record>
+
+        <!--Employee Search-->
+
+        <!--<record id="view_employee_filter" model="ir.ui.view">-->
+        <!--<field name="name">Employees</field>-->
+        <!--<field name="model">hr.employee</field>-->
+        <!--<field name="inherit_id" ref="hr.view_employee_filter"/>-->
+        <!--<field name="arch" type="xml">-->
+        <!--<field name="name" position="replace">-->
+        <!--<field name="name" string="Employees"-->
+        <!--filter_domain="['|',('work_email','ilike',self),'|',('first_name','ilike',self),'|',('second_name','ilike',self),('last_name','ilike',self)]"/>-->
+        <!--<filter name="employee_type" string="Direct Employee" domain="[('employee_type', '=', 'direct')]"/>-->
+        <!--<filter name="employee_type" string="Outsourced Domestic"-->
+        <!--domain="[('employee_type', '=', 'outsource_domestic')]"/>-->
+        <!--<filter name="employee_type" string="Outsourced Commercial"-->
+        <!--domain="[('employee_type', '=', 'outsource_commercial')]"/>-->
+        <!--</field>-->
+        <!--<xpath expr="//group/filter[1]" position="before">-->
+        <!--<filter string="Employee Status" icon="terp-personal" domain="[]"-->
+        <!--context="{'group_by':'employee_status_id'}"/>-->
+        <!--</xpath>-->
+        <!--</field>-->
+        <!--</record>-->
+
+        <record id="hr.open_view_employee_list_my" model="ir.actions.act_window">
+            <field name="context">{'readonly_by_pass': True}</field>
+        </record>
+
+        <!--insurance Type-->
+
+        <record id="hr_insurance_type_view_form" model="ir.ui.view">
+            <field name="name">hr.insurance.type.view.form</field>
+            <field name="model">hr.insurance.type</field>
+            <field name="arch" type="xml">
+                <form string="insurance Type">
+                    <group col="4">
+                        <field colspan="4" name="name"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="hr_insurance_type_view_tree" model="ir.ui.view">
+            <field name="name">hr.insurance.type.view.tree</field>
+            <field name="model">hr.insurance.type</field>
+            <field name="arch" type="xml">
+                <tree string="insurance Type">
+                    <field colspan="4" name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="hr_insurance_type_view_search" model="ir.ui.view">
+            <field name="name">hr.insurance.type.view.search</field>
+            <field name="model">hr.insurance.type</field>
+            <field name="arch" type="xml">
+                <search string="Search insurance Type">
+                    <field name="name" string="insurance Type"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_hr_insurance_type" model="ir.actions.act_window">
+            <field name="name">insurance Types</field>
+            <field name="res_model">hr.insurance.type</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="hr_insurance_type_view_search"/>
+        </record>
+
+        <menuitem action="action_hr_insurance_type" id="hr_menu_insurance_type"
+                  parent="hr.menu_human_resources_configuration" sequence="6" groups="base.group_no_one"/>
+
+        <!--Employee Type-->
+
+        <record id="hr_employee_type_view_form" model="ir.ui.view">
+            <field name="name">hr.employee.type.view.form</field>
+            <field name="model">hr.employee.type</field>
+            <field name="arch" type="xml">
+                <form string="Employee Type">
+                    <group col="4">
+                        <field colspan="4" name="name"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="hr_employeeinsurance_type_view_tree" model="ir.ui.view">
+            <field name="name">hr.emloyee.type.view.tree</field>
+            <field name="model">hr.employee.type</field>
+            <field name="arch" type="xml">
+                <tree string="insurance Type">
+                    <field colspan="4" name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="hr_employee_type_view_search" model="ir.ui.view">
+            <field name="name">hr.employee.type.view.search</field>
+            <field name="model">hr.employee.type</field>
+            <field name="arch" type="xml">
+                <search string="Search employee Type">
+                    <field name="name" string="employee Type"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_hr_employee_type" model="ir.actions.act_window">
+            <field name="name">employee Types</field>
+            <field name="res_model">hr.employee.type</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="hr_employee_type_view_search"/>
+        </record>
+
+        <menuitem action="action_hr_employee_type" id="hr_menu_emloyee_type"
+                  parent="hr.menu_human_resources_configuration" sequence="6" groups="base.group_no_one"/>
+
+
+        <!--Insurance Company -->
+        <record id="hr_insurance_company_view_form" model="ir.ui.view">
+            <field name="name">hr.insurance.company.view.form</field>
+            <field name="model">hr.insurance.company</field>
+            <field name="arch" type="xml">
+                <form string="insurance company">
+                    <group col="4">
+                        <field colspan="4" name="name"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="hr_insurance_company_view_tree" model="ir.ui.view">
+            <field name="name">hr.insurance.company.view.tree</field>
+            <field name="model">hr.insurance.company</field>
+            <field name="arch" type="xml">
+                <tree string="insurance company">
+                    <field colspan="4" name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="hr_insurance_company_view_search" model="ir.ui.view">
+            <field name="name">hr.insurance.company.view.search</field>
+            <field name="model">hr.insurance.company</field>
+            <field name="arch" type="xml">
+                <search string="Search insurance company">
+                    <field name="name" string="insurance company"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_hr_insurance_company" model="ir.actions.act_window">
+            <field name="name">insurance companies</field>
+            <field name="res_model">hr.insurance.company</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="hr_insurance_company_view_search"/>
+        </record>
+
+        <menuitem action="action_hr_insurance_company" id="hr_menu_insurance_company"
+                  parent="hr.menu_human_resources_configuration" sequence="6" groups="base.group_no_one"/>
+
+    </data>
+
+</odoo>
