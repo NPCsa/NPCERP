@@ -30,7 +30,7 @@ class HrContract(models.Model):
                           help="Reward")
     other_allowance = fields.Float('آخرى',
                                    digits_compute=dp.get_precision('Payroll'))
-    deduction = fields.Float('خصةمات',
+    deduction = fields.Float('خصومات',
                                    digits_compute=dp.get_precision('Payroll'))
 
 
