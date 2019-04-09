@@ -73,6 +73,7 @@ class HrPayslip(models.Model):
 
     @api.onchange('employee_id', 'date_from', 'date_to')
     def onchange_employee(self):
+        self.contract_id = False
         res = super(HrPayslip, self).onchange_employee()
         if self.employee_id.birthday:
             today = fields.date.today()
