@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+       <!-- Inherit Form View to Modify it -->
+       <record id="view_hr_payslip_form_in_005" model="ir.ui.view">
+           <field name="name">hr.payslip.form.in.inherit</field>
+           <field name="model">hr.payslip</field>
+           <field name="inherit_id" ref="hr_payroll.view_hr_payslip_form"/>
+           <field name="arch" type="xml">
+               <xpath expr="//group//field[@name='contract_id']" position="attributes">
+                   <attribute name="domain">"[('employee_id','=',employee_id),('state','=','open'),('date_start','&lt;=',date_to),'|',('date_end','&gt;=',date_from),('date_end','=',False)]"</attribute>
+               </xpath>
+               <xpath expr="//group//field[@name='struct_id']" position="attributes">
+                   <attribute name="readonly">1</attribute>
+               </xpath>
+           </field>
+       </record>
+
+        <record id="in_hr_payslip_run_form_005" model="ir.ui.view">
+            <field name="name">hr.payslip.run.form</field>
+            <field name="model">hr.payslip.run</field>
+            <field name="inherit_id" ref="hr_payroll.hr_payslip_run_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//header//button[@name='close_payslip_run']" position="attributes">
+                    <attribute name="states">done</attribute>
+                </xpath>
+                 <xpath expr="//header//button[@name='close_payslip_run']" position="before">
+                    <button string="Compute Sheet" name="compute_sheet" type="object" states="draft"
+                            class="oe_highlight"/>
+                    <button string="Confirm" name="action_payslip_done" type="object" states="draft"
+                            class="oe_highlight"/>
+                </xpath>
+                <xpath expr="//header//button[@name='%(hr_payroll.action_hr_payslip_by_employees)d']" position="attributes">
+                    <attribute name="states">draft</attribute>
+                </xpath>
+                <xpath expr="//header//field[@name='state']" position="attributes">
+                    <attribute name="statusbar_visible">draft,done,close</attribute>
+                </xpath>
+
+            </field>
+        </record>
+    </data>
+</odoo>
