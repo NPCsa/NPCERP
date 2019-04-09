@@ -26,6 +26,10 @@
                             <field name="is_other"/>
                             <field name="other_allowance"/>
                         </group>
+                        <group>
+                            <separator colspan="2" string="Deduction"/>
+                            <field name="deduction"/>
+                        </group>
                          <group>
                             <field name="gosi" attrs="{'invisible':[('country_name','!=','SA')]}"/>
                             <field  name="gosi_in_payslip" attrs="{'invisible':[('country_name','!=','SA')]}"/>
