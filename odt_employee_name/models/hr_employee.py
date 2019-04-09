@@ -5,12 +5,10 @@ from odoo import models, fields, api, _, SUPERUSER_ID
 import odoo.addons.decimal_precision as dp
 
 
-
-
-
 class HrResource(models.Model):
     _inherit = 'resource.resource'
     name = fields.Char('Name', required=False, translate=True)
+
 
 class hr_employee(models.Model):
     _inherit = "hr.employee"
@@ -26,7 +24,7 @@ class hr_employee(models.Model):
         if name:
             parts = name.strip().split(" ", 3)
             if len(parts) < 4:
-                for i in range(0, 4-len(parts)):
+                for i in range(0, 4 - len(parts)):
                     parts.append(False)
 
             return {"first_name": parts[0], "second_name": parts[1], "third_name": parts[2], "last_name": parts[3]}
@@ -34,7 +32,7 @@ class hr_employee(models.Model):
     @api.model
     def _update_employee_names(self):
         employees = self.search(['|',
-            ('first_name', '=', ' '), ('first_name', '=', False)])
+                                 ('first_name', '=', ' '), ('first_name', '=', False)])
         for ee in employees:
             names = self.split_name(ee.name)
             if names:
@@ -43,10 +41,10 @@ class hr_employee(models.Model):
     def _firstname_default(self):
         return ' ' if self.env.context.get('module') else False
 
-    first_name = fields.Char('First Name', translate=True, required=False, default=_firstname_default)
-    second_name = fields.Char('Father Name', translate=True, required=False, default=_firstname_default)
+    first_name = fields.Char('First Name', translate=True, required=False, )
+    second_name = fields.Char('Father Name', translate=True, required=False, )
     third_name = fields.Char('Grandfather Name', translate=True, required=False)
-    last_name = fields.Char('Last Name', translate=True, required=False, default=_firstname_default)
+    last_name = fields.Char('Last Name', translate=True, required=False, )
     employee_id = fields.Char('Employee ID', required=False, readonly=False, copy=False)
 
     _sql_constraints = [
@@ -71,11 +69,17 @@ class hr_employee(models.Model):
             name += ' ' + last_name
         return name
 
+    @api.model
+    def create(self, values):
+        res = super(hr_employee, self).create(values)
+        res.name = self.get_original_name(res.first_name, res.second_name, res.third_name, res.last_name)
+        return res
+
     @api.one
     def write(self, vals):
         for record in self:
             vals['name'] = self.get_original_name(vals.get('first_name', record.first_name),
-                                              vals.get('second_name', record.second_name),
-                                              vals.get('third_name', record.third_name),
-                                              vals.get('last_name', record.last_name))
+                                                  vals.get('second_name', record.second_name),
+                                                  vals.get('third_name', record.third_name),
+                                                  vals.get('last_name', record.last_name))
             return super(hr_employee, self).write(vals)

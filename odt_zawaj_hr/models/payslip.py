@@ -17,7 +17,46 @@ class HrPayslip(models.Model):
 
     age = fields.Float('Age',compute='_compute_age_service')
     service_period = fields.Float('Service Period',compute='_compute_age_service')
-    zw_idara = fields.Many2one(related='employee_id.zw_idara', string='IDARA',store=True)
+    zw_idara = fields.Many2one(related='employee_id.zw_idara', string='Location',store=True)
+    is_refund = fields.Boolean(string="Refund")
+
+    @api.multi
+    def refund_sheet(self):
+        for payslip in self:
+            if payslip.is_refund:
+                raise UserError(_('You Cannot Refund Payslip More one time.'))
+            copied_payslip = payslip.copy(
+                {'credit_note': True, 'is_refund': True, 'name': _('Refund: ') + payslip.name})
+            payslip.update({'is_refund': True})
+            copied_payslip.input_line_ids = payslip.input_line_ids
+            copied_payslip.compute_sheet()
+            copied_payslip.action_payslip_done()
+        formview_ref = self.env.ref('hr_payroll.view_hr_payslip_form', False)
+        treeview_ref = self.env.ref('hr_payroll.view_hr_payslip_tree', False)
+        return {
+            'name': ("Refund Payslip"),
+            'view_mode': 'tree, form',
+            'view_id': False,
+            'view_type': 'form',
+            'res_model': 'hr.payslip',
+            'type': 'ir.actions.act_window',
+            'target': 'current',
+            'domain': "[('id', 'in', %s)]" % copied_payslip.ids,
+            'views': [(treeview_ref and treeview_ref.id or False, 'tree'),
+                      (formview_ref and formview_ref.id or False, 'form')],
+            'context': {}
+        }
+
+    @api.model
+    def create(self, values):
+        res = super(HrPayslip, self).create(values)
+        payrolls = self.search([('employee_id', '=', res.employee_id.id)]).filtered(lambda pay: not pay.is_refund)
+        for payroll in payrolls:
+            if payroll.id != res.id and not res.is_refund:
+                if (payroll.date_to >= res.date_from >= payroll.date_from) or (
+                        payroll.date_to >= res.date_to >= payroll.date_from):
+                    raise UserError(_('You Cannot Create Two Payslips for one Employee In Same Period.'))
+        return res
 
     @api.one
     def _compute_age_service(self):

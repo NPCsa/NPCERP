@@ -7,7 +7,7 @@ class EmployeeContract(models.Model):
     gossi_reg_no = fields.Char('Gossi Registration Number')
 
     total_salary = fields.Monetary('Total Salary', digits=(16, 2), compute='_compute_total_salary', track_visibility="onchange", help="Employee's monthly Total Salary.")
-    zw_idara = fields.Many2one(related='employee_id.zw_idara', string='IDARA')
+    zw_idara = fields.Many2one(related='employee_id.zw_idara', string='Location')
 
     @api.one
     def _compute_total_salary(self):
