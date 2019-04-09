@@ -4,7 +4,7 @@ from odoo import models, fields, api
 class HrEmployee(models.Model):
     _inherit = 'hr.employee'
 
-    zw_idara = fields.Many2one('hr.idara','IDARA')
+    zw_idara = fields.Many2one('hr.idara','Location')
     zw_gosi_reg = fields.Char('GOSI Reg')
     zw_rank = fields.Integer('Rank')
     zw_grade = fields.Integer('Grade')
@@ -35,11 +35,12 @@ class TrainingCourse(models.Model):
 
 class Idara(models.Model):
     _name = "hr.idara"
-    _description = "HR Idara"
+    _description = "HR Location"
     _inherit = ['mail.thread']
     _order = "name"
     _rec_name = 'name'
 
-    name = fields.Char('Idara Name', required=True)
+    name = fields.Char('Location Name', required=True)
+    employee_ids = fields.One2many(comodel_name="hr.employee", inverse_name="zw_idara", string="Employees", required=False, )
     company_id = fields.Many2one('res.company', string='Company', index=True, default=lambda self: self.env.user.company_id)
 

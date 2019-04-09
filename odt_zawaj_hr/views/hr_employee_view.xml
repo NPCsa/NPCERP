@@ -78,10 +78,11 @@
             <field name="name">hr.idara.form</field>
             <field name="model">hr.idara</field>
             <field name="arch" type="xml">
-                <form string="idara">
+                <form string="Location">
                     <sheet>
                         <group col="4">
                             <field name="name"/>
+                            <field name="employee_ids" invisible="1"/>
                             <field name="company_id" options="{'no_create': True}" groups="base.group_multi_company"/>
                         </group>
                     </sheet>
@@ -108,8 +109,8 @@
             <field name="name">hr.idara.search</field>
             <field name="model">hr.idara</field>
             <field name="arch" type="xml">
-                <search string="Idara">
-                    <field name="name" string="Idara"/>
+                <search string="Location">
+                    <field name="name" string="Location"/>
                     <filter string="Unread Messages" name="message_needaction" domain="[('message_needaction','=',True)]"/>
                 </search>
              </field>
@@ -117,14 +118,14 @@
 
 
         <record id="open_module_tree_idara" model="ir.actions.act_window">
-            <field name="name">Idara</field>
+            <field name="name">Location</field>
             <field name="res_model">hr.idara</field>
             <field name="view_type">form</field>
             <field name="view_mode">kanban,tree,form</field>
             <field name="search_view_id" ref="view_idara_filter"/>
             <field name="help" type="html">
               <p class="oe_view_nocontent_create">
-                Click to create a idara.
+                Click to create a Location.
               </p><p>
                 Odoo's idara structure is used to manage all documents
                 related to employees by departments: expenses, timesheets,
