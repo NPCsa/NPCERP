@@ -14,6 +14,12 @@
                <xpath expr="//group//field[@name='struct_id']" position="attributes">
                    <attribute name="readonly">1</attribute>
                </xpath>
+                <xpath expr="//field[@name='input_line_ids']//tree//field[@name='contract_id']" position="attributes">
+                   <attribute name="domain">"[('id','=',parent.contract_id)]"</attribute>
+               </xpath>
+                <xpath expr="//field[@name='worked_days_line_ids']//tree//field[@name='contract_id']" position="attributes">
+                   <attribute name="domain">"[('id','=',parent.contract_id)]"</attribute>
+               </xpath>
            </field>
        </record>
 
