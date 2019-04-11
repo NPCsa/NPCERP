@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <report
+                id="report_payroll_bank_xlsx"
+                model="payroll.bank.wiz"
+                string="Payroll Bank Report"
+                report_type="xlsx"
+                name="odootec_payslip_bank_report.report_payroll_bank_xlsx"
+                file="Payroll Bank Report"
+                attachment_use="False"
+
+        />
+    </data>
+</odoo>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <report
+                id="report_payroll_company_xlsx"
+                model="payroll.company.wiz"
+                string="Payroll Employee Report"
+                report_type="xlsx"
+                name="odt_payslip_company_report.report_payroll_company_xlsx"
+                file="Payroll Employee Report"
+                attachment_use="False"
+
+        />
+    </data>
+</odoo>

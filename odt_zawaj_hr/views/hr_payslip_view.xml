@@ -31,5 +31,6 @@
            </field>
        </record>
 
+         <menuitem id="action_payroll_reports_menu" name="Reports" parent="hr_payroll.menu_hr_payroll_root" sequence="10"/>
     </data>
 </odoo>
