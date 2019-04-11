@@ -15,11 +15,10 @@ class PayrollXlsx(models.AbstractModel):
         for line in payslips:
             employees = line.employee_ids
             salary_rules = line.rule_ids.ids or self.env['hr.salary.rule'].search([]).sorted(
-            key=lambda v: v.sequence).ids
+                key=lambda v: v.sequence).ids
             from_date = line.date_from
             to_date = line.date_to
             state = line.state
-
 
         payslip_obj = self.env['hr.payslip']
         payslip_line_obj = self.env['hr.payslip.line']
@@ -50,20 +49,19 @@ class PayrollXlsx(models.AbstractModel):
         sheet.merge_range('D12:D13', 'الموظف', format2)
         sheet.merge_range('E12:E13', 'الوظيفه', format2)
         sheet.merge_range('F12:F13', 'تاريخ الصرف', format2)
-        sheet.merge_range('G12:O12', 'الاستحقاقات', format2)
+        sheet.merge_range('G12:M12', 'الاستحقاقات', format2)
         sheet.write(12, 6, 'المرتب الاساسى', format2)
         sheet.write(12, 7, 'بدل طبيعه العمل ', format2)
         sheet.write(12, 8, 'بدل انتقال ', format2)
         sheet.write(12, 9, 'اجور اضافيه ', format2)
-        sheet.write(12, 10, 'بدل سكن مهندسين ', format2)
+        sheet.write(12, 10, 'بدل سكن ', format2)
         sheet.write(12, 11, 'تسويه رصيد الاجازات ', format2)
         sheet.write(12, 12, 'بدل نهاية الخدمه ', format2)
-        sheet.write(12, 13, 'رسوم هيئه المهندسين استحقاق ', format2)
-        sheet.write(12, 14, 'المرتب الشامل', format2)
-        sheet.merge_range('P12:Q12', 'الاستقطاعات', format2)
-        sheet.write(12, 15, 'استقطاع سلف ', format2)
-        sheet.write(12, 16, 'اجمالى الاستقطاعات ', format2)
-        sheet.merge_range('R12:R13', 'الصافى ', format2)
+        sheet.merge_range('N12:N13', 'المرتب الشامل', format2)
+        sheet.merge_range('O12:P12', 'الاستقطاعات', format2)
+        sheet.write(12, 14, 'استقطاع سلف ', format2)
+        sheet.write(12, 15, 'اجمالى الاستقطاعات ', format2)
+        sheet.merge_range('Q12:Q13', 'الصافى ', format2)
 
         data = []
         tot_basic = 0.0
@@ -73,7 +71,6 @@ class PayrollXlsx(models.AbstractModel):
         tot_eng_house = 0.0
         tot_vaction = 0.0
         tot_service = 0.0
-        tot_eng_allow = 0.0
         tot_total = 0.0
         tot_net = 0.0
         tot_loan = 0.0
@@ -100,7 +97,6 @@ class PayrollXlsx(models.AbstractModel):
             eng_house = 0.0
             vaction = 0.0
             service = 0.0
-            eng_allow = 0.0
             total = 0.0
             net = 0.0
             loan = 0.0
@@ -122,8 +118,6 @@ class PayrollXlsx(models.AbstractModel):
                             vaction += payslip_line_rec.total
                         elif payslip_line_rec.salary_rule_id.code == 'EndOfService':
                             service += payslip_line_rec.total
-                        elif payslip_line_rec.salary_rule_id.code == 'EA':
-                            eng_allow += payslip_line_rec.total
                         elif payslip_line_rec.salary_rule_id.code == 'transportion':
                             trans += payslip_line_rec.total
                         elif payslip_line_rec.salary_rule_id.code == 'OTHERALW':
@@ -136,9 +130,9 @@ class PayrollXlsx(models.AbstractModel):
                             total += payslip_line_rec.total
             tot_ded = total - net
             data_list = [employee.work_location or ' ', employee.department_id.name or ' ', employee.employee_id or ' ',
-                         employee.name or ' ', employee.job_id.name or ' ', payslip.create_date or ' ',
+                         employee.name or ' ', employee.job_id.name or ' ', str(payslip.create_date)[:10] or ' ',
                          basic or 0.0, work or 0.0, trans or 0.0, over_pay or 0.0, eng_house or 0.0, vaction or 0.0,
-                         service or 0.0, eng_allow or 0.0, total or 0.0, loan or 0.0, tot_ded or 0.0, net or 0.0]
+                         service or 0.0, total or 0.0, loan or 0.0, tot_ded or 0.0, net or 0.0]
 
             data.append(data_list)
             tot_basic += basic
@@ -148,14 +142,13 @@ class PayrollXlsx(models.AbstractModel):
             tot_eng_house += eng_house
             tot_vaction += vaction
             tot_service += service
-            tot_eng_allow += eng_allow
             tot_total += total
             tot_net += net
             tot_loan += loan
             total_ded += tot_ded
         data.append(['الاجمالى العام', ' ', ' ', ' ', ' ', ' ', tot_basic or 0.0, tot_work or 0.0, tot_trans or 0.0,
                      tot_over_pay or 0.0, tot_eng_house or 0.0, tot_vaction or 0.0, tot_service or 0.0,
-                     tot_eng_allow or 0.0, tot_total or 0.0, tot_loan or 0.0, total_ded or 0.0, tot_net or 0.0])
+                     tot_total or 0.0, tot_loan or 0.0, total_ded or 0.0, tot_net or 0.0])
         for index, record in enumerate(data):
             col = -1
             for line in record:
