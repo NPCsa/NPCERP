@@ -59,14 +59,15 @@ class PayrollXlsx(models.AbstractModel):
         sheet.write(12, 12, 'مكافأه ', format2)
         sheet.write(12, 13, 'اخري ', format2)
         sheet.merge_range('O12:O13', 'المرتب الشامل', format2)
-        sheet.merge_range('P12:T12', 'الاستقطاعات', format2)
+        sheet.merge_range('P12:U12', 'الاستقطاعات', format2)
         sheet.write(12, 15, ' تامينات ', format2)
         sheet.write(12, 16, ' غياب وتاخير ', format2)
-        sheet.write(12, 17, ' احازه استثنائيه ', format2)
-        sheet.write(12, 18, ' جزاءات ', format2)
-        sheet.write(12, 19, ' اخري ', format2)
-        sheet.merge_range('U12:U13', 'اجمالى الاستقطاعات ', format2)
-        sheet.merge_range('V12:V13', 'الصافى ', format2)
+        sheet.write(12, 17, ' سلف ', format2)
+        sheet.write(12, 18, ' احازه استثنائيه ', format2)
+        sheet.write(12, 19, ' جزاءات ', format2)
+        sheet.write(12, 20, ' اخري ', format2)
+        sheet.merge_range('V12:V13', 'اجمالى الاستقطاعات ', format2)
+        sheet.merge_range('W12:W13', 'الصافى ', format2)
 
         data = []
         tot_basic = 0.0
@@ -80,6 +81,7 @@ class PayrollXlsx(models.AbstractModel):
         tot_gross = 0.0
         tot_gosi = 0.0
         tot_abs_late = 0.0
+        tot_loan = 0.0
         tot_unpaid = 0.0
         tot_sanction = 0.0
         tot_other_ded = 0.0
@@ -111,6 +113,7 @@ class PayrollXlsx(models.AbstractModel):
             gross = 0.0
             gosi = 0.0
             abs_late = 0.0
+            loan = 0.0
             unpaid = 0.0
             sanction = 0.0
             other_ded = 0.0
@@ -146,6 +149,8 @@ class PayrollXlsx(models.AbstractModel):
                             gosi += payslip_line_rec.total
                         elif payslip_line_rec.salary_rule_id.code in ['absence', 'late']:
                             abs_late += payslip_line_rec.total
+                        elif payslip_line_rec.salary_rule_id.code == 'LOAN':
+                            loan += payslip_line_rec.total
                         elif payslip_line_rec.salary_rule_id.code == 'unpaid':
                             unpaid += payslip_line_rec.total
                         elif payslip_line_rec.salary_rule_id.code in ['SAN', 'other']:
@@ -157,7 +162,7 @@ class PayrollXlsx(models.AbstractModel):
             tot_ded = gross - net
             data_list = [employee.employee_id or ' ',employee.name or ' ',employee.work_location or ' ', employee.department_id.name or ' ', employee.job_id.name or ' ', str(payslip.create_date)[:10] or ' ',
                          basic or 0.0, house or 0.0, trans or 0.0, mobile or 0.0, over or 0.0, work or 0.0,
-                         reward or 0.0, other_alw or 0.0, gross or 0.0, gosi or 0.0, abs_late or 0.0, unpaid or 0.0,sanction or 0.0,
+                         reward or 0.0, other_alw or 0.0, gross or 0.0, gosi or 0.0, abs_late or 0.0,loan or 0.0, unpaid or 0.0,sanction or 0.0,
                          other_ded or 0.0, tot_ded or 0.0, net or 0.0]
 
             data.append(data_list)
@@ -179,7 +184,7 @@ class PayrollXlsx(models.AbstractModel):
             tot_net = net
         data.append(['الاجمالى العام', ' ', ' ', ' ', ' ', ' ', tot_basic or 0.0, tot_house or 0.0, tot_trans or 0.0,
                      tot_over or 0.0, tot_mobile or 0.0, tot_reward or 0.0, tot_work or 0.0,
-                     tot_other_alw or 0.0, tot_gross or 0.0, tot_gosi or 0.0, tot_abs_late or 0.0, tot_unpaid or 0.0,
+                     tot_other_alw or 0.0, tot_gross or 0.0, tot_gosi or 0.0, tot_abs_late or 0.0,tot_loan or 0.0, tot_unpaid or 0.0,
                      tot_sanction or 0.0, tot_other_ded or 0.0, tot_tot_ded or 0.0, tot_net or 0.0])
         for index, record in enumerate(data):
             col = -1
