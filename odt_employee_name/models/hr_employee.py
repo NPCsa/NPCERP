@@ -45,7 +45,7 @@ class hr_employee(models.Model):
     second_name = fields.Char('Father Name', translate=True, required=False, )
     third_name = fields.Char('Grandfather Name', translate=True, required=False)
     last_name = fields.Char('Last Name', translate=True, required=False, )
-    employee_id = fields.Char('Employee ID', required=False, readonly=False, copy=False)
+    employee_id = fields.Char('Employee ID', required=True, readonly=False, copy=False)
 
     _sql_constraints = [
         ('employee_id_uniq',
