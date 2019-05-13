@@ -2,6 +2,16 @@
 <odoo>
     <data>
 
+        <!--Inherited account move form view to add button for printing report-->
+        <record id="view_hr_expense_form_inherit_id" model="ir.ui.view">
+            <field name="model">hr.expense</field>
+            <field name="inherit_id" ref="hr_expense.hr_expense_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='analytic_account_id']" position="attributes">
+                    <attribute name="required">1</attribute>
+                </xpath>
+            </field>
+        </record>
         <record id="hr_contract_form_in_inherit" model="ir.ui.view">
             <field name="name">hr.contract.form.in.inherit</field>
             <field name="model">hr.contract</field>

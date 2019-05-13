@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="res.groups" id="group_manger_allow_post">
+            <field name="name">Allow Post Entries</field>
+        </record>
+    </data>
+    <record id="account_move_form_hide_post_button" model="ir.ui.view">
+        <field name="name">account.move.form</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='post']"
+                   position="replace">
+                <button name="post" states="draft" string="Post" type="object" class="oe_highlight"
+                        groups="odt_move_print.group_manger_allow_post"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

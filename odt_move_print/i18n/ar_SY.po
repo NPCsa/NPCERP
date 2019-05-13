@@ -1,0 +1,82 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* odt_move_print
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-10-06 10:38+0000\n"
+"PO-Revision-Date: 2016-10-06 14:31+0300\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"X-Generator: Poedit 1.8.9\n"
+
+#. module: odt_move_print
+#: view:website:odt_move_print.report_entry_document
+msgid "Account"
+msgstr "حساب"
+
+msgid "Analytic Account"
+msgstr "حساب تحليلى"
+
+msgid "Analytic tag"
+msgstr "وسم"
+#. module: odt_move_print
+#: view:website:odt_move_print.report_entry_document
+msgid "Approved By:"
+msgstr "‎وافق عليه"
+
+#. module: odt_move_print
+#: view:website:odt_move_print.report_entry_document
+msgid "Credit"
+msgstr "دائن"
+
+#. module: odt_move_print
+#: view:website:odt_move_print.report_entry_document
+msgid "Debit"
+msgstr "مدين"
+
+#. module: odt_move_print
+#: view:website:odt_move_print.report_entry_document
+msgid "Description:"
+msgstr "الوصف:"
+
+#. module: odt_move_print
+#: model:ir.actions.report.xml,name:odt_move_print.entry_ext
+msgid "Entry"
+msgstr "‎قيد"
+
+#. module: odt_move_print
+#: view:website:odt_move_print.report_entry_document
+msgid "Entry Receipt:"
+msgstr "‎قيد شيك ‫:‬ "
+
+#. module: odt_move_print
+#: view:website:odt_move_print.report_entry_document
+msgid "Name"
+msgstr "الاسم"
+
+#. module: odt_move_print
+#: view:website:odt_move_print.report_entry_document
+msgid "Partner"
+msgstr "شريك"
+
+#. module: odt_move_print
+#: view:website:odt_move_print.report_entry_document
+msgid "Prepared By:"
+msgstr "‎تم تجهيزه بواسطة"
+
+#. module: odt_move_print
+#: view:website:odt_move_print.report_entry_document
+msgid "Project"
+msgstr "‎مشروع"
+
+#. module: odt_move_print
+#: view:website:odt_move_print.report_entry_document
+msgid "Reviewed By:"
+msgstr "‎تم مراجعته بواسطة"
