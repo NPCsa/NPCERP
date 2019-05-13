@@ -9,7 +9,7 @@
     'category': 'Hr',
     'version': '1.0.1',
     'depends': [
-        'hr_payroll'
+        'hr_payroll','hr_expense'
     ],
     'data': [
         'views/hr_view.xml',

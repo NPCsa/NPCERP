@@ -53,3 +53,21 @@ class AccountMove(models.Model):
     reverse_entry_id = fields.Many2one('account.move', String="Reverse entry", store=True, readonly=True,track_visibility='onchange')
     tax_type_domain = fields.Char(store=False,track_visibility='onchange',
                                   help='Technical field used to have a dynamic taxes domain on the form view.')
+
+class Account(models.Model):
+    _inherit = 'account.account'
+
+    is_default_receivable = fields.Boolean()
+    is_default_payable = fields.Boolean()
+
+class ResPartner(models.Model):
+    _inherit = "res.partner"
+
+    @api.onchange('company_id')
+    def _get_accounts(self):
+        account_receivable_obj = self.env['account.account'].search([('company_id','=',self.company_id.id),('is_default_receivable','=',True)])
+        account_payable_obj = self.env['account.account'].search([('company_id','=',self.company_id.id),('is_default_payable','=',True)])
+        if account_receivable_obj :
+            self.property_account_receivable_id = account_receivable_obj[0].id
+        if account_payable_obj:
+            self.property_account_payable_id = account_payable_obj[0].id
