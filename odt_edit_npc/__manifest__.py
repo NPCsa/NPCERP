@@ -24,6 +24,6 @@
         'views/product.xml',
         'views/account_move.xml',
         'views/purchase_view.xml',
-        # 'views/sale_view.xml',
+        'views/sale_view.xml',
     ]
 }
