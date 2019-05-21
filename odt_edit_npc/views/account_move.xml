@@ -1,0 +1,65 @@
+<odoo>
+    <data>
+        <!--Inherited account move form view to add button for printing report-->
+        <record id="view_account_move_form_inherit_id" model="ir.ui.view">
+            <field name="name">account.move.form</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='line_ids']/tree/field[@name='analytic_account_id']" position="attributes">
+                    <attribute name="required">1</attribute>
+                </xpath>
+                <xpath expr="//sheet" position="after">
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+
+        <!--Inherited account move form view to add button for printing report-->
+        <record id="view_account_invoice_form_inherit_id" model="ir.ui.view">
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="replace"/>
+                <xpath expr="//field[@name='payment_term_id']" position="after">
+                    <field name="name"/>
+                </xpath>
+
+                <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='account_analytic_id']" position="attributes">2
+                    <attribute name="required">1</attribute>
+                </xpath>
+            </field>
+        </record>
+        <record id="view_account_invoice_supplier_form_inherit_id" model="ir.ui.view">
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_supplier_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="replace"/>
+                <xpath expr="//field[@name='payment_term_id']" position="after">
+                    <field name="name"/>
+                </xpath>
+                <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='account_analytic_id']" position="attributes">
+                    <attribute name="required">1</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Inherit Form View to Modify it -->
+        <record id="account_edit_view" model="ir.ui.view">
+            <field name="model">account.account</field>
+            <field name="inherit_id" ref="account.view_account_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='company_id']" position="after">
+                    <field name="is_default_receivable" attrs="{'invisible': [('reconcile','=',False)]}"/>
+                    <field name="is_default_payable" attrs="{'invisible': [('reconcile','=',False)]}"/>
+                </xpath>
+            </field>
+        </record>
+
+
+    </data>
+</odoo>
