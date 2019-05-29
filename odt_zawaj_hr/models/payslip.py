@@ -19,6 +19,7 @@ class HrPayslip(models.Model):
     service_period = fields.Float('Service Period',compute='_compute_age_service')
     zw_idara = fields.Many2one(related='employee_id.zw_idara', string='Location',store=True)
     is_refund = fields.Boolean(string="Refund")
+    employee_code = fields.Char('Employee ID', related='employee_id.employee_id')
 
     @api.multi
     def refund_sheet(self):
