@@ -11,5 +11,11 @@
                 attachment_use="False"
 
         />
+
+        <template id="report_payroll_document" inherit_id="hr_payroll.report_payslip">
+            <xpath expr="//h2" position="before">
+                <br/>
+            </xpath>
+        </template>
     </data>
 </odoo>
