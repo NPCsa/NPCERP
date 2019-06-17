@@ -1,0 +1,20 @@
+<odoo>
+    <data>
+        <template id="report_payment_document" inherit_id="account.report_payment_receipt_document">
+            <xpath expr="//div[@class='row mb64']" position="after">
+                <div class="row mb64">
+                    <div class="col-4" t-if="o.bank_check">
+                            <strong>Bank Check Number: </strong><span t-field="o.bank_check"/>
+                    </div>
+                    <div class="col-4" t-if="o.date_check">
+                        <strong>Date of The Check: </strong><span t-field="o.date_check"/>
+                    </div>
+                    <div class="col-4" t-if="o.bank_name">
+                        <strong>Bank Name: </strong><span t-field="o.bank_name"/>
+                    </div>
+                </div>
+                <br/>
+            </xpath>
+        </template>
+    </data>
+</odoo>
