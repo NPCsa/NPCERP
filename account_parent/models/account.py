@@ -21,7 +21,7 @@ class AccountAccount(models.Model):
     @api.model
     def _move_domain_get(self, domain=None):
         context = dict(self._context or {})
-        # domain = domain and safe_eval(str(domain)) or []
+        domain = domain and safe_eval(str(domain)) or []
         
         date_field = 'date'
         if context.get('aged_balance'):
@@ -80,14 +80,15 @@ class AccountAccount(models.Model):
     debit = fields.Float(compute="compute_values",digits=dp.get_precision('Account'), string='Debit')
     parent_id = fields.Many2one('account.account','Parent Account',ondelete="set null")
     child_ids = fields.One2many('account.account','parent_id', 'Child Accounts')
-    parent_left = fields.Integer('Left Parent', index=1)
-    parent_right = fields.Integer('Right Parent', index=1)
+#     parent_left = fields.Integer('Left Parent', index=1)
+#     parent_right = fields.Integer('Right Parent', index=1)
+    parent_path = fields.Char(index=True)
     
     
     _parent_name = "parent_id"
     _parent_store = True
     _parent_order = 'code, name'
-    _order = 'parent_left'
+    _order = 'code, id'
     
     
     @api.model
@@ -96,22 +97,6 @@ class AccountAccount(models.Model):
         if not context.get('show_parent_account',False):
             args += [('user_type_id.type', '!=', 'view')]
         return super(AccountAccount, self).search(args, offset, limit, order, count=count)
-
-    @api.multi
-    def action_open_account(self):        
-        self.ensure_one()
-        ctx = dict(self.env.context or {})
-        active_id = self.env.context.get('active_id', False) 
-        return {
-            'type': 'ir.actions.act_window',
-            'name': 'Journal Entry Items',
-            'res_model': 'account.move.line',
-            'view_type': 'form',
-            'view_mode': 'tree,form',
-            'target': 'current',
-            'domain': [('account_id','child_of',[active_id])],
-            'context': ctx,
-        }
     
 class AccountJournal(models.Model):
     _inherit = "account.journal"
@@ -119,8 +104,6 @@ class AccountJournal(models.Model):
     @api.model
     def _prepare_liquidity_account(self, name, company, currency_id, type):
         res = super(AccountJournal, self)._prepare_liquidity_account(name, company, currency_id, type)
-        # Seek the next available number for the account code
-
         if type == 'bank':
             account_code_prefix = company.bank_account_code_prefix or ''
         else:

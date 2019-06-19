@@ -17,22 +17,33 @@ This module will be very useful for those who are still using v7/v8 because of t
         * Adds Chart of account heirachy view
         * Adds credit, debit and balance in account
         * Shows chart of account based on the date and target moves we have selected
+        * Provide Pdf and Xls reports
     - Need to set the group show chart of account structure to view the chart of account heirarchy.
     
     Contact us for any need of customisation or chart of account migration from v7/v8 - v9/v10
     """,
 
-    'author': 'Steigend IT Solutions, Odoo Community Association (OCA), Codeware Computer Trading LLC',
-    'website': 'http://www.steigendit.com,http://www.codewareuae.com',
+    'author': 'Steigend IT Solutions',
+    'website': 'http://www.steigendit.com',
     'category': 'Accounting &amp; Finance',
-    'version': '1.1.1',
+    'version': '12.0.1.0.8',
     'depends': ['account'],
     'data': [
         'security/account_parent_security.xml',
         'views/account_view.xml',
         'views/open_chart.xml',
         'data/account_type_data.xml',
+        'views/account_parent_template.xml',
+        'views/report_coa_heirarchy.xml',
     ],
     'demo': [
     ],
+    'qweb': [
+        'static/src/xml/account_parent_backend.xml',
+    ],
+    'currency': 'EUR',
+    'price': '50.0',
+    'installable':True,
+    'auto_install': True,
+    'post_init_hook': '_assign_account_parent',
 }
