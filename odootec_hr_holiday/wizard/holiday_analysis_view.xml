@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+
+    <!-- Wizard view -->
+    <record id="holiday_report_wiz_form" model="ir.ui.view">
+      <field name="name">hr.holiday.report.wiz.form</field>
+      <field name="model">hr.holiday.report.wiz</field>
+      <field name="arch" type="xml">
+        <form string="Model">
+          <group string="Vacation Analysis">
+            <field name="employee_ids"/>
+            <field name="period" />
+            <field name="start_date"/>
+            <field name="end_date"/>
+          </group>
+          <footer>
+            <button name="print_report" string="Generate the Report" type="object" class="oe_highlight"/>
+            or
+            <button string="Cancel" class="oe_link" special="cancel"/>
+          </footer>
+        </form>
+      </field>
+    </record>
+
+    <!-- Wizard action -->
+    <record id="action_hr_holiday_report_wiz_config" model="ir.actions.act_window">
+      <field name="name">Vacation Analysis Report</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">hr.holiday.report.wiz</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+      <field name="view_id" ref="holiday_report_wiz_form"/>
+      <field name="target">new</field>
+    </record>
+
+    <!-- Action placement -->
+    <menuitem action="action_hr_holiday_report_wiz_config"
+      id="menu_action_hr_holiday_report_wiz"
+      parent="hr_holidays.menu_hr_holidays_report" />
+
+  </data>
+</odoo>

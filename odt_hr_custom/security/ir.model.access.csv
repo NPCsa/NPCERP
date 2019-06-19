@@ -8,6 +8,7 @@ access_hr_religion_emp,access_hr_religion.emp,model_hr_religion,base.group_user,
 access_hr_education_level_user,access_hr_education_level.user,model_hr_education_level,hr.group_hr_user,1,1,1,1
 access_hr_education_level_emp,access_hr_education_level.emp,model_hr_education_level,base.group_user,1,0,0,0
 access_hr_insurance_user,access_hr_insurance.user,model_hr_insurance,hr.group_hr_user,1,1,1,1
+access_hr_clearance_user,access_hr_clearance.user,model_hr_clearance,hr.group_hr_user,1,1,1,1
 access_hr_insurance_emp,access_hr_insurance.emp,model_hr_insurance,base.group_user,1,0,0,0
 access_hr_insurance_type_user,access_hr_insurance_type.user,model_hr_insurance_type,hr.group_hr_user,1,1,1,1
 access_hr_insurance_type_emp,access_hr_insurance_type.emp,model_hr_insurance_type,base.group_user,1,0,0,0
@@ -19,5 +20,5 @@ access_hr_family_member_type_user,access_hr_family_member_type.user,model_hr_fam
 access_hr_family_member_type_emp,access_hr_family_member_type.emp,model_hr_family_member_type,base.group_user,1,0,0,0
 access_hr_notification_user,access_hr_notification.user,model_hr_notification,hr.group_hr_user,1,1,1,1
 access_hr_notification_emp,access_hr_notification.emp,model_hr_notification,base.group_user,1,0,0,0
-access_department_asset,access_department_asset,model_department_asset,,1,0,0,0
+access_department_asset,access_department_asset,model_department_asset,,1,1,1,1
 access_hr_employee_type,hr.employee.type,model_hr_employee_type,,1,1,1,1

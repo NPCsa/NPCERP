@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record forcecreate="True" id="ir_cron_scheduler_demo_action" model="ir.cron">
+            <field name="name">Automatic Leave Allocation</field>
+            <field name="model_id" ref="hr_holidays.model_hr_leave"/>
+            <field name="state">code</field>
+            <field name="code">
+                model.run_monthly_scheduler()
+            </field>
+            <field eval="True" name="active"/>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="interval_number">1</field>
+            <field name="interval_type">months</field>
+            <field name="numbercall">-1</field>
+            <field eval="False" name="doall"/>
+        </record>
+
+        <!-- Inherit Form View to Modify it -->
+        <record id="hr_edit_holiday_new_inherit" model="ir.ui.view">
+            <field name="name">hr.leave.form.inherit</field>
+            <field name="model">hr.leave</field>
+            <field name="inherit_id" ref="hr_holidays.hr_leave_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//header//button[@name='action_approve']" position="before">
+                        <button string="Allocation" name="get_employee_balance_leave" attrs="{'invisible':['|',('state','!=','confirm')]}" type="object" groups="hr_holidays.group_hr_holidays_user" class="oe_highlight"/>
+                </xpath>
+                <xpath expr="//field[@name='leave_type_request_unit']" position="before">
+                    <field name="vacation_id" invisible="1"/>
+                    <field name="last_allocation_date" invisible="1"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="termination_leave_allocation_form_view">
+            <field name="name">hr.leave.allocation.method.form</field>
+            <field name="model">hr.leave.allocation.method</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Settlement Rules">
+                    <sheet>
+                        <group>
+                            <field name="name" style="width:300px;"/>
+                        </group>
+
+                        <notebook>
+                            <page string="Configuration">
+                                <group>
+                                    <field name="type_state" style="width:200px;"/>
+                                    <field name="all_year" attrs="{'invisible':[('type_state','not in',['all'])],'required':[('type_state','in',['all'])]}"/>
+                                    <field name="first_year" attrs="{'invisible':[('type_state','not in',['two'])],'required':[('type_state','in',['two'])]}"/>
+                                    <field name="second_year" attrs="{'invisible':[('type_state','not in',['two'])],'required':[('type_state','in',['two'])]}"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Allocation Method -->
+        <record model="ir.ui.view" id="termination_leave_allocation_tree_view">
+            <field name="name">hr.leave.allocation.tree</field>
+            <field name="model">hr.leave.allocation.method</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Allocation Rules">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_termination_leave_allocation_tree_view">
+            <field name="name">Leave Allocation Method</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hr.leave.allocation.method</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="termination_leave_allocation_tree_view"/>
+        </record>
+
+        <!-- This Menu Item will appear in the Upper bar, That's why It needs NO parent or action -->
+        <menuitem id="menu_hr_leave_termination_root" name="Leave Allocation And Settlement"
+                  parent="hr_holidays.menu_hr_holidays_root" sequence="3"/>
+        <menuitem id="hr_menu_hr_leave_allocate" name="Leave Allocation method"
+                  parent="menu_hr_leave_termination_root" action="action_termination_leave_allocation_tree_view"
+                  sequence="1"/>
+
+
+    </data>
+</odoo>

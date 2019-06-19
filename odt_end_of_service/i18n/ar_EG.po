@@ -1,0 +1,1056 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* odt_end_of_service
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 11.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-05-06 12:19+0300\n"
+"PO-Revision-Date: 2019-05-06 13:10+0300\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=(n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
+"&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5);\n"
+"X-Generator: Poedit 1.8.7.1\n"
+"Last-Translator: \n"
+"Language: ar_EG\n"
+
+#. module: odt_end_of_service
+#: model:ir.ui.view,arch_db:odt_end_of_service.report_termination_template
+msgid ""
+"<font size=\"10\">\n"
+"                                    <strong>End Of Service:</strong>\n"
+"                                </font>"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.ui.view,arch_db:odt_end_of_service.report_termination_template
+msgid ""
+"<font size=\"10\">\n"
+"                                    <strong>Vacation:</strong>\n"
+"                                </font>"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.ui.view,arch_db:odt_end_of_service.report_termination_template
+msgid "<strong size=\"4\">Addition Value:</strong>"
+msgstr "<strong size=\"4\">اضافات اخري:</strong>"
+
+#. module: odt_end_of_service
+#: model:ir.ui.view,arch_db:odt_end_of_service.report_termination_template
+msgid "<strong size=\"4\">Application Date:</strong>"
+msgstr "<strong size=\"4\">تاريخ المستند:</strong>"
+
+#. module: odt_end_of_service
+#: model:ir.ui.view,arch_db:odt_end_of_service.report_termination_template
+msgid "<strong size=\"4\">Approval Date:</strong>"
+msgstr "<strong size=\"4\">تاريخ الموافقه:</strong>"
+
+#. module: odt_end_of_service
+#: model:ir.ui.view,arch_db:odt_end_of_service.report_termination_template
+msgid "<strong size=\"4\">Approved By:</strong>"
+msgstr "<strong size=\"4\">الموافقه بواسطه:</strong>"
+
+#. module: odt_end_of_service
+#: model:ir.ui.view,arch_db:odt_end_of_service.report_termination_template
+msgid "<strong size=\"4\">Contract:</strong>"
+msgstr "<strong size=\"4\">العقد:</strong>"
+
+#. module: odt_end_of_service
+#: model:ir.ui.view,arch_db:odt_end_of_service.report_termination_template
+msgid "<strong size=\"4\">Deduction Value:</strong>"
+msgstr "خصميات اخري"
+
+#. module: odt_end_of_service
+#: model:ir.ui.view,arch_db:odt_end_of_service.report_termination_template
+msgid "<strong size=\"4\">EOS Reason :</strong>"
+msgstr "سبب التصفيه"
+
+#. module: odt_end_of_service
+#: model:ir.ui.view,arch_db:odt_end_of_service.report_termination_template
+msgid "<strong size=\"4\">Employee code:</strong>"
+msgstr "كود الموظف"
+
+#. module: odt_end_of_service
+#: model:ir.ui.view,arch_db:odt_end_of_service.report_termination_template
+msgid "<strong size=\"4\">Employee:</strong>"
+msgstr "الموظف"
+
+#. module: odt_end_of_service
+#: model:ir.ui.view,arch_db:odt_end_of_service.report_termination_template
+msgid "<strong size=\"4\">End Of Service Amount:</strong>"
+msgstr "مبلغ التصفيه"
+
+#. module: odt_end_of_service
+#: model:ir.ui.view,arch_db:odt_end_of_service.report_termination_template
+msgid "<strong size=\"4\">Hire Date:</strong>"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.ui.view,arch_db:odt_end_of_service.report_termination_template
+msgid "<strong size=\"4\">Is Clearance:</strong>"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.ui.view,arch_db:odt_end_of_service.report_termination_template
+msgid "<strong size=\"4\">Job Ending Date:</strong>"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.ui.view,arch_db:odt_end_of_service.report_termination_template
+msgid "<strong size=\"4\">Job Title:</strong>"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.ui.view,arch_db:odt_end_of_service.report_termination_template
+msgid "<strong size=\"4\">Journal:</strong>"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.ui.view,arch_db:odt_end_of_service.report_termination_template
+msgid "<strong size=\"4\">Leaves Amount:</strong>"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.ui.view,arch_db:odt_end_of_service.report_termination_template
+msgid "<strong size=\"4\">Loan Value:</strong>"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.ui.view,arch_db:odt_end_of_service.report_termination_template
+msgid "<strong size=\"4\">Min Months:</strong>"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.ui.view,arch_db:odt_end_of_service.report_termination_template
+msgid "<strong size=\"4\">Payment Method:</strong>"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.ui.view,arch_db:odt_end_of_service.report_termination_template
+msgid "<strong size=\"4\">Period in Years:</strong>"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.ui.view,arch_db:odt_end_of_service.report_termination_template
+msgid "<strong size=\"4\">Salary Amount:</strong>"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.ui.view,arch_db:odt_end_of_service.report_termination_template
+msgid "<strong size=\"4\">State:</strong>"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.ui.view,arch_db:odt_end_of_service.report_termination_template
+msgid "<strong size=\"4\">Termination Number:</strong>"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.ui.view,arch_db:odt_end_of_service.report_termination_template
+msgid "<strong size=\"4\">Total Deserved:</strong>"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.ui.view,arch_db:odt_end_of_service.report_termination_template
+msgid "<strong size=\"4\">Total Salary:</strong>"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.ui.view,arch_db:odt_end_of_service.report_termination_template
+msgid "<strong size=\"4\">Vacation Days:</strong>"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.ui.view,arch_db:odt_end_of_service.report_termination_template
+msgid "<strong size=\"4\">Working Period:</strong>"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.ui.view,arch_db:odt_end_of_service.report_termination_template
+msgid "<strong style=\"font-size: large;\">Notes:</strong>"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.ui.view,arch_db:odt_end_of_service.report_termination_template
+msgid "<strong style=\"font-size: large;\">Signature:</strong>"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.model,name:odt_end_of_service.model_account_move
+msgid "Account Entry"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.model.fields,field_description:odt_end_of_service.field_termination_payments_add_credit_account_id
+msgid "Addition Credit Account"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.model.fields,help:odt_end_of_service.field_termination_payments_add_credit_account_id
+msgid "Addition Credit account for journal entry"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.model.fields,field_description:odt_end_of_service.field_termination_payments_add_debit_account_id
+msgid "Addition Debit Account"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.model.fields,help:odt_end_of_service.field_termination_payments_add_debit_account_id
+msgid "Addition Debit account for journal entry"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.model.fields,field_description:odt_end_of_service.field_hr_termination_add_value
+msgid "Addition Value"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.model.fields,field_description:odt_end_of_service.field_termination_eos_input_amount
+msgid "Amount"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.model.fields,field_description:odt_end_of_service.field_hr_termination_date
+msgid "Application Date"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.model.fields,field_description:odt_end_of_service.field_hr_termination_approval_date
+msgid "Approval Date"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.ui.view,arch_db:odt_end_of_service.view_hr_termination_form
+msgid "Approve"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.model.fields,field_description:odt_end_of_service.field_hr_termination_approved_by
+msgid "Approved By"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.ui.view,arch_db:odt_end_of_service.view_end_of_service_type_form
+msgid "Basic"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.model.fields,field_description:odt_end_of_service.field_hr_termination_eos_line_value
+msgid "Calculated Value"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.model.fields,help:odt_end_of_service.field_hr_termination_deserve_salary_amount
+msgid "Calculation By (Total Salary - Transportation Allowance)/ 30 "
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.model.fields,help:odt_end_of_service.field_hr_termination_total_deserve
+msgid ""
+"Calculation By Basic Salary + Housing Allowance + Transportation Allowance"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.ui.view,arch_db:odt_end_of_service.view_hr_termination_form
+msgid "Cancel"
+msgstr ""
+
+#. module: odt_end_of_service
+#: code:addons/odt_end_of_service/models/termination.py:164
+#: selection:hr.termination,state:0
+#, python-format
+msgid "Cancelled"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.model.fields,field_description:odt_end_of_service.field_end_of_service_type_code
+#: model:ir.model.fields,field_description:odt_end_of_service.field_termination_eos_input_code
+msgid "Code"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.ui.menu,name:odt_end_of_service.termination_payments_menu
+msgid "Configuration"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.model.fields,field_description:odt_end_of_service.field_hr_termination_contract_id
+#: model:ir.model.fields,field_description:odt_end_of_service.field_termination_eos_input_contract_id
+msgid "Contract"
+msgstr ""
+
+#. module: odt_end_of_service
+#: selection:hr.termination,eos_reason:0
+msgid "Contract terminated by the employer"
+msgstr ""
+
+#. module: odt_end_of_service
+#: selection:hr.termination,eos_reason:0
+msgid ""
+"Contract terminated by the employer for one of the cases mentioned in "
+"Article (80)"
+msgstr ""
+
+#. module: odt_end_of_service
+#: selection:hr.termination,eos_reason:0
+msgid "Contract termination agreement between the employee and the employer"
+msgstr ""
+
+#. module: odt_end_of_service
+#: selection:hr.termination,eos_reason:0
+msgid "Contract termination by the employee"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.model.fields,field_description:odt_end_of_service.field_end_of_service_salary_items_create_uid
+#: model:ir.model.fields,field_description:odt_end_of_service.field_end_of_service_type_create_uid
+#: model:ir.model.fields,field_description:odt_end_of_service.field_end_of_service_type_line_create_uid
+#: model:ir.model.fields,field_description:odt_end_of_service.field_hr_termination_create_uid
+#: model:ir.model.fields,field_description:odt_end_of_service.field_hr_termination_eos_line_create_uid
+#: model:ir.model.fields,field_description:odt_end_of_service.field_termination_eos_input_create_uid
+#: model:ir.model.fields,field_description:odt_end_of_service.field_termination_payments_create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.model.fields,field_description:odt_end_of_service.field_end_of_service_salary_items_create_date
+#: model:ir.model.fields,field_description:odt_end_of_service.field_end_of_service_type_create_date
+#: model:ir.model.fields,field_description:odt_end_of_service.field_end_of_service_type_line_create_date
+#: model:ir.model.fields,field_description:odt_end_of_service.field_hr_termination_create_date
+#: model:ir.model.fields,field_description:odt_end_of_service.field_hr_termination_eos_line_create_date
+#: model:ir.model.fields,field_description:odt_end_of_service.field_termination_eos_input_create_date
+#: model:ir.model.fields,field_description:odt_end_of_service.field_termination_payments_create_date
+msgid "Created on"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.model.fields,field_description:odt_end_of_service.field_termination_payments_ded_credit_account_id
+msgid "Deduction Credit Account"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.model.fields,help:odt_end_of_service.field_termination_payments_ded_credit_account_id
+msgid "Deduction Credit account for journal entry"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.model.fields,field_description:odt_end_of_service.field_termination_payments_ded_debit_account_id
+msgid "Deduction Debit Account"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.model.fields,help:odt_end_of_service.field_termination_payments_ded_debit_account_id
+msgid "Deduction Debit account for journal entry"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.model.fields,field_description:odt_end_of_service.field_hr_termination_ded_value
+msgid "Deduction Value"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.model.fields,field_description:odt_end_of_service.field_termination_eos_input_name
+msgid "Description"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.model.fields,field_description:odt_end_of_service.field_end_of_service_salary_items_display_name
+#: model:ir.model.fields,field_description:odt_end_of_service.field_end_of_service_type_display_name
+#: model:ir.model.fields,field_description:odt_end_of_service.field_end_of_service_type_line_display_name
+#: model:ir.model.fields,field_description:odt_end_of_service.field_hr_termination_display_name
+#: model:ir.model.fields,field_description:odt_end_of_service.field_hr_termination_eos_line_display_name
+#: model:ir.model.fields,field_description:odt_end_of_service.field_termination_eos_input_display_name
+#: model:ir.model.fields,field_description:odt_end_of_service.field_termination_payments_display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: odt_end_of_service
+#: code:addons/odt_end_of_service/models/termination.py:162
+#: selection:hr.termination,state:0
+#, python-format
+msgid "Draft"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.ui.view,arch_db:odt_end_of_service.hr_contract_view_form
+msgid "Duration"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.model.fields,field_description:odt_end_of_service.field_termination_payments_credit_account_id
+msgid "EOS Credit Account"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.model.fields,help:odt_end_of_service.field_termination_payments_credit_account_id
+msgid "EOS Credit account for journal entry"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.model.fields,field_description:odt_end_of_service.field_termination_payments_debit_account_id
+msgid "EOS Debit Account"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.model.fields,help:odt_end_of_service.field_termination_payments_debit_account_id
+msgid "EOS Debit account for journal entry"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.ui.view,arch_db:odt_end_of_service.view_employee_form_leave_inherit
+msgid "EOS Leaves"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.model.fields,field_description:odt_end_of_service.field_hr_termination_eos_reason
+msgid "EOS Reason"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.model,name:odt_end_of_service.model_hr_employee
+#: model:ir.model.fields,field_description:odt_end_of_service.field_hr_termination_employee_id
+msgid "Employee"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.model,name:odt_end_of_service.model_hr_contract
+msgid "Employee Contract"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.model.fields,field_description:odt_end_of_service.field_hr_termination_employee_code
+msgid "Employee ID"
+msgstr ""
+
+#. module: odt_end_of_service
+#: selection:hr.termination,eos_reason:0
+msgid "Employee leaving the work as a result of force majeure"
+msgstr ""
+
+#. module: odt_end_of_service
+#: selection:hr.termination,eos_reason:0
+msgid ""
+"Employee leaving the work for one of the cases mentioned in Article (81)"
+msgstr ""
+
+#. module: odt_end_of_service
+#: selection:hr.termination,eos_reason:0
+msgid "Employee resignation"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.ui.view,arch_db:odt_end_of_service.hr_contract_view_form
+msgid "End Date"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.model.fields,field_description:odt_end_of_service.field_hr_termination_total_deserve
+msgid "End Of Service Amount"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.ui.view,arch_db:odt_end_of_service.view_hr_termination_form
+msgid "End of Service"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.model.fields,field_description:odt_end_of_service.field_hr_termination_termination_eos_lines
+msgid "End of Service Calc"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.ui.view,arch_db:odt_end_of_service.hr_contract_view_form
+msgid "End of Service Date"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.model.fields,field_description:odt_end_of_service.field_hr_termination_eos_type_id
+msgid "End of Service Type"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.actions.act_window,name:odt_end_of_service.action_end_of_service_type
+#: model:ir.ui.menu,name:odt_end_of_service.hr_menu_end_of_service_type
+msgid "End of Service Types"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.model.fields,field_description:odt_end_of_service.field_end_of_service_salary_items_eos_type_id
+#: model:ir.model.fields,field_description:odt_end_of_service.field_end_of_service_type_line_eos_type_id
+msgid "Eos Type"
+msgstr ""
+
+#. module: odt_end_of_service
+#: selection:hr.termination,eos_reason:0
+msgid "Expiration of the contract"
+msgstr ""
+
+#. module: odt_end_of_service
+#: selection:hr.termination,eos_reason:0
+msgid ""
+"Female employee termination of an employment contract within 3 months of the "
+"birth giving"
+msgstr ""
+
+#. module: odt_end_of_service
+#: selection:hr.termination,eos_reason:0
+msgid ""
+"Female employee termination of an employment contract within 6 months of the "
+"marriage contract"
+msgstr ""
+
+#. module: odt_end_of_service
+#: code:addons/odt_end_of_service/models/termination.py:165
+#: selection:hr.termination,state:0
+#, python-format
+msgid "First Approve"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.ui.view,arch_db:odt_end_of_service.hr_contract_view_form
+msgid "From Date"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.model.fields,field_description:odt_end_of_service.field_end_of_service_type_from_year
+msgid "From Year"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.model.fields,field_description:odt_end_of_service.field_hr_termination_from_years
+msgid "From Years"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.model.fields,field_description:odt_end_of_service.field_end_of_service_type_line_from_month
+#: model:ir.model.fields,field_description:odt_end_of_service.field_hr_termination_eos_line_from_month
+msgid "From(Months)"
+msgstr ""
+
+#. module: odt_end_of_service
+#: code:addons/odt_end_of_service/models/termination.py:168
+#: model:ir.model.fields,help:odt_end_of_service.field_hr_termination_state
+#, python-format
+msgid "Gives the status of the Termination"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.model.fields,field_description:odt_end_of_service.field_hr_termination_hire_date
+msgid "Hire Date"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.model.fields,field_description:odt_end_of_service.field_end_of_service_salary_items_id
+#: model:ir.model.fields,field_description:odt_end_of_service.field_end_of_service_type_id
+#: model:ir.model.fields,field_description:odt_end_of_service.field_end_of_service_type_line_id
+#: model:ir.model.fields,field_description:odt_end_of_service.field_hr_termination_eos_line_id
+#: model:ir.model.fields,field_description:odt_end_of_service.field_hr_termination_id
+#: model:ir.model.fields,field_description:odt_end_of_service.field_termination_eos_input_id
+#: model:ir.model.fields,field_description:odt_end_of_service.field_termination_payments_id
+msgid "ID"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.model.fields,field_description:odt_end_of_service.field_hr_termination_input_line_ids
+msgid "Input Lines"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.model.fields,field_description:odt_end_of_service.field_hr_termination_is_clearance
+msgid "Is Clearance"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.model.fields,field_description:odt_end_of_service.field_hr_holidays_status_is_depend_eos
+msgid "Is depend End of Service."
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.model.fields,help:odt_end_of_service.field_termination_eos_input_amount
+msgid ""
+"It is used in computation. For e.g. A rule for sales having 1% commission of "
+"basic salary for per product can defined in expression like result = inputs."
+"SALEURO.amount * contract.wage*0.01."
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.model.fields,field_description:odt_end_of_service.field_hr_termination_job_ending_date
+msgid "Job Ending Date"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.model.fields,field_description:odt_end_of_service.field_hr_termination_job_id
+msgid "Job Title"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.model.fields,field_description:odt_end_of_service.field_hr_termination_journal_id
+msgid "Journal"
+msgstr ""
+
+#. module: odt_end_of_service
+#: code:addons/odt_end_of_service/models/termination.py:582
+#: model:ir.ui.view,arch_db:odt_end_of_service.view_hr_termination_form
+#, python-format
+msgid "Journal Entries"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.model.fields,field_description:odt_end_of_service.field_hr_termination_move_id
+msgid "Journal Entry"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.model.fields,help:odt_end_of_service.field_hr_termination_move_id
+msgid "Journal Entry for Termination"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.model.fields,help:odt_end_of_service.field_hr_termination_journal_id
+msgid "Journal for journal entry"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.model.fields,field_description:odt_end_of_service.field_end_of_service_salary_items___last_update
+#: model:ir.model.fields,field_description:odt_end_of_service.field_end_of_service_type___last_update
+#: model:ir.model.fields,field_description:odt_end_of_service.field_end_of_service_type_line___last_update
+#: model:ir.model.fields,field_description:odt_end_of_service.field_hr_termination___last_update
+#: model:ir.model.fields,field_description:odt_end_of_service.field_hr_termination_eos_line___last_update
+#: model:ir.model.fields,field_description:odt_end_of_service.field_termination_eos_input___last_update
+#: model:ir.model.fields,field_description:odt_end_of_service.field_termination_payments___last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.model.fields,field_description:odt_end_of_service.field_end_of_service_salary_items_write_uid
+#: model:ir.model.fields,field_description:odt_end_of_service.field_end_of_service_type_line_write_uid
+#: model:ir.model.fields,field_description:odt_end_of_service.field_end_of_service_type_write_uid
+#: model:ir.model.fields,field_description:odt_end_of_service.field_hr_termination_eos_line_write_uid
+#: model:ir.model.fields,field_description:odt_end_of_service.field_hr_termination_write_uid
+#: model:ir.model.fields,field_description:odt_end_of_service.field_termination_eos_input_write_uid
+#: model:ir.model.fields,field_description:odt_end_of_service.field_termination_payments_write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.model.fields,field_description:odt_end_of_service.field_end_of_service_salary_items_write_date
+#: model:ir.model.fields,field_description:odt_end_of_service.field_end_of_service_type_line_write_date
+#: model:ir.model.fields,field_description:odt_end_of_service.field_end_of_service_type_write_date
+#: model:ir.model.fields,field_description:odt_end_of_service.field_hr_termination_eos_line_write_date
+#: model:ir.model.fields,field_description:odt_end_of_service.field_hr_termination_write_date
+#: model:ir.model.fields,field_description:odt_end_of_service.field_termination_eos_input_write_date
+#: model:ir.model.fields,field_description:odt_end_of_service.field_termination_payments_write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.model.fields,field_description:odt_end_of_service.field_termination_payments_leave_credit_account_id
+msgid "Leave Credit Account"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.model.fields,help:odt_end_of_service.field_termination_payments_leave_credit_account_id
+msgid "Leave Credit account for journal entry"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.model.fields,field_description:odt_end_of_service.field_termination_payments_leave_debit_account_id
+msgid "Leave Debit Account"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.model.fields,help:odt_end_of_service.field_termination_payments_leave_debit_account_id
+msgid "Leave Debit account for journal entry"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.model,name:odt_end_of_service.model_hr_holidays_status
+msgid "Leave Type"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.model.fields,field_description:odt_end_of_service.field_hr_termination_deserve_salary_amount
+msgid "Leaves Amount"
+msgstr ""
+
+#. module: odt_end_of_service
+#: selection:hr.termination,eos_reason:0
+msgid "Leaving work for cases other than those mentioned in Article (81)"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.model.fields,field_description:odt_end_of_service.field_end_of_service_salary_items_level
+#: model:ir.model.fields,field_description:odt_end_of_service.field_end_of_service_type_line_level
+#: model:ir.model.fields,field_description:odt_end_of_service.field_hr_termination_eos_line_level
+msgid "Level"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.model.fields,field_description:odt_end_of_service.field_end_of_service_type_line_ids
+msgid "Line"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.model.fields,field_description:odt_end_of_service.field_termination_payments_loan_credit_account_id
+msgid "Loan Credit Account"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.model.fields,help:odt_end_of_service.field_termination_payments_loan_credit_account_id
+msgid "Loan Credit account for journal entry"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.model.fields,field_description:odt_end_of_service.field_termination_payments_loan_debit_account_id
+msgid "Loan Debit Account"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.model.fields,help:odt_end_of_service.field_termination_payments_loan_debit_account_id
+msgid "Loan Debit account for journal entry"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.model.fields,field_description:odt_end_of_service.field_hr_termination_loan_value
+msgid "Loan Value"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.model.fields,field_description:odt_end_of_service.field_hr_termination_min_months
+msgid "Min Months"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.model.fields,field_description:odt_end_of_service.field_end_of_service_type_minimum_months
+msgid "Minimum Months"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.model.fields,field_description:odt_end_of_service.field_end_of_service_salary_items_salary_rule_id
+#: model:ir.model.fields,field_description:odt_end_of_service.field_end_of_service_type_name
+#: model:ir.model.fields,field_description:odt_end_of_service.field_termination_payments_name
+msgid "Name"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.model.fields,field_description:odt_end_of_service.field_hr_employee_total_eos_leaves
+msgid "No of Leaves Depend EOS"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.model.fields,field_description:odt_end_of_service.field_hr_termination_notes
+msgid "Notes"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.model.fields,field_description:odt_end_of_service.field_hr_contract_end_of_service
+msgid "Original End Date"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.model,name:odt_end_of_service.model_hr_payslip
+msgid "Pay Slip"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.actions.act_window,name:odt_end_of_service.action_termination_payments_tree_view
+#: model:ir.model.fields,field_description:odt_end_of_service.field_hr_termination_payment_method
+msgid "Payment Method"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.model.fields,help:odt_end_of_service.field_hr_termination_payment_method
+msgid "Payment method for termination"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.model.fields,help:odt_end_of_service.field_termination_payments_name
+msgid "Payment name"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.model.fields,field_description:odt_end_of_service.field_end_of_service_salary_items_percentage
+msgid "Percentage"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.model.fields,field_description:odt_end_of_service.field_hr_termination_period_in_years
+msgid "Period in Years"
+msgstr ""
+
+#. module: odt_end_of_service
+#: code:addons/odt_end_of_service/models/termination.py:493
+#, python-format
+msgid "Please Set Addition credit/debit account "
+msgstr ""
+
+#. module: odt_end_of_service
+#: code:addons/odt_end_of_service/models/termination.py:428
+#, python-format
+msgid "Please Set Amount"
+msgstr ""
+
+#. module: odt_end_of_service
+#: code:addons/odt_end_of_service/models/termination.py:545
+#, python-format
+msgid "Please Set Deduction credit/debit account "
+msgstr ""
+
+#. module: odt_end_of_service
+#: code:addons/odt_end_of_service/models/termination.py:441
+#, python-format
+msgid "Please Set EOS credit/debit account "
+msgstr ""
+
+#. module: odt_end_of_service
+#: code:addons/odt_end_of_service/models/termination.py:431
+#, python-format
+msgid "Please Set Journal"
+msgstr ""
+
+#. module: odt_end_of_service
+#: code:addons/odt_end_of_service/models/termination.py:467
+#, python-format
+msgid "Please Set Leave credit/debit account "
+msgstr ""
+
+#. module: odt_end_of_service
+#: code:addons/odt_end_of_service/models/termination.py:519
+#, python-format
+msgid "Please Set Loan credit/debit account "
+msgstr ""
+
+#. module: odt_end_of_service
+#: code:addons/odt_end_of_service/models/termination.py:433
+#, python-format
+msgid "Please Set Related Partner For Employee"
+msgstr ""
+
+#. module: odt_end_of_service
+#: code:addons/odt_end_of_service/models/termination.py:425
+#, python-format
+msgid "Please Set payment method"
+msgstr ""
+
+#. module: odt_end_of_service
+#: code:addons/odt_end_of_service/models/termination.py:163
+#: selection:hr.termination,state:0
+#: model:ir.ui.view,arch_db:odt_end_of_service.view_hr_termination_form
+#, python-format
+msgid "Review"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.model.fields,field_description:odt_end_of_service.field_hr_termination_salary_amount
+msgid "Salary Amount"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.ui.view,arch_db:odt_end_of_service.view_end_of_service_type_form
+msgid "Salary Items"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.model.fields,field_description:odt_end_of_service.field_end_of_service_type_salary_line_ids
+msgid "Salary Line"
+msgstr ""
+
+#. module: odt_end_of_service
+#: code:addons/odt_end_of_service/models/termination.py:166
+#: selection:hr.termination,state:0
+#: model:ir.ui.view,arch_db:odt_end_of_service.view_hr_termination_form
+#, python-format
+msgid "Second Approve"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.model.fields,field_description:odt_end_of_service.field_termination_eos_input_sequence
+msgid "Sequence"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.ui.view,arch_db:odt_end_of_service.hr_contract_view_form
+msgid "Start Date"
+msgstr ""
+
+#. module: odt_end_of_service
+#: code:addons/odt_end_of_service/models/termination.py:167
+#: model:ir.model.fields,field_description:odt_end_of_service.field_hr_termination_state
+#, python-format
+msgid "Status"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.model.fields,field_description:odt_end_of_service.field_hr_contract_is_terminated
+msgid "Terminated"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.actions.act_window,name:odt_end_of_service.action_hr_termination
+#: model:ir.actions.report,name:odt_end_of_service.termination_report
+#: model:ir.model.fields,field_description:odt_end_of_service.field_account_move_termination_id
+#: model:ir.model.fields,field_description:odt_end_of_service.field_hr_termination_eos_line_termination_id
+#: model:ir.model.fields,field_description:odt_end_of_service.field_termination_eos_input_termination_id
+#: model:ir.ui.menu,name:odt_end_of_service.hr_menu_hr_termination
+#: model:ir.ui.menu,name:odt_end_of_service.menu_hr_terminationv_root
+#: model:ir.ui.view,arch_db:odt_end_of_service.view_hr_termination_form
+msgid "Termination"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.model.fields,field_description:odt_end_of_service.field_hr_termination_termination_code
+msgid "Termination NO"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.model.fields,help:odt_end_of_service.field_account_move_termination_id
+msgid "Termination Record"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.ui.view,arch_db:odt_end_of_service.termination_payments_form_view
+#: model:ir.ui.view,arch_db:odt_end_of_service.termination_payments_tree_view
+msgid "Termination Rules"
+msgstr ""
+
+#. module: odt_end_of_service
+#: code:addons/odt_end_of_service/models/termination.py:398
+#, python-format
+msgid "Termination for "
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.model.fields,help:odt_end_of_service.field_termination_eos_input_code
+msgid "The code that can be used in the salary rules"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.model.fields,help:odt_end_of_service.field_termination_eos_input_contract_id
+msgid "The contract for which applied this input"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.model.fields,field_description:odt_end_of_service.field_end_of_service_type_to_year
+msgid "To Year"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.model.fields,field_description:odt_end_of_service.field_hr_termination_to_years
+msgid "To Years"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.model.fields,field_description:odt_end_of_service.field_end_of_service_type_line_to_month
+#: model:ir.model.fields,field_description:odt_end_of_service.field_hr_termination_eos_line_to_month
+msgid "To(Months)"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.model.fields,field_description:odt_end_of_service.field_hr_termination_total_deserve_amount
+msgid "Total Deserved"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.model.fields,field_description:odt_end_of_service.field_hr_termination_basic_salary
+msgid "Total Salary"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.model.fields,field_description:odt_end_of_service.field_hr_contract_trial_date_start
+msgid "Trial Date Start"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.ui.view,arch_db:odt_end_of_service.hr_contract_view_form
+msgid "Trial Period Duration"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.ui.view,arch_db:odt_end_of_service.view_hr_termination_form
+msgid "Vacation"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.model.fields,field_description:odt_end_of_service.field_hr_termination_vacation_days
+msgid "Vacation Days"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.model.fields,field_description:odt_end_of_service.field_end_of_service_type_line_value
+msgid "Value"
+msgstr ""
+
+#. module: odt_end_of_service
+#: code:addons/odt_end_of_service/models/termination.py:386
+#, python-format
+msgid "Warning!"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.model.fields,field_description:odt_end_of_service.field_hr_contract_working_hours
+msgid "Working Hours"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.model.fields,field_description:odt_end_of_service.field_hr_termination_working_period
+msgid "Working Period"
+msgstr ""
+
+#. module: odt_end_of_service
+#: code:addons/odt_end_of_service/models/hr_payroll.py:18
+#: code:addons/odt_end_of_service/models/hr_payroll.py:28
+#, python-format
+msgid "You Can not Create Payslip , This Employee %s Is Terminated"
+msgstr ""
+
+#. module: odt_end_of_service
+#: code:addons/odt_end_of_service/models/termination.py:386
+#, python-format
+msgid ""
+"You cannot delete a termination document which is not draft or cancelled!"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.ui.view,arch_db:odt_end_of_service.view_employee_form_leave_inherit
+msgid "days"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.model,name:odt_end_of_service.model_end_of_service_salary_items
+msgid "end.of.service.salary.items"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.model,name:odt_end_of_service.model_end_of_service_type
+msgid "end.of.service.type"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.model,name:odt_end_of_service.model_end_of_service_type_line
+msgid "end.of.service.type.line"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.model,name:odt_end_of_service.model_hr_termination
+msgid "hr.termination"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.model,name:odt_end_of_service.model_hr_termination_eos_line
+msgid "hr.termination.eos.line"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.model,name:odt_end_of_service.model_termination_eos_input
+msgid "termination Input"
+msgstr ""
+
+#. module: odt_end_of_service
+#: model:ir.model,name:odt_end_of_service.model_termination_payments
+msgid "termination.payments"
+msgstr ""

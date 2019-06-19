@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="hr_view_employee_form_inherit" model="ir.ui.view">
+            <field name="name">hr.employee.form</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr_holidays.view_employee_form_leave_inherit"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='hr_settings']//group//group//label[@for='remaining_leaves']"
+                       position="before">
+                    <field name="last_allocation_date"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="hr_employee_view_form" model="ir.ui.view">
+            <field name="name">hr.employee.view.form.inherit</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr_contract.hr_hr_employee_view_form2"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='job_id']" position="after">
+                    <field name="joining_date"/>
+                </xpath>
+                <xpath expr="//page[@name='public']" position="after">
+                    <page name="eligible" string="Eligible">
+                        <group string="Eligible">
+                            <field name="eligible"/>
+                            <field name="calculate_type" attrs="{'invisible':[('eligible','=', False)],'required':[('eligible','=', True)]}"/>
+                            <field name="allocation_method" attrs="{'invisible':['|',('eligible','=', False),('calculate_type','not in', ['manual'])],'required':[('eligible','=', True),('calculate_type','=', 'manual')]}"/>
+                        </group>
+                        <group>
+                            <field name="holiday_line_ids" attrs="{'invisible':['|',('eligible','=', False),('calculate_type','not in', ['automatic'])]}">
+                                <tree editable="bottom">
+                                    <field name="leave_status_id"/>
+                                    <field name="allocation_range"/>
+                                    <field name="days_to_allocate"/>
+                                </tree>
+                            </field>
+                            <field name="holiday_line_man_ids" attrs="{'invisible':['|',('eligible','=', False),('calculate_type','not in', ['manual'])]}">
+                                <tree editable="bottom">
+                                    <field name="name"/>
+                                    <field name="leave_status_id"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </page>
+
+                </xpath>
+            </field>
+        </record>
+
+
+
+
+    </data>
+</odoo>

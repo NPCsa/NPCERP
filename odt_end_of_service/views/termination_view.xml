@@ -8,16 +8,29 @@
             <field name="arch" type="xml">
                 <form string="Termination">
                     <header>
-                        <button name="button_approve" states="draft" string="Approve" groups="base.group_user" class="oe_highlight" type="object"/>
-                        <button name="button_cancel" states="draft" string="Cancel" groups="base.group_user" type="object"/>
-                        <field name="state" widget="statusbar" statusbar_visible="draft,approve,cancel"/>
+                        <button name="button_review" states="draft" string="Review" groups="base.group_user" class="oe_highlight" type="object"/>
+                        <button name="button_approve" states="review" string="Approve" groups="base.group_user" class="oe_highlight" type="object"/>
+                        <button name="validate_termination" states="approved" string="Second Approve" groups="base.group_user" class="oe_highlight" type="object"/>
+                        <button name="button_cancel" states="approved,approved2" string="Cancel" groups="base.group_user" type="object"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,approved,approved2,cancel"/>
                     </header>
                     <sheet>
+                         <div class="oe_button_box" name="button_box">
+                                <button type="object"
+                                        class="oe_stat_button"
+                                        id="journal_entries"
+                                        icon="fa-pencil"
+                                        name="open_entries"
+                                        groups="hr.group_hr_manager,account.group_account_manager"
+                                        attrs="{'invisible': [('move_id', '=', False )]}" string="Journal Entries" >
+                                </button>
+                            </div>
                         <group>
                             <group>
                                 <field name="termination_code" readonly="1"/>
                                 <field name="employee_id"/>
-                                <field name="contract_id"/>   
+                                <field name="employee_code"/>
+                                <field name="contract_id" domain="[('id','=',False)]"/>
                             </group>  
                             <group>
                                 <field name="date"/>
@@ -29,6 +42,13 @@
                             <group>
                                 <field name="job_ending_date"/>
                             </group>
+                            <group>
+                            <field name="payment_method" widget="selection" attrs="{'readonly':[('state','not in',('approved'))],'required':[('state','in',('approved'))]}"/>
+                            </group>
+                            <group>
+                            <field name="journal_id" widget="selection" attrs="{'readonly':[('state','not in',('approved'))],'required':[('state','in',('approved'))]}"/>
+                            </group>
+
                             <group class="o_group o_inner_group o_group_col_12" >
                                 <field name="eos_reason"/>
                             </group>
@@ -37,58 +57,40 @@
                         <group>
                             <group>
                                 <field name="approved_by"/>
-                                <!--<field name="loan_value"/>-->
                             </group>
                             <group>
                                 <field name="approval_date"/>
                             </group>
                             <group class="o_group o_inner_group o_group_col_12">
+                                <field name="is_clearance"/>
                                 <field name="total_deserve"/>
+                                <field name="deserve_salary_amount"/>
+                                <field name="add_value"/>
+                                <field name="loan_value"/>
+                                <field name="ded_value"/>
+                                <field name="total_deserve_amount"/>
+                                <field name="notes"/>
+                                <field name="move_id" invisible="1"/>
                             </group>
                         </group>
                         <notebook>
                             <page name="eos_calculation" string="End of Service">
                                 <group>
-                                    <field name="eos_type_id"/>
-                                </group>
-                                <!--<group>-->
-                                    <!--<field name="input_line_ids">-->
-                                        <!--<tree editable="bottom">-->
-                                            <!--<field name="name"/>-->
-                                            <!--<field name="code"/>-->
-                                            <!--<field name="amount"/>-->
-                                            <!--<field name="contract_id"/>-->
-                                        <!--</tree>-->
-                                    <!--</field>-->
-                                <!--</group>-->
-                                <group>
                                     <group>
-                                        <!--<field name="from_years"/>-->
                                         <field name="basic_salary"/>
                                         <field name="working_period"/>
                                     </group>
                                     <group>
-                                        <!--<field name="to_years"/>-->
                                         <field name="min_months"/>
                                         <field name="period_in_years"/>
                                     </group>
                                 </group>
-
-                                <field name="termination_eos_lines">
-                                    <tree editable="bottom">
-                                        <field name="level"/>
-                                        <field name="from_month"/>
-                                        <field name="to_month"/>
-                                        <field name="value" sum="Total"/>
-                                    </tree>
-                                </field>
                             </page>
 
                             <page name="vacation_cal" string="Vacation">
                                 <group>
                                     <field name="vacation_days"/>
                                     <field name="salary_amount"/>
-                                    <field name="deserve_salary_amount"/>
                                 </group>
                             </page>
                         </notebook>
@@ -120,8 +122,82 @@
             <field name="view_mode">tree,form</field>
         </record>
 
-        <menuitem action="action_hr_termination" id="hr_menu_hr_termination" parent="hr.menu_hr_root" groups="hr.group_hr_manager" sequence="6"/>
+         <!-- Payment Method -->
+        <record model="ir.ui.view" id="termination_payments_tree_view">
+            <field name="name">termination.payments.tree</field>
+            <field name="model">termination.payments</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Termination Rules">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
 
+        <record model="ir.ui.view" id="termination_payments_form_view">
+            <field name="name">termination.payments.form</field>
+            <field name="model">termination.payments</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Termination Rules">
+                    <sheet>
+                        <group col="4">
+                            <field name="name" colspan="4"/>
+                            <field name="debit_account_id" />
+                            <field name="credit_account_id" />
+                            <field name="leave_debit_account_id" />
+                            <field name="leave_credit_account_id" />
+                            <field name="add_debit_account_id" />
+                            <field name="add_credit_account_id" />
+                            <field name="loan_debit_account_id" />
+                            <field name="loan_credit_account_id" />
+                            <field name="ded_debit_account_id" />
+                            <field name="ded_credit_account_id" />
+                        </group>
+                        <notebook>
+                             <page string="Calculation Lines">
+                               <field name="field_ids" nolabel="1">
+                                    <tree editable="top">
+                                        <field name="name" readonly="1"/>
+                                        <field name="ttype" readonly="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_termination_payments_tree_view">
+            <field name="name">Payment Method</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">termination.payments</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="termination_payments_tree_view"/>
+        </record>
+
+        <!-- This Menu Item will appear in the Upper bar, That's why It needs NO parent or action -->
+        <menuitem id="menu_hr_terminationv_root" name="Termination" sequence="46"/>
+        <menuitem action="action_hr_termination" id="hr_menu_hr_termination" parent="menu_hr_terminationv_root" groups="hr.group_hr_manager" sequence="1"/>
+        <menuitem id="termination_payments_menu" name="Configuration" parent="menu_hr_terminationv_root" action="action_termination_payments_tree_view" sequence="2"/>
+
+
+
+
+
+         <record model="ir.ui.view" id="account_move_termination_form_view">
+            <field name="name">account.move.form</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_tree"/>
+            <field name="arch" type="xml">
+                <field name="partner_id" position="after">
+                    <field name="termination_id" invisible="1"/>
+                </field>
+            </field>
+        </record>
 
         <record id="hr_contract_view_form" model="ir.ui.view">
             <field name="name">hr.contract.view.form</field>
@@ -144,6 +220,7 @@
                         </div>
                         <field name="date_end" nolabel="1"/>
                         <field name="end_of_service" string="End Date" nolabel="0" attrs="{'invisible': [('is_terminated','=',False)]}"/>
+                        <field name="resource_calendar_id"/>
                         <field name="working_hours"/>
                     </group>
                 </xpath>

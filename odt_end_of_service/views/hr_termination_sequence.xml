@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
-    <data noupdate="1">
-        <!-- Sequences for hr.termination -->
-
+    <data>
         <record id="seq_hr_termination" model="ir.sequence">
             <field name="name">Hr Termination sequence</field>
             <field name="code">hr.termination.code</field>

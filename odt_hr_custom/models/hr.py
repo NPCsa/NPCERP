@@ -4,13 +4,9 @@ from odoo import models, api, fields
 
 class EmployeeType(models.Model):
     _name = 'hr.employee.type'
-    _table='hr_employee_type'
     name = fields.Char(string='Name')
 
-
-EmployeeType()
-
-class hr_employee(models.Model):
+class HrEmployee(models.Model):
     _inherit = "hr.employee"
 
     @api.one
@@ -19,7 +15,7 @@ class hr_employee(models.Model):
         for emp in self:
             if emp.birthday:
                 today = fields.date.today()
-                born = datetime.strptime(emp.birthday, '%Y-%m-%d')
+                born = datetime.strptime(str(emp.birthday), '%Y-%m-%d')
                 self.age = today.year - born.year - ((today.month, today.day) < (born.month, born.day))
 
     employee_type = fields.Many2one('hr.employee.type', 'Employee Type')
@@ -54,9 +50,6 @@ class hr_employee(models.Model):
     trail_from = fields.Date(string='Trail Period From')
     trail_to = fields.Date(string='Trail Period To')
 
-    _defaults = {
-        'employee_id': lambda obj, cr, uid, context: '/',
-    }
 
     @api.multi
     def send_email_iqama(self):
@@ -132,31 +125,31 @@ class hr_employee(models.Model):
 
 
 
-class hr_status(models.Model):
+class HrStatus(models.Model):
     _name = 'hr.status'
 
     name = fields.Char('Name', required=True, translate=True)
 
 
-class hr_employee_grade(models.Model):
+class HrEmployeeGrade(models.Model):
     _name = 'hr.employee.grade'
 
     name = fields.Char('Name', required=True, translate=True)
 
 
-class hr_religion(models.Model):
+class HrReligion(models.Model):
     _name = 'hr.religion'
 
     name = fields.Char('Name', required=True, translate=True)
 
 
-class hr_education_level(models.Model):
+class HrEducationLevel(models.Model):
     _name = 'hr.education.level'
 
     name = fields.Char('Name', required=True, translate=True)
 
 
-class hr_insurance(models.Model):
+class HrInsurance(models.Model):
     _name = 'hr.insurance'
 
     insurance_type_id = fields.Many2one('hr.insurance.type', 'Insurance Type')
@@ -170,13 +163,13 @@ class hr_insurance(models.Model):
     policy_no = fields.Char(string="Policy NO", required=False, )
 
 
-class hr_insurance_type(models.Model):
+class HrInsuranceType(models.Model):
     _name = 'hr.insurance.type'
 
     name = fields.Char('Name', required=True, translate=True)
 
 
-class hr_insurance_company(models.Model):
+class HrInsuranceCompany(models.Model):
     _name = 'hr.insurance.company'
 
     name = fields.Char('Name', required=True, translate=True)
