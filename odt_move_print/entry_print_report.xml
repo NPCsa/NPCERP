@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+<report 
+            id="entry_ext"
+            model="account.move"
+            string="Entry"
+            report_type="qweb-pdf"
+            name="odt_move_print.report_entry"
+            attachment_use="False"
+            file="entry_print"
+        />
+    </data>
+</openerp>
