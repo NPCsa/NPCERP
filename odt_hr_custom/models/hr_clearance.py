@@ -1,13 +1,14 @@
-from odoo import fields, models, api, _
+
 import time
-from .. import utils
+from odoo import fields, models, api,_
+from odoo.exceptions import Warning
 
 
-class hr_clearance(models.Model):
+class HrClearance(models.Model):
     _name = 'hr.clearance'
     _inherit = 'mail.thread'
     _description = "Employee Clearance"
-    _rec_name = 'name'
+    _rec_name = 'employee_id'
 
     @api.one
     def current_logged_employee(self):
@@ -20,8 +21,8 @@ class hr_clearance(models.Model):
     def unlink(self):
         for object in self:
             if object.state in ['confirm', 'done']:
-                raise Warning(_('Warning!'), _('You cannot remove the record which is in %s state!') % (object.state))
-        return super(hr_clearance, self).unlink()
+                raise Warning(_('You cannot remove the record which is in %s state!') % (object.state))
+        return super(HrClearance, self).unlink()
 
     @api.model
     def departments_assets(self, department):
@@ -37,8 +38,8 @@ class hr_clearance(models.Model):
                                   default=current_logged_employee)
     job_id = fields.Many2one('hr.job', related='employee_id.job_id', string='Job Title')
     coach_id = fields.Many2one('hr.employee', related='employee_id.coach_id', string='Direct Manager')
-    name = fields.Char(related='employee_id.name', string='Name')
-    identification_id = fields.Char(related='employee_id.identification_id', string='Employee ID', required=True)
+    # name = fields.Char(related='employee_id.name', string='Name')
+    identification_id = fields.Char(related='employee_id.identification_id', string='Employee ID', required=False)
     grade = fields.Char(string='Grade')
     section = fields.Char(string='Section')
     leave_reason = fields.Selection([('resg', 'Resignation'),
@@ -63,8 +64,6 @@ class hr_clearance(models.Model):
                                default=lambda self: self.departments_assets('hr'))
     finance_asset = fields.One2many('department.asset', 'finance_id', 'Finance Department',
                                     default=lambda self: self.departments_assets('finance'))
-
-    # employee_3ohda = fields.Many2many(comodel_name="hr.asset.expense.3ohda.line",string="3ohda", required=False, )
     state = fields.Selection([('draft', 'Draft'),
                               ('confirm', 'Waiting Approval'),
                               ('done', 'Done'),
@@ -76,11 +75,11 @@ class hr_clearance(models.Model):
         self.sent = True
         return self.env.ref('odt_hr_custom.report_hr_clearance_form').report_action(self)
 
-    @api.onchange('employee_id')
-    def _onchange_employee_id(self):
-        employee = self.env['hr.asset.expense.3ohda'].search([('employee_id', '=', self.employee_id.id)])
-        if employee:
-            self.employee_3ohda = employee.ohda_line.filtered(lambda type : type.state_3ohda == 'deliver').ids
+    # @api.onchange('employee_id')
+    # def _onchange_employee_id(self):
+    #     employee = self.env['hr.asset.expense.3ohda'].search([('employee_id', '=', self.employee_id.id)])
+    #     if employee:
+    #         self.employee_3ohda = employee.ohda_line.filtered(lambda type : type.state_3ohda == 'deliver').ids
 
     @api.multi
     def draft_state(self):
@@ -104,10 +103,10 @@ class department_asset(models.Model):
     _description = "Department Assets"
     _rec_name = 'name'
 
-    name = fields.Char('Asset Name', required="True")
+    name = fields.Char('Asset Name', required=False)
     asset_answer = fields.Selection([('YES', 'YES'),
                                      ('NO', 'NO'),
-                                     ('No Answer', 'No Answer')], 'Status', required="True")
+                                     ('No Answer', 'No Answer')], 'Status', required=False)
     reviewed_by = fields.Many2one('hr.employee', 'Handled By')
     it_id = fields.Many2one('hr.clearance', 'IT Department')
     emp_dep = fields.Many2one('hr.clearance', 'Employee Department')

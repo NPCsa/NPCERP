@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="hr_holiday_report">
+        <t t-call="web.external_layout">
+            <div class="page">
+                <center>
+                    <h1 class="p3 ft0">Vacation Analysis Report</h1>
+                    <t t-set="info" t-value="get_header_info"/>
+                    <h3 class="text-center mb32">
+                        Analyze from
+                        <u>
+                            <t t-esc="info['start_date']"/>
+                        </u>
+                        to
+                        <u>
+                            <t t-esc="info['end_date']"/>
+                        </u>
+                    </h3>
+                    <hr style="height:5px; border:none; color:#333; background-color:#333"/>
+                    <table width="100%" class="tb0">
+                        <thead>
+                            <tr>
+                                <th class="text-center td5" width="18%">Employee</th>
+                                <th class="text-center td5" width="18%">Initial Balance</th>
+                                <th class="text-center td5" width="18%">Deduction</th>
+                                <th class="text-center td5" width="18%">Balance</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="get_data" t-as="d">
+                                <tr>
+                                    <t t-foreach="d" t-as="t">
+                                        <td class="text-center td2">
+                                            <span t-esc="t"/>
+                                        </td>
+                                    </t>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </center>
+            </div>
+        </t>
+    </template>
+</odoo>
+

@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_employee_user_custom,hr.employee.leave.line,model_hr_employee_leave_line,,1,1,1,1
+access_employee_user_manual_custom,hr.employee.leave.line.manual,model_hr_employee_leave_line_manual,,1,1,1,1
+access_employee_user_leave_custom,hr.leave.allocation.method,model_hr_leave_allocation_method,,1,1,1,1
