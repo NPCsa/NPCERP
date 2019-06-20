@@ -2,7 +2,7 @@
 <openerp>
     <data>
 
-    <record id="view_employee_form" model="ir.ui.view">
+        <record id="view_employee_form" model="ir.ui.view">
             <field name="name">hr.employee.form</field>
             <field name="model">hr.employee</field>
             <field name="inherit_id" ref="hr.view_employee_form"/>
@@ -27,7 +27,8 @@
                             <field name="last_name" placeholder="Last Name" class="oe_inline oe_edit_only"/>
                         </h3>
                         <label for="category_ids" class="oe_edit_only" groups="base.group_hr_user"/>
-                        <field name="category_ids" widget="many2many_tags" placeholder="e.g. Part Time" groups="base.group_hr_user"/>
+                        <field name="category_ids" widget="many2many_tags" placeholder="e.g. Part Time"
+                               groups="base.group_hr_user"/>
                         <label for="work_email" class="oe_edit_only"/>
                         <field name="work_email" widget="email"/>
                         <label for="work_phone" class="oe_edit_only"/>
@@ -37,10 +38,20 @@
             </field>
         </record>
 
+        <record id="hr_view_employee_tree" model="ir.ui.view">
+            <field name="name">hr.employee.tree</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='work_phone']" position="before">
+                    <field name="employee_id"/>
+                </xpath>
+            </field>
+        </record>
+
         <record id="hr.open_view_employee_list_my" model="ir.actions.act_window">
             <field name="context">{'readonly_by_pass': True}</field>
         </record>
-
 
 
     </data>
