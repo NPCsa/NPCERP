@@ -20,13 +20,21 @@ class Payslip(models.Model):
     def create(self, values):
         res = super(Payslip, self).create(values)
         if not res.employee_id.active:
-            raise UserError(_('You Cannot Create Payslip For Archive Employee.'))
+            raise UserError(_('You Cannot Create Payslip For Archive Employee.%s') % (res.employee_id.name))
+        if not res.contract_id:
+            raise UserError(_('You Cannot Create Payslip For Employee %s has not contract.') % (res.employee_id.name))
         return res
 
 class PayslipRun(models.Model):
     _inherit = 'hr.payslip.run'
 
     state = fields.Selection(selection_add=[('done', 'Confirm')])
+
+    @api.onchange('date_start', 'date_end')
+    def onchange_batch_dates(self):
+        if self.date_start:
+            date_from = fields.Datetime.from_string(self.date_start)
+            self.date_end = str(date_from + relativedelta.relativedelta(months=+1, day=1, days=-1))[:10]
 
     @api.multi
     def compute_sheet(self):

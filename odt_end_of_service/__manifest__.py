@@ -30,11 +30,11 @@
     'website': "www.odootec.com",
     "depends": ['hr_payroll'],
     "data": [
-        'views/end_of_service_type_view.xml',
         'views/termination_view.xml',
         'views/hr_termination_sequence.xml',
         'views/hr_employee.xml',
         'views/hr_holidays_view.xml',
+        'views/termination_report.xml',
         'security/ir.model.access.csv',
         ],
     "active": False,

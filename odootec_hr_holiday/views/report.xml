@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <report
+            id="action_report_hr_holidays"
+            string="Hr Holiday Report"
+            model="hr.leave"
+            name="odootec_hr_holiday.hr_holiday_report"
+            report_type="qweb-pdf"
+            file="odootec_hr_holiday.hr_holiday_report"
+            menu="False"
+        />
+
+    </data>
+</odoo>

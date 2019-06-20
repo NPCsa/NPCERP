@@ -11,7 +11,7 @@ class res_partner(models.Model):
         for partner in self:
             if partner.birthday:
                 today = fields.date.today()
-                born = datetime.strptime(partner.birthday, '%Y-%m-%d')
+                born = datetime.strptime(str(partner.birthday), '%Y-%m-%d')
                 self.age = today.year - born.year - ((today.month, today.day) < (born.month, born.day))
             else:
                 self.age = 0

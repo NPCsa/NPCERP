@@ -308,6 +308,7 @@
         <menuitem action="action_hr_insurance_company" id="hr_menu_insurance_company"
                   parent="hr.menu_human_resources_configuration" sequence="6" groups="base.group_no_one"/>
 
+
     </data>
 
 </odoo>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Inherit Form View to Modify it -->
+        <record id="account_invoice_asset_from" model="ir.ui.view">
+            <field name="name">account.invoice.asset.from</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_supplier_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//header//button[@name='action_invoice_open']" position="after">
+                    <button name="%(action_asset_expense_3ohda)d" id="account_invoice_asset_btn" type="action"
+                            states="open" string="Assign Asset" class="oe_highlight"/>
+                </xpath>
+
+            </field>
+        </record>
+
+
+    </data>
+</odoo>
