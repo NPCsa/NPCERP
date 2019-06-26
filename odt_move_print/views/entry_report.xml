@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+<template id="report_entry_document">
+    <t t-call="web.internal_layout">
+
+	  <t t-foreach="docs" t-as="o">
+        <!--<div class="page" style="margin:10px; padding:22px; border:3px solid #ccc; border-radius:10px;">-->
+            <!--<link rel='stylesheet' href='/odootec_move_print/static/src/css/report.css'/>-->
+
+                        <h3 class="text-center">Entry Receipt: <span t-field="o.name"/></h3>
+                        <br></br>
+                        <div class="row">
+                            <div class="col-4 text-left">
+                                <strong>Description:</strong>
+                                <p class="m-0" t-field="o.ref"/>
+                            </div>
+                            <div class="col-4 text-center"></div>
+                            <div class="col-4 text-right">
+                                <strong>Date:</strong>
+                                <p class="m-0" t-field="o.date"/>
+                            </div>
+                        </div>
+
+                <div class="row">
+                        <table width="100%" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th style="border:1px solid black; word-wrap:break-word"  class="text-center td5">Code</th>
+                                    <th style="border:1px solid black; word-wrap:break-word"  class="text-center td5">Account</th>
+                                    <th style="border:1px solid black; word-wrap:break-word"  class="text-center td5">Partner</th>
+                                    <th style="border:1px solid black; word-wrap:break-word"  class="text-center td5">Analytic Account</th>
+                                    <th style="border:1px solid black; word-wrap:break-word"  class="text-center td5">Credit</th>
+                                    <th style="border:1px solid black; word-wrap:break-word"  class="text-center td5">Debit</th>
+                                    <th style="border:1px solid black; word-wrap:break-word"  class="text-center td5">Label</th>
+                                </tr>
+                            </thead>
+                            <tbody class="voucher_tbody">
+                                <t t-set="debit" t-value="0" />
+                                <t t-set="credit" t-value="0" />
+                                <tr t-foreach="o.line_ids" t-as="l">
+                                    <t t-set="debit" t-value="debit+l.debit"/>
+                                    <t t-set="credit" t-value="credit+l.credit"/>
+                                    <td style="word-wrap:break-word;border:1px solid black" class="text-center td2">
+                                        <span t-field="l.account_id.code"/>
+                                    </td>
+                                    <td style="word-wrap:break-word;border:1px solid black" class="text-center td2">
+                                        <span t-field="l.account_id.name"/>
+                                    </td>
+                                    <td style="word-wrap:break-word;border:1px solid black" class="text-center td2">
+                                        <span t-field="l.partner_id.name"/>
+                                    </td>
+                                    <td style="word-wrap:break-word;border:1px solid black" class="text-center td2">
+                                        <span t-field="l.analytic_account_id.name"/>
+                                    </td>
+                                     <td style="border:1px solid black; word-wrap:break-word" class="text-center td2">
+                                         <span t-field="l.credit"/>
+                                    </td>
+                                    <td style="border:1px solid black; word-wrap:break-word" class="text-center td2">
+                                        <span t-field="l.debit"/>
+
+                                    </td>
+                                    <td style="border:1px solid black; word-wrap:break-word" class="text-center td2">
+                                        <span t-field="l.name"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="border:1px solid black; word-wrap:break-word" class="text-center td2"></td>
+                                    <td style="border:1px solid black; word-wrap:break-word" class="text-center td2"></td>
+                                    <td style="border:1px solid black; word-wrap:break-word" class="text-center td2"></td>
+                                    <td style="border:1px solid black; word-wrap:break-word" class="text-center td2"></td>
+                                    <td style="border:1px solid black; word-wrap:break-word" class="text-center td2"><span t-esc="credit"/> </td>
+                                    <td style="border:1px solid black; word-wrap:break-word" class="text-center td2"><span t-esc="debit"/> </td>
+                                    <!--<td style="border:1px solid black; word-wrap:break-word" class="text-center td2"></td>-->
+                                    <td style="border:1px solid black; word-wrap:break-word" class="text-center td2"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                </div>
+
+            <div class="row mt32 mb32" id="edit2">
+                <div class="col-4 text-center">
+                     <strong>Prepared By:</strong>
+                </div>
+                <div class="col-4 text-center">
+                    <strong>Reviewed By:</strong>
+                </div>
+                <div class="col-4 text-center">
+                   <strong>Approved By:</strong>
+                </div>
+            </div>
+
+      </t>
+
+    </t>
+      
+</template>
+
+<template id="report_entry">
+    <t t-call="web.html_container">
+        <t t-foreach="doc_ids" t-as="doc_id">
+            <!--<t t-raw="translate_doc(doc_id, doc_model, 'partner_id.lang', 'odootec_voucher_print.report_voucher_document')"/>-->
+            <t t-call="odt_move_print.report_entry_document"/>
+        </t>
+    </t>
+</template>
+</data>
+</openerp>

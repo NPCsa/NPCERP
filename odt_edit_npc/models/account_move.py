@@ -54,6 +54,7 @@ class AccountMove(models.Model):
     tax_type_domain = fields.Char(store=False,track_visibility='onchange',
                                   help='Technical field used to have a dynamic taxes domain on the form view.')
 
+
 class Account(models.Model):
     _inherit = 'account.account'
 
