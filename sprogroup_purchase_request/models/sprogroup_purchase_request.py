@@ -84,7 +84,7 @@ class SprogroupPurchaseRequest(models.Model):
             self.department_id = None
             return
 
-        employee = self.env['hr.employee'].search([('work_email', '=', self.requested_by.email)])
+        employee = self.env['hr.employee'].search([('work_email', '=', self.requested_by.login)])
         if (len(employee) > 0):
             self.department_id = employee[0].department_id.id
         else:

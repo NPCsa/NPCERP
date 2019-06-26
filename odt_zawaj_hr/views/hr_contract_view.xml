@@ -11,6 +11,10 @@
                     <field name="zw_idara" readonly="1"/>
                 </xpath>
 
+                <xpath expr="//field[@name='analytic_account_id']" position="after">
+                    <field name="analytic_tag_ids" widget="many2many_tags"/>
+                </xpath>
+
                 <field name="advantages" position="after">
                     <field name="gossi_reg_no"/>
                     <label for="total_salary"/>
