@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Inherit Form View to Modify it -->
+        <record id="hr_resource_calendar_attendance_tree_inherit" model="ir.ui.view">
+            <field name="name">resource.calendar.attendance.tree</field>
+            <field name="model">resource.calendar.attendance</field>
+            <field name="inherit_id" ref="resource.view_resource_calendar_attendance_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='day_period']" position="before">
+                    <field name="work_type"/>
+                </xpath>
+
+            </field>
+        </record>
+
+    </data>
+</odoo>

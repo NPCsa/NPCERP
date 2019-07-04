@@ -10,6 +10,7 @@ class EmployeeContract(models.Model):
     zw_idara = fields.Many2one(related='employee_id.zw_idara', string='Location')
     analytic_tag_ids = fields.Many2many('account.analytic.tag', string='Analytic Tags')
 
+    @api.one
     @api.depends('employee_id')
     def get_ref(self):
         self.name = str(self.employee_id.employee_id) + '/' + str(datetime.now().year)
