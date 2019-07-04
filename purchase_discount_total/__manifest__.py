@@ -8,6 +8,7 @@
     'depends': [
         'purchase',
         'account',
+        'sale_discount_total'
     ],
     'data': [
         'views/purchase_order_view.xml',
