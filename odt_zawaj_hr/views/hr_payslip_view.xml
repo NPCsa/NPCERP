@@ -19,6 +19,7 @@
                 <field name="employee_id" position="after">
                     <field name="age" invisible="1"/>
                     <field name="service_period" invisible="1"/>
+                    <field name="work" invisible="1"/>
                     <field name="is_refund" invisible="1"/>
                     <field name="zw_idara" invisible="1"/>
                 </field>

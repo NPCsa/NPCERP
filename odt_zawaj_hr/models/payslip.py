@@ -17,6 +17,7 @@ class HrPayslip(models.Model):
 
     age = fields.Float('Age',compute='_compute_age_service')
     service_period = fields.Float('Service Period',compute='_compute_age_service')
+    work = fields.Float('Working Period',compute='_compute_age_service')
     zw_idara = fields.Many2one(related='employee_id.zw_idara', string='Location',store=True)
     is_refund = fields.Boolean(string="Refund")
     employee_code = fields.Char('Employee ID', related='employee_id.employee_id')
@@ -70,6 +71,10 @@ class HrPayslip(models.Model):
             join_date = datetime.strptime(str(self.employee_id.joining_date), '%Y-%m-%d')
             diff = today - join_date.date()
             self.service_period = round((diff.days / 365) * 12, 2)
+        if self.date_from and self.date_to:
+            from_date = fields.Datetime.from_string(self.date_from)
+            to_date = fields.Datetime.from_string(self.date_to)
+            self.work = (to_date - from_date).days + 1
 
 
     @api.onchange('employee_id', 'date_from', 'date_to')
