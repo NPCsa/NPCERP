@@ -20,17 +20,20 @@
                     <field name="total_before_discount" />
                 </xpath>
                 <xpath expr="//field[@name='amount_untaxed']" position="after">
-                    <field name="discount" />
+                    <field name="amount_discount" />
                 </xpath>
-                <xpath expr="//field[@name='order_line']/tree/field[@name='price_unit']" position="after">
-                    <field name="discount"/>
-                </xpath>
+                <!--<xpath expr="//field[@name='order_line']/tree/field[@name='price_unit']" position="after">-->
+                    <!--<field name="discount"/>-->
+                <!--</xpath>-->
                 <xpath expr="//field[@name='order_line']/tree/field[@name='price_subtotal']" position="before">
                     <field name="price"/>
                 </xpath>
                 <xpath expr="//field[@name='order_line']//tree[1]//field[@name='price_subtotal']" position="attributes">
                     <attribute name="invisible">1</attribute>
                 </xpath>
+                <!--<xpath expr="//field[@name='order_line']//tree[1]//field[@name='discount']" position="attributes">-->
+                    <!--<attribute name="invisible">1</attribute>-->
+                <!--</xpath>-->
                 <xpath expr="//field[@name='amount_untaxed']" position="attributes">
                     <attribute name="invisible">1</attribute>
                 </xpath>
@@ -69,7 +72,7 @@
                       Discount:
                     </div>
                     <div class="col-lg-2 text-right">
-                      <span t-field="order.discount" t-options='{"widget": "monetary", "display_currency": order.currency_id}'/>
+                      <span t-field="order.amount_discount" t-options='{"widget": "monetary", "display_currency": order.currency_id}'/>
                     </div>
                 </div>
             </xpath>
@@ -98,10 +101,10 @@
                 </tr>
             </xpath>
             <xpath expr="//div[@id='total']//table[1]//tr[2]" position="before">
-                <tr t-if="o.discount > 0" class="border-black">
+                <tr t-if="o.amount_discount > 0" class="border-black">
                     <td><strong>Discount</strong></td>
                     <td class="text-right">
-                        <span t-field="o.discount"
+                        <span t-field="o.amount_discount"
                               t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
                     </td>
                 </tr>

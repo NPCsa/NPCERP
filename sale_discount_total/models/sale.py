@@ -27,7 +27,7 @@ import odoo.addons.decimal_precision as dp
 class SaleOrder(models.Model):
     _inherit = "sale.order"
 
-    @api.depends('order_line.price_total')
+    @api.depends('order_line.price_total','discount_type', 'discount_rate',)
     def _amount_all(self):
         """
         Compute the total amounts of the SO.
@@ -37,12 +37,17 @@ class SaleOrder(models.Model):
             for line in order.order_line:
                 amount_untaxed += line.price_subtotal
                 amount_tax += line.price_tax
-                amount_discount += (line.product_uom_qty * line.price_unit * line.discount)/100
             order.update({
-                'amount_untaxed': order.pricelist_id.currency_id.round(amount_untaxed),
+                'amount_untaxed': order.pricelist_id.currency_id.round(amount_untaxed)
+            })
+            if order.discount_type == 'percentage':
+                amount_discount = (order.discount_rate * order.amount_untaxed)/100
+            else:
+                amount_discount = order.discount_rate
+            order.update({
                 'amount_tax': order.pricelist_id.currency_id.round(amount_tax),
                 'amount_discount': order.pricelist_id.currency_id.round(amount_discount),
-                'amount_total': amount_untaxed + amount_tax,
+                'amount_total': amount_untaxed + amount_tax - amount_discount,
             })
 
     discount_type = fields.Selection([('percentage', 'Percentage'), ('amount', 'Amount')], string='Discount type',
@@ -59,22 +64,22 @@ class SaleOrder(models.Model):
     amount_discount = fields.Monetary(string='Discount', store=True, readonly=True, compute='_amount_all',
                                       digits=dp.get_precision('Account'), track_visibility='always')
 
-    @api.onchange('discount_type', 'discount_rate', 'order_line')
-    def supply_rate(self):
-        for order in self:
-            if order.discount_type == 'percentage':
-                for line in order.order_line:
-                    line.discount = order.discount_rate
-            else:
-                total = discount = 0.0
-                for line in order.order_line:
-                    total += round((line.product_uom_qty * line.price_unit))
-                if order.discount_rate != 0:
-                    discount = (order.discount_rate / total) * 100
-                else:
-                    discount = order.discount_rate
-                for line in order.order_line:
-                    line.discount = discount
+    # @api.onchange('discount_type', 'discount_rate', 'order_line')
+    # def supply_rate(self):
+    #     for order in self:
+    #         if order.discount_type == 'percentage':
+    #             for line in order.order_line:
+    #                 line.discount = order.discount_rate
+    #         else:
+    #             total = discount = 0.0
+    #             for line in order.order_line:
+    #                 total += round((line.product_uom_qty * line.price_unit))
+    #             if order.discount_rate != 0:
+    #                 discount = (order.discount_rate / total) * 100
+    #             else:
+    #                 discount = order.discount_rate
+    #             for line in order.order_line:
+    #                 line.discount = discount
 
     @api.multi
     def _prepare_invoice(self,):

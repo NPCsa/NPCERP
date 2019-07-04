@@ -2,7 +2,7 @@ from odoo import models, fields, api, _
 from odoo.tools import float_is_zero
 from odoo.exceptions import UserError
 
-
+import odoo.addons.decimal_precision as dp
 class PurchaseOrder(models.Model):
     _inherit = 'purchase.order'
 
@@ -29,6 +29,26 @@ class PurchaseOrder(models.Model):
         # self.amount_total_signed = self.amount_total
         # self.amount_untaxed_signed = amount_untaxed_signed
 
+    @api.depends('order_line.price_total', 'discount_type', 'discount_rate')
+    def _amount_all(self):
+        for order in self:
+            amount_untaxed = amount_tax = 0.0
+            for line in order.order_line:
+                amount_untaxed += line.price_subtotal
+                amount_tax += line.price_tax
+            order.update({
+                'amount_untaxed': order.currency_id.round(amount_untaxed)
+            })
+            if order.discount_type == 'percentage':
+                amount_discount = (order.discount_rate * order.amount_untaxed) / 100
+            else:
+                amount_discount = order.discount_rate
+            order.update({
+                'amount_tax': order.currency_id.round(amount_tax),
+                'amount_discount': order.currency_id.round(amount_discount),
+                'amount_total': amount_untaxed + amount_tax - amount_discount,
+            })
+
     @api.one
     @api.depends('order_line')
     def compute_total_before_discount(self):
@@ -42,32 +62,33 @@ class PurchaseOrder(models.Model):
     discount_rate = fields.Float(string='Discount Rate', digits=(16, 2),
                                  readonly=True, states={'draft': [('readonly', False)], 'sent': [('readonly', False)]}, default=0.0)
     discount = fields.Monetary(string='Discount', digits=(16, 2), default=0.0,
-                               store=True, compute='compute_lines_discount', track_visibility='always')
+                               store=True, track_visibility='always')
     total_before_discount = fields.Monetary(string='Total Before Discount', digits=(16, 2), store=True, compute='compute_total_before_discount')
+    amount_discount = fields.Monetary(string='Discount', store=True, readonly=True, compute='_amount_all',
+                                      digits=dp.get_precision('Account'), track_visibility='always')
+    # @api.onchange('discount_type', 'discount_rate', 'order_line')
+    # def set_lines_discount(self):
+    #     if self.discount_type == 'percentage':
+    #         for line in self.order_line:
+    #             line.discount = self.discount_rate
+    #     else:
+    #         total = discount = 0.0
+    #         for line in self.order_line:
+    #             total += (line.product_qty * line.price_unit)
+    #         if self.discount_rate != 0:
+    #             discount = (self.discount_rate / total) * 100
+    #         else:
+    #             discount = self.discount_rate
+    #         for line in self.order_line:
+    #             line.discount = discount
 
-    @api.onchange('discount_type', 'discount_rate', 'order_line')
-    def set_lines_discount(self):
-        if self.discount_type == 'percentage':
-            for line in self.order_line:
-                line.discount = self.discount_rate
-        else:
-            total = discount = 0.0
-            for line in self.order_line:
-                total += (line.product_qty * line.price_unit)
-            if self.discount_rate != 0:
-                discount = (self.discount_rate / total) * 100
-            else:
-                discount = self.discount_rate
-            for line in self.order_line:
-                line.discount = discount
-
-    @api.one
-    @api.depends('order_line.price')
-    def compute_lines_discount(self):
-        discount = 0
-        for line in self.order_line:
-            discount += line.discount * (line.product_qty * line.price_unit) / 100
-        self.discount = discount
+    # @api.one
+    # @api.depends('order_line.price')
+    # def compute_lines_discount(self):
+    #     discount = 0
+    #     for line in self:
+    #         discount += line.discount * (line.amount_untaxed * line.price_unit) / 100
+    #     self.discount = discount
 
     @api.multi
     def button_dummy(self):
@@ -85,7 +106,7 @@ class PurchaseOrderLine(models.Model):
             line.update({
                 'price_tax': sum(t.get('amount', 0.0) for t in taxes.get('taxes', [])),
                 'price_total': taxes['total_included'],
-                'price_subtotal': line.product_qty * line.price_unit - (line.discount * (line.product_qty * line.price_unit) / 100),
+                'price_subtotal': line.product_qty * line.price_unit ,
             })
 
     @api.one
