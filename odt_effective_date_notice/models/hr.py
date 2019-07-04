@@ -21,7 +21,7 @@ class HrHolidays(models.Model):
         data_holiday =  self.browse(self._ids)
         for record in data_holiday:
            if record.date_to != False:
-                return_date = datetime.strptime(record.date_to, "%Y-%m-%d %H:%M:%S").date()
+                return_date = datetime.strptime(str(record.date_to), "%Y-%m-%d %H:%M:%S").date()
                 record.employee_id.write({'on_vacation': True, 'return_work': return_date + timedelta(days=+1)})
         return super(HrHolidays, self).action_validate()
 

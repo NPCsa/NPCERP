@@ -8,13 +8,14 @@
     'website': "www.odootec.com",
     'category': 'Hr',
     'version': '1.0.1',
-    'depends': ['hr_payroll','account'],
+    'depends': ['base','hr_payroll','account','hr_holidays'],
     'data': [
 
         # 'security/ir.model.access.csv',
         'security/security_view.xml',
         'views/hr_payroll_view.xml',
         'views/payslip_report_custom.xml',
+        'views/working_schedule_view.xml',
     ],
     'installable': True,
     'auto_install': False,

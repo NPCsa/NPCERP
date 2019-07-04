@@ -33,7 +33,7 @@ class DateNotice(models.Model):
         holiday_obj = self.env['hr.leave']
         employee = self.env['hr.employee'].search([('id', '=', self.employee_id.id)])
         if self.start_work < employee.return_work:
-            return_date = datetime.strptime(self.start_work, "%Y-%m-%d").date()
+            return_date = datetime.strptime(str(self.start_work), "%Y-%m-%d").date()
             return_dt = str(return_date) + " 00:00:00"
             vacation = self.env['hr.leave'].search(
                 [('employee_id', '=', self.employee_id.id),('date_to', '>', return_dt),
@@ -45,8 +45,8 @@ class DateNotice(models.Model):
             end_dt = ''
             days = ''
             for vac in vacation:
-                vac_f_date = datetime.strptime(vac.date_from, "%Y-%m-%d %H:%M:%S").date()
-                to_date = datetime.strptime(return_dt, "%Y-%m-%d %H:%M:%S").date()
+                vac_f_date = datetime.strptime(str(vac.date_from), "%Y-%m-%d %H:%M:%S").date()
+                to_date = datetime.strptime(str(return_dt), "%Y-%m-%d %H:%M:%S").date()
                 days = (to_date - vac_f_date).days
                 emp_id = vac.employee_id
                 name = vac.name
@@ -73,7 +73,7 @@ class DateNotice(models.Model):
             if employee.on_vacation == True:
                 employee.write({'on_vacation': False})
         else:
-            st_dt = datetime.strptime(self.start_work, "%Y-%m-%d")
+            st_dt = datetime.strptime(str(self.start_work), "%Y-%m-%d")
             ret_dt = str(st_dt + timedelta(days=-1))
             vacation = self.env['hr.leave'].search(
                 [('employee_id', '=', self.employee_id.id), ('type', '=', 'remove'), ('date_to', '>=', ret_dt),
@@ -82,8 +82,8 @@ class DateNotice(models.Model):
                 if employee.on_vacation == True:
                     employee.write({'on_vacation': False, 'return_work': self.start_work})
             else:
-                start_w_date = datetime.strptime(self.start_work, "%Y-%m-%d").date()
-                ret_date = datetime.strptime(employee.return_work, "%Y-%m-%d").date()
+                start_w_date = datetime.strptime(str(self.start_work), "%Y-%m-%d").date()
+                ret_date = datetime.strptime(str(employee.return_work), "%Y-%m-%d").date()
                 absent_days = (start_w_date - ret_date).days
                 if employee.on_vacation == True:
                     employee.write(
