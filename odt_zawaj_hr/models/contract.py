@@ -20,4 +20,5 @@ class EmployeeContract(models.Model):
     @api.one
     def _compute_total_salary(self):
         for record in self:
-            record.total_salary = record.wage + record.overtime_allowance + record.work_allowance + record.reward + record.transportation_allowance + record.housing_allowance + record.mobile_allowance + record.other_allowance - record.deduction
+            gosi = record.gosi if not record.gosi_in_payslip else 0.0
+            record.total_salary = record.wage + record.overtime_allowance + record.work_allowance + record.reward + record.transportation_allowance + record.housing_allowance + record.mobile_allowance + record.other_allowance - record.deduction - gosi
