@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <template id="report_invoice_customized" inherit_id="account.report_invoice_document">
+            <xpath expr="//tr[hasclass('border-black')]" position="after">
+                <tr>
+                    <td>Discount</td>
+                    <td class="text-right">
+                        <span t-field="o.amount_discount"/>
+                    </td>
+                </tr>
+            </xpath>
+            <xpath expr="//t/div/table/thead/tr/th[5]" position="replace">
+               
+            </xpath>
+            <xpath expr="//t/div/table/tbody/t/tr/t/td[5]" position="replace">
+               
+            </xpath>
+        </template>
+
+    </data>
+</odoo>

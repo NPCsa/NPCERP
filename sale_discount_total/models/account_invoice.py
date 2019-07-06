@@ -28,12 +28,15 @@ class AccountInvoice(models.Model):
 
     @api.one
     @api.depends('invoice_line_ids.price_subtotal', 'tax_line_ids.amount', 'tax_line_ids.amount_rounding',
-                 'currency_id', 'company_id', 'date_invoice', 'type')
+                 'currency_id', 'company_id', 'date_invoice', 'type','discount_type', 'discount_rate',)
     def _compute_amount(self):
         self.amount_untaxed = sum(line.price_subtotal for line in self.invoice_line_ids)
         self.amount_tax = sum(line.amount_total for line in self.tax_line_ids)
-        self.amount_total = self.amount_untaxed + self.amount_tax
-        self.amount_discount = sum((line.quantity * line.price_unit * line.discount)/100 for line in self.invoice_line_ids)
+        if self.discount_type == 'percentage':
+            self.amount_discount = (self.discount_rate * self.amount_untaxed) / 100
+        else:
+            self.amount_discount = self.discount_rate
+        self.amount_total = self.amount_untaxed + self.amount_tax - self.amount_discount
         amount_total_company_signed = self.amount_total
         amount_untaxed_signed = self.amount_untaxed
         if self.currency_id and self.currency_id != self.company_id.currency_id:
@@ -45,28 +48,29 @@ class AccountInvoice(models.Model):
         self.amount_total_signed = self.amount_total * sign
         self.amount_untaxed_signed = amount_untaxed_signed * sign
 
-    # discount_type = fields.Selection([('percentage', 'Percentage'), ('amount', 'Amount')], string='Discount Type',
-    #                                  readonly=True, states={'draft': [('readonly', False)]}, default='percentage')
-    # discount_rate = fields.Float('Discount Amount', digits=(16, 2), readonly=True, states={'draft': [('readonly', False)]})
+    discount_type = fields.Selection([('percentage', 'percentage'), ('amount', 'Amount')], string='Discount Type',
+                                     readonly=True, states={'draft': [('readonly', False)]}, default='amount')
+    discount_rate = fields.Float(string='Discount Rate', digits=(16, 2),
+                                 readonly=True, states={'draft': [('readonly', False)]}, default=0.0)
     amount_discount = fields.Monetary(string='Discount', store=True, readonly=True, compute='_compute_amount',
                                       track_visibility='always')
 
-    @api.onchange('discount_type', 'discount_rate', 'invoice_line_ids')
-    def supply_rate(self):
-        for inv in self:
-            if inv.discount_type == 'percentage':
-                for line in inv.invoice_line_ids:
-                    line.discount = inv.discount_rate
-            else:
-                total = discount = 0.0
-                for line in inv.invoice_line_ids:
-                    total += (line.quantity * line.price_unit)
-                if inv.discount_rate != 0:
-                    discount = (inv.discount_rate / total) * 100
-                else:
-                    discount = inv.discount_rate
-                for line in inv.invoice_line_ids:
-                    line.discount = discount
+    # @api.onchange('discount_type', 'discount_rate', 'invoice_line_ids')
+    # def supply_rate(self):
+    #     for inv in self:
+    #         if inv.discount_type == 'percentage':
+    #             for line in inv.invoice_line_ids:
+    #                 line.discount = inv.discount_rate
+    #         else:
+    #             total = discount = 0.0
+    #             for line in inv.invoice_line_ids:
+    #                 total += (line.quantity * line.price_unit)
+    #             if inv.discount_rate != 0:
+    #                 discount = (inv.discount_rate / total) * 100
+    #             else:
+    #                 discount = inv.discount_rate
+    #             for line in inv.invoice_line_ids:
+    #                 line.discount = discount
 
     @api.multi
     def compute_invoice_totals(self, company_currency, invoice_move_lines):
