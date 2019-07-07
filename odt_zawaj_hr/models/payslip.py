@@ -64,7 +64,7 @@ class HrPayslip(models.Model):
     def _compute_age_service(self):
         if self.employee_id.birthday:
             today = fields.date.today()
-            born = datetime.strptime(self.employee_id.birthday, '%Y-%m-%d')
+            born = datetime.strptime(str(self.employee_id.birthday), '%Y-%m-%d')
             self.age = today.year - born.year - ((today.month, today.day) < (born.month, born.day))
         if self.employee_id.joining_date:
             today = fields.date.today()
