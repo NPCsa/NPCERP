@@ -10,37 +10,37 @@ class HrContract(models.Model):
     wage = fields.Monetary('Basic Salary', digits=(16, 2), required=True, track_visibility="onchange",
                            help="Employee's monthly gross Basic Salary.")
 
-    transportation_allowance = fields.Float('انتقاﻻت',
+    transportation_allowance = fields.Float('Transportation',
                                             digits_compute=dp.get_precision('Payroll'),
                                             help="Allowance towards Transportation")
-    housing_allowance = fields.Float('سكن',
+    housing_allowance = fields.Float('Housing',
                                      digits_compute=dp.get_precision('Payroll'),
                                      help="Allowance towards Housing")
-    mobile_allowance = fields.Float('اتصال',
+    mobile_allowance = fields.Float('Mobile',
                                     digits_compute=dp.get_precision('Payroll'),
                                     help="Allowance towards Mobile")
-    overtime_allowance = fields.Float('عمل اضافى',
+    overtime_allowance = fields.Float('OverTime',
                                       digits_compute=dp.get_precision('Payroll'),
                                       help="Allowance towards OverTime")
-    work_allowance = fields.Float('طبيعه العمل',
+    work_allowance = fields.Float('Work',
                                   digits_compute=dp.get_precision('Payroll'),
-                                  help="Allowance towards Mobile")
-    reward = fields.Float('مكافأه',
+                                  help="Allowance towards Work")
+    reward = fields.Float('Reward',
                           digits_compute=dp.get_precision('Payroll'),
                           help="Reward")
-    other_allowance = fields.Float('آخرى',
+    other_allowance = fields.Float('Other',
                                    digits_compute=dp.get_precision('Payroll'))
-    deduction = fields.Float('خصومات',
+    deduction = fields.Float('Deduction',
                                    digits_compute=dp.get_precision('Payroll'))
 
 
-    is_trans = fields.Boolean(string="نسبه مئويه")
-    is_house = fields.Boolean(string="نسبه مئويه")
-    is_mobile = fields.Boolean(string="نسبه مئويه")
-    is_over = fields.Boolean(string="نسبه مئويه")
-    is_work = fields.Boolean(string="نسبه مئويه")
-    is_reward = fields.Boolean(string="نسبه مئويه")
-    is_other = fields.Boolean(string="نسبه مئويه")
+    is_trans = fields.Boolean(string="Percent (%)")
+    is_house = fields.Boolean(string="Percent (%)")
+    is_mobile = fields.Boolean(string="Percent (%)")
+    is_over = fields.Boolean(string="Percent (%)")
+    is_work = fields.Boolean(string="Percent (%)")
+    is_reward = fields.Boolean(string="Percent (%)")
+    is_other = fields.Boolean(string="Percent (%)")
 
     emp_id = fields.Char(string="Employee ID", related='employee_id.employee_id', required=False, )
     gosi = fields.Float(string="Gosi Saudi", compute='_compute_gosi', readonly='0', required=False, default=0.0)
