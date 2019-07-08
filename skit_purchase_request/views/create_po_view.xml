@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<odoo>
+	 <!--  Added a menu in action button -->
+	 <act_window id="create_purchase_order"
+            multi="True"
+            key2="client_action_multi" name="Create RFQ"
+            res_model="purchase.request.order" src_model="purchase.request"
+            view_mode="form" target="new" view_type="form" />
+            
+     <!-- Popup a form on click the Purchase order button in action menu -->
+     <record id="purchase_request__order" model="ir.ui.view">
+            <field name="name">purchase.request.order.form</field>
+            <field name="model">purchase.request.order</field>
+            <field name="arch" type="xml">
+                <form string="Purchase Request Order">
+                	<p class="oe_grey">
+                        Once Purchase Requests are confirmed, it will create a new RFQ for the request...
+                    </p>
+                    <footer>
+                     <button name="button_confirm" class="btn-primary" type="object" string="Create RFQ" default_focus="1"/>
+                     <button string="Cancel" class="btn-default" special="cancel"/>
+                     </footer>
+                </form>
+                
+            </field>
+    </record>
+        
+	<record id="rl_purchase_request_order" model="ir.ui.view">
+		<field name="name">purchase.request.order.form.inherit.rl</field>
+		<field name="model">purchase.request.order</field>
+		<field name="arch" type="xml">
+			<form string="Purchase Request Order">
+				<p class="oe_grey">
+					Once Purchase Requests Line are confirmed, it will create a new RFQ for the request...
+				</p>
+				<footer>
+					<button string='Create RFQ' name="button_createPO" type="object" class="btn-primary"/>
+					<button string="Cancel" class="btn-default" special="cancel" />
+				</footer>
+			</form>
+
+		</field>
+	</record>	
+	
+	<record id="action_rl_create_po" model="ir.actions.act_window">
+			<field name="name">purchase.request.line</field>
+			<field name="res_model">purchase.request.order</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">form</field>
+			<field name="view_id" ref="rl_purchase_request_order" />
+			<field name="target">new</field>
+	</record>
+	
+		
+	<act_window id="action_rl_create_po" name="Create RFQ"
+			res_model="purchase.request.order" src_model="purchase.request.line"
+			view_mode="form" multi="True" key2="client_action_multi" 
+			view_id="rl_purchase_request_order"/>
+	
+</odoo>
