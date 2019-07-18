@@ -18,6 +18,7 @@
                             <field name="is_mobile"/>
                             <field name="mobile_allowance"/>
                             <field name="is_over"/>
+                            <field name="is_total"/>
                             <field name="overtime_allowance"/>
                             <field name="is_work"/>
                             <field name="work_allowance"/>
