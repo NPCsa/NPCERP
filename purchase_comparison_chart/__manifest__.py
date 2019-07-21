@@ -11,7 +11,7 @@
     """,
     'license': 'LGPL-3',
     'summary': 'Purchase Comparison Chart',
-    'depends': ['purchase','website', 'purchase_requisition'],
+    'depends': ['purchase', 'purchase_requisition'],
     'website': 'https://www.pptssolutions.com',
     'data': [
         'views/inherit_purchase_requisition_view.xml',

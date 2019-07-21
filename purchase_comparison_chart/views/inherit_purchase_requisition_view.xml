@@ -9,7 +9,7 @@
 		<field name="priority" eval="20" />
 		<field name="arch" type="xml">
 			<xpath expr="//button[@name='action_open']" position="after">
-				<button name="purchase_comparison" string="Purchase Comparison" type="object" class="oe_highlight" attrs="{'invisible': [('state', 'in', ['draft'])]}"/>
+				<!--<button name="purchase_comparison" string="Purchase Comparison" type="object" class="oe_highlight" attrs="{'invisible': [('state', 'in', ['draft'])]}"/>-->
 				<button name="print_xl" string="Print XLS" type="object" class="oe_highlight" attrs="{'invisible': [('state', 'in', ['draft'])]}"/>
 			</xpath>
 		</field>
