@@ -27,5 +27,6 @@
         'views/sale_view.xml',
         'views/account_payment.xml',
         'views/payment_report.xml',
+        'views/report_purchase_edit.xml',
     ]
 }
