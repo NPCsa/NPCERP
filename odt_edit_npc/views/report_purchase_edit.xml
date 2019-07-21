@@ -26,5 +26,44 @@
                 </div>
             </xpath>
         </template>
+        <template id="rfq_edit_report" inherit_id="purchase.report_purchaseorder_document">
+            <xpath expr="//div[@id='informations']" position="replace">
+                <div id="informations" class="row mt32 mb32">
+                    <div t-if="o.name" class="col-auto mw-100 mb-2">
+                        <strong>Our Order Reference:</strong>
+                        <p t-field="o.name" class="m-0"/>
+                    </div>
+                    <div t-if="o.partner_ref" class="col-auto mw-100 mb-2">
+                        <strong>Your Order Reference:</strong>
+                        <p t-field="o.partner_ref" class="m-0"/>
+                    </div>
+                    <div t-if="o.date_order" class="col-auto mw-100 mb-2">
+                        <strong>Order Date:</strong>
+                        <p t-field="o.date_order" class="m-0"/>
+                    </div>
+                    <div t-if="o.partner_id.child_ids[0].name" class="col-auto mw-100 mb-2">
+                        <strong>Reference:</strong>
+                        <p class="m-0" t-field="o.partner_ref"/>
+                    </div>
+                    <div t-if="o.partner_id.child_ids[0].name" class="col-auto mw-100 mb-2">
+                        <strong>Contract Person:</strong>
+                        <p class="m-0" t-field="o.partner_id.child_ids[0].name"/>
+                    </div>
+                    <div t-if="o.partner_id.child_ids[0].email" class="col-auto mw-100 mb-2">
+                        <strong>Vendor Contract Email:</strong>
+                        <p class="m-0" t-field="o.partner_id.child_ids[0].email"/>
+                    </div>
+                    <div t-if="o.partner_id.child_ids[0].mobile" class="col-auto mw-100 mb-2">
+                        <strong>Contract Mobile:</strong>
+                        <p class="m-0" t-field="o.partner_id.child_ids[0].mobile"/>
+                    </div>
+                    <div t-if="o.partner_id.child_ids[0].phone" class="col-auto mw-100 mb-2">
+                        <strong>Contract Phone:</strong>
+                        <p class="m-0" t-field="o.partner_id.child_ids[0].phone"/>
+                    </div>
+                </div>
+
+            </xpath>
+        </template>
     </data>
 </odoo>
