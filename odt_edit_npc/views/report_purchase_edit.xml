@@ -1,6 +1,6 @@
 <odoo>
     <data>
-        <template id="rfq_edit_report" inherit_id="purchase.report_purchasequotation_document">
+        <template id="rfq_edit_report_request" inherit_id="purchase.report_purchasequotation_document">
             <xpath expr="//t[@t-set='address']" position="after">
                 <div class="row mt32 mb32" id="informations">
                     <div t-if="o.partner_id.child_ids[0].name" class="col-auto mw-100 mb-2">
