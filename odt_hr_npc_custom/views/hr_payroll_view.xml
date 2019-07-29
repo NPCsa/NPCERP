@@ -21,7 +21,7 @@
                    <attribute name="domain">"[('id','=',parent.contract_id)]"</attribute>
                </xpath>
                <xpath expr="//field[@name='credit_note']" position="after">
-                   <field name="absent_times"/>
+                   <field name="absent_times" invisible="1"/>
                </xpath>
            </field>
        </record>
