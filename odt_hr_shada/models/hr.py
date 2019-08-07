@@ -41,7 +41,9 @@ class HrContract(models.Model):
     is_work = fields.Boolean(string="Percent (%)")
     is_reward = fields.Boolean(string="Percent (%)")
     is_other = fields.Boolean(string="Percent (%)")
+
     is_total = fields.Boolean(string="By Total")
+
 
     emp_id = fields.Char(string="Employee ID", related='employee_id.employee_id', required=False, )
     gosi = fields.Float(string="Gosi Saudi", compute='_compute_gosi', readonly='0', required=False, default=0.0)
