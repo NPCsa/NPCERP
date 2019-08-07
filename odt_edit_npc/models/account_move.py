@@ -54,6 +54,10 @@ class AccountMove(models.Model):
     tax_type_domain = fields.Char(store=False,track_visibility='onchange',
                                   help='Technical field used to have a dynamic taxes domain on the form view.')
 
+class NewModule(models.Model):
+    _inherit = 'account.move.line'
+
+    parent_account = fields.Many2one(comodel_name="account.account", string="Group of Account", required=False, )
 
 class Account(models.Model):
     _inherit = 'account.account'
