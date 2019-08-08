@@ -7,6 +7,11 @@
                         <strong>Reference:</strong>
                         <p class="m-0" t-field="o.partner_ref"/>
                     </div>
+
+                    <div t-if="o.payment_term_id" class="col-auto mw-100 mb-2">
+                        <strong>Payment Terms:</strong>
+                        <p class="m-0" t-field="o.payment_term_id.name"/>
+                    </div>
                     <t t-if="o.partner_id.child_ids">
                         <div t-if="o.partner_id.child_ids[0].name" class="col-auto mw-100 mb-2">
                             <strong>Contract Person:</strong>
@@ -17,12 +22,9 @@
                             <p class="m-0" t-field="o.partner_id.child_ids[0].email"/>
                         </div>
                         <div t-if="o.partner_id.child_ids[0].mobile" class="col-auto mw-100 mb-2">
-                            <strong>Contract Mobile:</strong>
-                            <p class="m-0" t-field="o.partner_id.child_ids[0].mobile"/>
-                        </div>
-                        <div t-if="o.partner_id.child_ids[0].phone" class="col-auto mw-100 mb-2">
+
                             <strong>Contract Phone:</strong>
-                            <p class="m-0" t-field="o.partner_id.child_ids[0].phone"/>
+                            <p class="m-0" t-field="o.partner_id.child_ids[0].mobile"/>
                         </div>
                     </t>
                 </div>
@@ -47,6 +49,12 @@
                         <strong>Reference:</strong>
                         <p class="m-0" t-field="o.partner_ref"/>
                     </div>
+
+                    <div t-if="o.payment_term_id" class="col-auto mw-100 mb-2">
+                        <strong>Payment Terms:</strong>
+                        <p class="m-0" t-field="o.payment_term_id.name"/>
+                    </div>
+
                     <t t-if="o.partner_id.child_ids">
                         <div t-if="o.partner_id.child_ids[0].name" class="col-auto mw-100 mb-2">
                             <strong>Contract Person:</strong>
@@ -57,12 +65,10 @@
                             <p class="m-0" t-field="o.partner_id.child_ids[0].email"/>
                         </div>
                         <div t-if="o.partner_id.child_ids[0].mobile" class="col-auto mw-100 mb-2">
-                            <strong>Contract Mobile:</strong>
-                            <p class="m-0" t-field="o.partner_id.child_ids[0].mobile"/>
-                        </div>
-                        <div t-if="o.partner_id.child_ids[0].phone" class="col-auto mw-100 mb-2">
+
                             <strong>Contract Phone:</strong>
-                            <p class="m-0" t-field="o.partner_id.child_ids[0].phone"/>
+                            <p class="m-0" t-field="o.partner_id.child_ids[0].mobile"/>
+
                         </div>
                     </t>
 
