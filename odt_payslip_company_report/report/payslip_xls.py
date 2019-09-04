@@ -166,23 +166,23 @@ class PayrollXlsx(models.AbstractModel):
                          other_ded or 0.0, tot_ded or 0.0, net or 0.0]
 
             data.append(data_list)
-            tot_basic = basic
-            tot_trans = trans
-            tot_house = house
-            tot_over = over
-            tot_mobile = mobile
-            tot_reward = reward
-            tot_work = work
-            tot_other_alw = other_alw
-            tot_gross = gross
-            tot_gosi = gosi
-            tot_abs_late = abs_late
-            tot_unpaid = unpaid
-            tot_sanction = sanction
-            tot_other_ded = other_ded
-            tot_tot_ded = tot_ded
-            tot_net = net
-        data.append(['الاجمالى العام', ' ', ' ', ' ', ' ', ' ', tot_basic or 0.0, tot_house or 0.0, tot_trans or 0.0,
+            tot_basic += basic
+            tot_trans += trans
+            tot_house += house
+            tot_over += over
+            tot_mobile += mobile
+            tot_reward += reward
+            tot_work += work
+            tot_other_alw += other_alw
+            tot_gross += gross
+            tot_gosi += gosi
+            tot_abs_late += abs_late
+            tot_unpaid += unpaid
+            tot_sanction += sanction
+            tot_other_ded += other_ded
+            tot_tot_ded += tot_ded
+            tot_net += net
+        data.append(['Total', ' ', ' ', ' ', ' ', ' ', tot_basic or 0.0, tot_house or 0.0, tot_trans or 0.0,
                      tot_over or 0.0, tot_mobile or 0.0, tot_reward or 0.0, tot_work or 0.0,
                      tot_other_alw or 0.0, tot_gross or 0.0, tot_gosi or 0.0, tot_abs_late or 0.0,tot_loan or 0.0, tot_unpaid or 0.0,
                      tot_sanction or 0.0, tot_other_ded or 0.0, tot_tot_ded or 0.0, tot_net or 0.0])
