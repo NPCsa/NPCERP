@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="paperformat_hr_contracts_employee_module" model="report.paperformat">
+            <field name="name">contracts</field>
+            <field name="format">A4</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Landscape</field>
+            <field name="margin_top">30</field>
+            <field name="margin_bottom">10</field>
+            <field name="margin_left">10</field>
+            <field name="margin_right">10</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">30</field>
+            <field name="dpi">100</field>
+        </record>
+
+        <report
+                id="action_hr_contracts_employee"
+                string="Employee contracts Report"
+                model="hr.contract"
+                name="odt_contracts_reports.hr_contracts_employee_report"
+                report_type="qweb-pdf"
+                file="odt_contracts_reports.hr_contracts_employee_report"
+                paperformat="paperformat_hr_contracts_employee_module"
+                menu="False"
+        />
+
+    </data>
+</odoo>

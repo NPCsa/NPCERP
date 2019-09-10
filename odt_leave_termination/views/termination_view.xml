@@ -34,16 +34,22 @@
                                 <field name="termination_code" readonly="1"/>
                                 <field name="employee_id"/>
                                 <field name="contract_id" domain="[('id','=',False)]"/>
+                                <field name="term_type"/>
+                                <field name="term_days" attrs="{'invisible': [('term_type', 'in', 'period' )]}"/>
+
                             </group>
                             <group>
                                 <field name="date"/>
                                 <field name="job_id"/>
+                                 <field name="total_loans_balance"/>
+                                <field name="paid_loans" />
+                                <field name="total_unpaid_loans" />
                             </group>
                             <group>
-                                <field name="leave_date"/>
+                                <field name="leave_date" attrs="{'invisible': [('term_type', 'in', 'balance' )],'required': [('term_type', 'not in', 'balance' )]}"/>
                             </group>
                             <group>
-                                <field name="last_leave_date"/>
+                                <field name="last_leave_date" attrs="{'invisible': [('term_type', 'in', 'balance' )],'required': [('term_type', 'not in', 'balance' )]}"/>
                             </group>
 
                             <group>

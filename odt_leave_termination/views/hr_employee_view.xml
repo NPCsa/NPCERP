@@ -12,6 +12,7 @@
                     <field name="leave_temp_date_from"/>
                     <field name="leave_temp_date_to"/>
                     <field name="leave_days_temp"/>
+                    <field name="leave_id" invisible="1"/>
                 </xpath>
             </field>
         </record>

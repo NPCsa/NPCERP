@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Inherit Form View to Modify it -->
+        <record id="edit_termination" model="ir.ui.view">
+            <field name="model">hr.termination</field>
+            <field name="inherit_id" ref="odt_end_of_service.view_hr_termination_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='employee_id']" position="after">
+                    <field name="department_id"/>
+                </xpath>
+                <xpath expr="//field[@name='job_id']" position="after">
+                    <field name="idara_id"/>
+                </xpath>
+
+            </field>
+        </record>
+
+        <record id="edit_holiday_termination" model="ir.ui.view">
+            <field name="model">hr.holiday.termination</field>
+            <field name="inherit_id" ref="odt_leave_termination.view_hr_holiday_termination_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='employee_id']" position="after">
+                    <field name="department_id"/>
+                </xpath>
+                <xpath expr="//field[@name='job_id']" position="after">
+                    <field name="idara_id"/>
+                </xpath>
+
+            </field>
+        </record>
+    </data>
+</odoo>

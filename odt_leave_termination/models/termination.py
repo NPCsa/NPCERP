@@ -27,21 +27,23 @@ class Termination(models.Model):
     contract_id = fields.Many2one('hr.contract', 'Contract', required=True, readonly=True,
                                   states={'draft': [('readonly', False)]})
     job_id = fields.Many2one('hr.job', 'Job Title', readonly=True, states={'draft': [('readonly', False)]})
-    leave_date = fields.Date('leave Date From', required=True, readonly=True,
+    leave_date = fields.Date('leave Date From', readonly=True,
                              states={'draft': [('readonly', False)]}, defualt=fields.Date.today())
-    last_leave_date = fields.Date('leave Date To', readonly=True, required=True,
+    last_leave_date = fields.Date('leave Date To', readonly=True,
                                   states={'draft': [('readonly', False)]})
     approved_by = fields.Many2one('res.users', 'Approved By', default=lambda self: self.env.user, readonly=True,
                                   states={'draft': [('readonly', False)]})
     approval_date = fields.Date('Approval Date', readonly=True, states={'draft': [('readonly', False)]})
     vacation_days = fields.Float('Vacation Days', readonly=True, states={'draft': [('readonly', False)]})
     salary_amount = fields.Float('Salary Amount', readonly=True, states={'draft': [('readonly', False)]})
-    leave_amount = fields.Float(string="Leave Amount", required=False,
-                                help="Calculation By (Total Salary - Transportation Allowance) / 30 ")
+    leave_amount = fields.Float(string="Leave Amount", required=False)
     ticket_amount = fields.Float(string="Ticket Amount", required=False, )
     total_amount = fields.Float(string="Total Amount", required=False, compute='_compute_total_amount')
     move_id = fields.Many2one('account.move', 'Journal Entry', help='Journal Entry for Termination')
-
+    term_type = fields.Selection(string="Settlement Type",
+                                 selection=[('balance', 'Balance'), ('period', 'Period'), ('both', 'Both'), ],
+                                 required=True, )
+    term_days = fields.Float(string="settlement Days", required=False, )
     payment_method = fields.Many2one('termination.leave.payments', 'Payment Method',
                                      help='payment method for Settlement')
     journal_id = fields.Many2one('account.journal', 'Journal', help='Journal for journal entry')
@@ -52,13 +54,30 @@ class Termination(models.Model):
                               ('approved2', _('Second Approve'))
                               ], _('Status'), readonly=True, copy=False, default='draft',
                              help=_("Gives the status of the Settlement"), select=True)
+    total_loans_balance=fields.Float(compute='_get_balance_data',string='Total Loans Balance')
+    paid_loans=fields.Float(compute='_get_balance_data',string='Paid Loans')
+    total_unpaid_loans=fields.Float(compute='_get_balance_data',string='UnPaid Loans')
 
-
+    @api.one
+    @api.depends('employee_id')
+    def _get_balance_data(self):
+        for item in self:
+            item.total_loans_balance=sum(record.balance for record in self.env['hr.loan'].search([('employee_id','=',item.employee_id.id)]))
+            item.paid_loans = sum(
+                line.amount for line in self.env['hr.loan.line'].search([('loan_id.employee_id', '=', item.employee_id.id),('paid','=',True)]))
+            item.total_unpaid_loans = sum(
+                uline.amount for uline in self.env['hr.loan.line'].search(
+                    [('loan_id.employee_id', '=', item.employee_id.id), ('paid', '=', False)]))
 
     @api.one
     def _compute_total_amount(self):
         for record in self:
             record.total_amount = record.leave_amount + record.ticket_amount
+
+    @api.onchange('term_days')
+    def onchange_term_days(self):
+        if self.employee_id and self.term_days > self.employee_id.remaining_leaves:
+            raise Warning(_('You can not settle days greater than remaining leaves'))
 
     @api.multi
     def button_review(self):
@@ -67,6 +86,19 @@ class Termination(models.Model):
     @api.multi
     def button_approve(self):
         termination_code = self.env['ir.sequence'].get('hr.termination.leave.code')
+        if self.term_type in ['balance', 'both']:
+            if self.term_days:
+                leave_type = self.employee_id.leave_id.holiday_status_id
+                val = {
+                    'name': 'Settlement Vacation Balance',
+                    'employee_id': self.employee_id.id,
+                    'holiday_status_id': leave_type.id,
+                    'number_of_days': self.term_days * -1,
+                }
+                holiday = self.env['hr.leave.allocation'].create(val)
+                holiday.action_approve()
+                if holiday.holiday_status_id.double_validation:
+                    holiday.action_validate()
         self.write({'termination_code': termination_code, 'state': 'approved'})
 
     @api.multi
@@ -237,14 +269,18 @@ class Termination(models.Model):
             self.job_id = self.employee_id.job_id.id
             self.leave_date = self.employee_id.leave_temp_date_from
             self.last_leave_date = self.employee_id.leave_temp_date_to
-            remaining_vacation = self.employee_id.leave_days_temp
+            remaining_vacation = 0.0
+            if self.term_type in ['period', 'both']:
+                remaining_vacation = self.employee_id.leave_days_temp + self.term_days
+            elif self.term_type in ['balance']:
+                remaining_vacation = self.term_days
             self.vacation_days = remaining_vacation
             contracts = self.get_contracts()
             if contracts:
                 return {'domain': {'contract_id': [('id', 'in', contracts.ids)]}}
             return vals
 
-    @api.onchange('contract_id', 'employee_id','payment_method')
+    @api.onchange('contract_id', 'employee_id', 'payment_method', 'term_days', 'leave_date')
     def _onchange_contract_id(self):
         for record in self:
             salary_amount = 0.0
@@ -254,36 +290,72 @@ class Termination(models.Model):
                     if field.name == 'wage':
                         salary_amount += record.contract_id[field.name]
                     elif field.name == 'transportation_allowance':
-                        salary_amount += (basic * (record.contract_id.transportation_allowance / 100) if record.contract_id.is_trans else record.contract_id.transportation_allowance)
+                        salary_amount += (basic * (
+                                    record.contract_id.transportation_allowance / 100) if record.contract_id.is_trans else record.contract_id.transportation_allowance)
                     elif field.name == 'housing_allowance':
                         salary_amount += (basic * (
-                                    record.contract_id.housing_allowance / 100) if record.contract_id.is_house else record.contract_id.housing_allowance)
+                                record.contract_id.housing_allowance / 100) if record.contract_id.is_house else record.contract_id.housing_allowance)
                     elif field.name == 'mobile_allowance':
                         salary_amount += (basic * (
-                                    record.contract_id.mobile_allowance / 100) if record.contract_id.is_mobile else record.contract_id.mobile_allowance)
+                                record.contract_id.mobile_allowance / 100) if record.contract_id.is_mobile else record.contract_id.mobile_allowance)
                     elif field.name == 'overtime_allowance':
                         salary_amount += (basic * (
-                                    record.contract_id.overtime_allowance / 100) if record.contract_id.is_over else record.contract_id.overtime_allowance)
+                                record.contract_id.overtime_allowance / 100) if record.contract_id.is_over else record.contract_id.overtime_allowance)
                     elif field.name == 'work_allowance':
                         salary_amount += (basic * (
-                                    record.contract_id.work_allowance / 100) if record.contract_id.is_work else record.contract_id.work_allowance)
+                                record.contract_id.work_allowance / 100) if record.contract_id.is_work else record.contract_id.work_allowance)
                     elif field.name == 'reward':
                         salary_amount += (basic * (
-                                    record.contract_id.reward / 100) if record.contract_id.is_reward else record.contract_id.reward)
+                                record.contract_id.reward / 100) if record.contract_id.is_reward else record.contract_id.reward)
                     elif field.name == 'ticket_allowance':
                         salary_amount += (basic * (
-                                    record.contract_id.ticket_allowance / 100) if record.contract_id.is_ticket else record.contract_id.ticket_allowance)
+                                record.contract_id.ticket_allowance / 100) if record.contract_id.is_ticket else record.contract_id.ticket_allowance)
                     elif field.name == 'food_allowance':
                         salary_amount += (basic * (
-                                    record.contract_id.food_allowance / 100) if record.contract_id.is_food else record.contract_id.food_allowance)
+                                record.contract_id.food_allowance / 100) if record.contract_id.is_food else record.contract_id.food_allowance)
                     elif field.name == 'other_allowance':
                         salary_amount += (basic * (
-                                    record.contract_id.other_allowance / 100) if record.contract_id.is_other else record.contract_id.other_allowance)
+                                record.contract_id.other_allowance / 100) if record.contract_id.is_other else record.contract_id.other_allowance)
+
+            ticket_allowance = (basic * (
+                        record.contract_id.ticket_allowance / 100) if record.contract_id.is_ticket else record.contract_id.ticket_allowance)
 
             record.salary_amount = salary_amount
-            remaining_vacation = record.employee_id.leave_days_temp
+            remaining_vacation = 0.0
+            if self.term_type in ['period', 'both']:
+                remaining_vacation = record.employee_id.leave_days_temp + record.term_days
+            elif self.term_type in ['balance']:
+                remaining_vacation = record.term_days
+            record.ticket_allowance = ticket_allowance
             record.vacation_days = remaining_vacation
-            record.leave_amount = (salary_amount / 30) * remaining_vacation
+            if record.employee_id and record.contract_id and record.leave_date:
+                payslip_employee = self.env['hr.payslip.line'].sudo().search([('employee_id', '=', record.employee_id.id),
+                                                                              ('contract_id', '=', record.contract_id.id),
+                                                                              (
+                                                                              'slip_id.date_to', '<', record.leave_date)])
+                leave_amount = sum(
+                    i.total for i in payslip_employee.filtered(lambda line: line.salary_rule_id.code == 'AnnualLeave'))
+                ticket_amount = sum(
+                    i.total for i in payslip_employee.filtered(lambda line: line.salary_rule_id.code == 'ticket'))
+                other_taken = self.sudo().search([('employee_id', '=', record.employee_id.id),
+                                                  ('contract_id', '=', record.contract_id.id),
+                                                  ('state', '=', ('approved2'))])
+                if other_taken:
+                    total_leaves_taken = sum(takenl.leave_amount for takenl in other_taken)
+                    total_tickets_taken = sum(takent.ticket_amount for takent in other_taken)
+                    leave_amount -= total_leaves_taken
+                    ticket_amount -= total_tickets_taken
+    
+                record.leave_amount = leave_amount
+                record.ticket_amount = ticket_amount
+
+    @api.model
+    def create(self, vals):
+        has_clear = self.env['hr.clearance'].sudo().search([('employee_id', '=', vals.get('employee_id'))])
+        if not has_clear:
+            raise Warning(_("You can't create Settlement without employee clearance"))
+        else:
+            return super(Termination, self).create(vals)
 
     @api.multi
     def unlink(self):
@@ -323,5 +395,6 @@ class TerminationsPayments(models.Model):
     leave_credit_account_id = fields.Many2one('account.account', 'Leave Credit Account', required=False,
                                               help='Leave Credit account for journal entry')
     leave_allocate_id = fields.Many2one(comodel_name="hr.leave.allocation", string="Allocation", required=False, )
-    field_ids = fields.Many2many('ir.model.fields', 'leave_field_rel', 'termination_id', 'field_id', 'Calculation Lines',
+    field_ids = fields.Many2many('ir.model.fields', 'leave_field_rel', 'termination_id', 'field_id',
+                                 'Calculation Lines',
                                  domain=[('model_id', '=', 'hr.contract'), ('ttype', 'in', ['float', 'monetary'])])
