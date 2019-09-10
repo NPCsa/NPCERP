@@ -39,13 +39,14 @@
             <field name="view_id" ref="employee_contract_report_form"/>
             <field name="target">new</field>
         </record>
+                <menuitem id="reporting_employee_contract" name="Reporting" parent="hr.menu_hr_root"/>
+
 
         <!-- Action placement -->
         <menuitem action="action_employee_contract_report"
                   id="menu_employee_contract_report"
                   name = "Contract Employee Report"
-                  parent="odt_contract_employee_report.reporting_employee_contract"/>
+                  parent="reporting_employee_contract"/>
         <!-- This Menu Item must have a parent and an action -->
-        <menuitem id="reporting_employee_contract" name="Reporting" parent="hr.menu_hr_root"/>
     </data>
 </odoo>
