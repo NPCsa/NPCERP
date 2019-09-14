@@ -8,7 +8,10 @@ class EmployeeType(models.Model):
 
 class HrEmployee(models.Model):
     _inherit = "hr.employee"
-
+    @api.multi
+    def read(self, fields=None, load='_classic_read'):
+        return super(HrEmployee, self.sudo()).read(fields=fields, load=load)
+    
     @api.one
     @api.depends('birthday')
     def compute_age(self):
