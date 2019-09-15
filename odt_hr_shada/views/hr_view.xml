@@ -30,7 +30,7 @@
                         <group>
                             <separator colspan="2" string="Deduction"/>
                             <field name="deduction"/>
-                            <field name="is_total_abs"/>
+                            <!--<field name="is_total_abs"/>-->
                         </group>
                          <group>
                             <field name="gosi" attrs="{'invisible':[('country_name','!=','SA')]}"/>
