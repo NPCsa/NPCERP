@@ -35,7 +35,7 @@ class PayrollXlsx(models.AbstractModel):
         format2.set_color('white')
         format2.set_bg_color('blue')
 
-        sheet.right_to_left()
+        # sheet.right_to_left()
         sheet.set_column(0, 25, 20)
         sheet.insert_image('B2', '../static/images/logo.jpeg')
 
