@@ -276,7 +276,7 @@
                                 </tr>
                                 <tr style="border: 1px solid black;height:30px; margin:10%; background-color:#FCFEFE;">
                                     <td>
-                                            <strong style="margin:10%;">Date of Birth :</strong>
+                                            <strong style="margin:10%;">Date of Birth</strong>
                                         </td>
                                         <td class="text-center">
                                             <span t-field="o.birthday"
