@@ -8,49 +8,96 @@
 
                     <!--~~~~~~~~~~~~~~~~~~~~~~~~1st ROW~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
                     <div class="row">
-                        <div class="row" style="margin-top:60px;">
-                            <h2>
-                                <center>
-                                    <strong>Employee Profile</strong>
-                                </center>
-                            </h2>
-                            <div class="col-xs-12" style="margin-top:20px;">
-                                <table width="50%"  style="margin-left:20%;" >
-                                    <tr style="border: 1px solid black;height:30px; margin:10%; background-color:#FCFEFE;" >
-                                        <td width="25%" >
-                                            <strong style="margin:10%;">Name :</strong>
-                                        </td>
-                                        <td width="45%" class="text-center" >
-                                            <t t-esc="o.name"/>
-                                        </td>
-                                    </tr>
-                                    <tr style="border: 1px solid black;height:30px; margin:10%; background-color:#FCFEFE;" >
-                                        <td width="25%">
-                                            <strong style="margin:10%;">Work Email :</strong>
-                                        </td>
-                                        <td  width="45%" class="text-center">
-                                            <t t-esc="o.work_email"/>
-                                        </td>
-                                    </tr>
-                                    <tr style="border: 1px solid black;height:30px; margin:10%; background-color:#FCFEFE;" >
-                                        <td>
-                                            <strong style="margin:10%;">Work Phone : </strong>
-                                        </td>
-                                        <td class="text-center">
-                                              <t t-esc="o.work_phone"/>
-                                        </td>
-                                    </tr>
-                                    <tr style="border: 1px solid black;height:30px; margin:10%; background-color:#FCFEFE;" >
-                                        <td>
-                                            <strong style="margin:10%;">ID : </strong>
-                                        </td>
-                                        <td class="text-center">
-                                              <t t-esc="o.employee_id"/>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </div>
-                        </div>
+                        <div class="col-xs-5">
+                            <h4>
+                                <strong>Employee Profile </strong>
+                            </h4>
+                            <table width="100%" style="empty-cells: hide;">
+                                <tr style="border: 1px solid black;height:30px; margin:10%; background-color:#FCFEFE;" >
+                                    <td width="40%">
+                                        <strong style="margin:10%;">Name: </strong>
+                                    </td>
+                                    <td width="50%" class="text-center">
+                                        <span t-if="o.name">
+                                            <span t-field="o.name"/>
+                                        </span>
+
+                                    </td>
+                                </tr>
+                                <tr style="border: 1px solid black;height:30px; margin:10%; background-color:#FCFEFE;">
+                                    <td>
+                                        <strong style="margin:10%;">Work Email : </strong>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-if="o.work_email">
+                                            <span t-field="o.work_email"/>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr style="border: 1px solid black;height:30px; margin:10%; background-color:#FCFEFE;">
+                                    <td>
+                                        <strong style="margin:10%;">Work Phone :</strong>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-if="o.work_phone">
+                                            <span t-field="o.work_phone"/>
+                                        </span>
+                                    </td>
+                                </tr>
+                                 <tr style="border: 1px solid black;height:30px; margin:10%; background-color:#FCFEFE;">
+                                    <td>
+                                        <strong style="margin:10%;">ID :</strong>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-if="o.employee_id">
+                                            <span t-field="o.employee_id"/>
+                                        </span>
+                                    </td>
+                                </tr>
+                            </table></div>
+                        <!--<div class="row" style="margin-top:60px;">-->
+                            <!--<h1>-->
+                                <!--<center>-->
+                                    <!--<strong>Employee Profile</strong>-->
+                                <!--</center>-->
+                            <!--</h1>-->
+                            <!--<div class="col-xs-12" style="margin-top:20px;">-->
+                                <!--<table width="50%"  style="margin-left:20%;" >-->
+                                    <!--<tr style="border: 1px solid black;height:30px; margin:10%; background-color:#FCFEFE;" >-->
+                                        <!--<td width="25%" >-->
+                                            <!--<strong style="margin:10%;">Name :</strong>-->
+                                        <!--</td>-->
+                                        <!--<td width="45%" class="text-center" >-->
+                                            <!--<t t-esc="o.name"/>-->
+                                        <!--</td>-->
+                                    <!--</tr>-->
+                                    <!--<tr style="border: 1px solid black;height:30px; margin:10%; background-color:#FCFEFE;" >-->
+                                        <!--<td width="25%">-->
+                                            <!--<strong style="margin:10%;">Work Email :</strong>-->
+                                        <!--</td>-->
+                                        <!--<td  width="45%" class="text-center">-->
+                                            <!--<t t-esc="o.work_email"/>-->
+                                        <!--</td>-->
+                                    <!--</tr>-->
+                                    <!--<tr style="border: 1px solid black;height:30px; margin:10%; background-color:#FCFEFE;" >-->
+                                        <!--<td>-->
+                                            <!--<strong style="margin:10%;">Work Phone : </strong>-->
+                                        <!--</td>-->
+                                        <!--<td class="text-center">-->
+                                              <!--<t t-esc="o.work_phone"/>-->
+                                        <!--</td>-->
+                                    <!--</tr>-->
+                                    <!--<tr style="border: 1px solid black;height:30px; margin:10%; background-color:#FCFEFE;" >-->
+                                        <!--<td>-->
+                                            <!--<strong style="margin:10%;">ID : </strong>-->
+                                        <!--</td>-->
+                                        <!--<td class="text-center">-->
+                                              <!--<t t-esc="o.employee_id"/>-->
+                                        <!--</td>-->
+                                    <!--</tr>-->
+                                <!--</table>-->
+                            <!--</div>-->
+                        <!--</div>-->
                         <div class="col-xs-4">
                         </div>
                     </div>
@@ -176,7 +223,7 @@
                     <div class="row">
                         <div class="col-xs-5">
                             <h4>
-                                <strong style="margin:10%;">Citizenship &#38; Other Info</strong>
+                                <strong >Citizenship &#38; Other Info</strong>
                             </h4>
                             <table width="100%">
                                 <tr style="border: 1px solid black;height:30px; margin:10%; background-color:#FCFEFE;">
