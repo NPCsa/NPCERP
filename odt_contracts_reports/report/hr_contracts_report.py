@@ -66,12 +66,6 @@ class HrContractParser(models.AbstractModel):
                                         contract.state, contract.date_start, contract.date_end,
                                         contract.job_id.name, contract.zw_idara.name, contract.department_id.name,
                                         contract.wage,
-                                        contract.transportation_allowance_fix, contract.housing_allowance_fix,
-                                        contract.mobile_allowance_fix,
-                                        contract.fuels_allowance_fix,
-                                        contract.leave_allowance_fix, contract.ticket_allowance_fix,
-                                        contract.end_service_allowance_fix, contract.other_allowance_fix,
-                                        contract.deduct_fix,
                                         contract.gosi, contract.total_salary, contract.notes]
                                 data_dep.append(line)
                         data_final.append(data_dep)
@@ -100,12 +94,6 @@ class HrContractParser(models.AbstractModel):
                                         contract.state, contract.date_start, contract.date_end,
                                         contract.job_id.name, contract.zw_idara.name, contract.department_id.name,
                                         contract.wage,
-                                        contract.transportation_allowance_fix, contract.housing_allowance_fix,
-                                        contract.mobile_allowance_fix,
-                                        contract.fuels_allowance_fix,
-                                        contract.leave_allowance_fix, contract.ticket_allowance_fix,
-                                        contract.end_service_allowance_fix, contract.other_allowance_fix,
-                                        contract.deduct_fix,
                                         contract.gosi, contract.total_salary, contract.notes]
                                 data_dep.append(line)
                         data_final.append(data_dep)
@@ -128,12 +116,6 @@ class HrContractParser(models.AbstractModel):
                                 contract.state, contract.date_start, contract.date_end,
                                 contract.job_id.name, contract.zw_idara.name, contract.department_id.name,
                                 contract.wage,
-                                contract.transportation_allowance_fix, contract.housing_allowance_fix,
-                                contract.mobile_allowance_fix,
-                                contract.fuels_allowance_fix,
-                                contract.leave_allowance_fix, contract.ticket_allowance_fix,
-                                contract.end_service_allowance_fix, contract.other_allowance_fix,
-                                contract.deduct_fix,
                                 contract.gosi, contract.total_salary, contract.notes]
                         data_dep.append(line)
                     data_final.append(data_dep)
