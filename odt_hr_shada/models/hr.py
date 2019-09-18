@@ -42,7 +42,9 @@ class HrContract(models.Model):
     is_reward = fields.Boolean(string="Percent (%)")
     is_other = fields.Boolean(string="Percent (%)")
 
-    is_total = fields.Boolean(string="By Total")
+    is_total = fields.Boolean(string="OverTime By Total")
+    abs_by_total = fields.Boolean(string="Absence By Total")
+    late_by_total = fields.Boolean(string="Late By Total")
 
 
     emp_id = fields.Char(string="Employee ID", related='employee_id.employee_id', required=False, )
