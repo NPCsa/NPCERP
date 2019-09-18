@@ -57,9 +57,9 @@ class HrContractParser(models.AbstractModel):
                 data.append({'employee': employee})
                 all_data = []
                 for contract in contract_ids:
-                    line = [contract.name,contract.state, contract.date_start, contract.date_end, contract.type_id.name,
-                            contract.job_id.name, contract.zw_idara.name, contract.department_id.name, contract.wage,
-
+                    line = [contract.name,contract.state, contract.date_start, contract.date_end,
+                              contract.department_id.name,contract.job_id.name, contract.wage, contract.transportation_allowance,
+                            contract.housing_allowance,contract.mobile_allowance,contract.other_allowance,contract.deduction,
                             contract.gosi, contract.total_salary, contract.notes]
                     all_data.append(line)
                 data.append(all_data)

@@ -63,7 +63,7 @@
                                                         <span t-esc="datar[0]['employee'].department_id.name"/>
                                                     </td>
                                                     <th style="border: 1px solid black;" class="text-center">
-                                                        Location Name
+                                                        Company Name
                                                     </th>
                                                     <td style="border: 1px solid black;" class="text-center">
                                                         <span t-esc="datar[0]['employee'].zw_idara.name"/>
@@ -87,18 +87,17 @@
                                                         <th style="border: 1px solid black;" class="text-center">
                                                             Date End
                                                         </th>
-                                                        <th style="border: 1px solid black;" class="text-center">
-                                                            Contract Type
-                                                        </th>
-                                                        <th style="border: 1px solid black;" class="text-center">
-                                                            Job
-                                                        </th>
-                                                        <th style="border: 1px solid black;" class="text-center">
-                                                            Location
-                                                        </th>
+                                                        <!--<th style="border: 1px solid black;" class="text-center">-->
+                                                            <!--Contract Type-->
+                                                        <!--</th>-->
+
+                                                        <!--<th style="border: 1px solid black;" class="text-center">-->
+                                                            <!--Location-->
+                                                        <!--</th>-->
                                                         <th style="border: 1px solid black;" class="text-center">
                                                             Department
                                                         </th>
+
                                                         <th style="border: 1px solid black;" class="text-center">
                                                             Basic Salary
                                                         </th>
@@ -111,18 +110,18 @@
                                                         <th style="border: 1px solid black;" class="text-center">
                                                             Mobile Allowance
                                                         </th>
-                                                        <th style="border: 1px solid black;" class="text-center">
-                                                            Fuels Allowance
-                                                        </th>
-                                                        <th style="border: 1px solid black;" class="text-center">
-                                                            Leave Allowance
-                                                        </th>
-                                                        <th style="border: 1px solid black;" class="text-center">
-                                                            Ticket Allowance
-                                                        </th>
-                                                        <th style="border: 1px solid black;" class="text-center">
-                                                            End Service Allowance
-                                                        </th>
+                                                        <!--<th style="border: 1px solid black;" class="text-center">-->
+                                                            <!--Fuels Allowance-->
+                                                        <!--</th>-->
+                                                        <!--<th style="border: 1px solid black;" class="text-center">-->
+                                                            <!--Leave Allowance-->
+                                                        <!--</th>-->
+                                                        <!--<th style="border: 1px solid black;" class="text-center">-->
+                                                            <!--Ticket Allowance-->
+                                                        <!--</th>-->
+                                                        <!--<th style="border: 1px solid black;" class="text-center">-->
+                                                            <!--End Service Allowance-->
+                                                        <!--</th>-->
                                                         <th style="border: 1px solid black;" class="text-center">
                                                             Other Allowance
                                                         </th>
