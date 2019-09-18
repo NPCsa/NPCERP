@@ -15,7 +15,7 @@ class EmployeeContract(models.Model):
     @api.one
     @api.depends('employee_id')
     def get_ref(self):
-        self.name = str(self.employee_id.employee_id) + '/' + str(datetime.now().year)
+        self.name = str(self.employee_id.employee_id) + '/' + str(datetime.now().month) + '/' + str(datetime.now().year)
 
     @api.one
     def _compute_total_salary(self):
