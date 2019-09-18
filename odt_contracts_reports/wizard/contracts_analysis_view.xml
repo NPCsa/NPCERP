@@ -17,7 +17,7 @@
                     </group>
                     <group string="contracts Analysis">
                         <field name="department_ids" attrs="{'invisible':[('filter_by','not in',['depart'])]}"/>
-                        <field name="location_ids" attrs="{'invisible':[('filter_by','not in',['location'])]}"/>
+                        <!--<field name="location_ids" attrs="{'invisible':[('filter_by','not in',['location'])]}"/>-->
                         <field name="employee_ids"/>
                     </group>
                     <footer>

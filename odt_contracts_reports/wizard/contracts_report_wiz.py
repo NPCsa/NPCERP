@@ -12,9 +12,9 @@ class contractsEmployee(models.TransientModel):
     date_from = fields.Date(string="Date From", required=True, default=time.strftime('%Y-%m-01'))
     date_to = fields.Date(string="Date To", required=True, )
     department_ids = fields.Many2many('hr.department', string='Department')
-    location_ids = fields.Many2many('hr.idara', string='Location')
+    # location_ids = fields.Many2many('hr.idara', string='Location')
     employee_ids = fields.Many2many('hr.employee', string='Employees')
-    filter_by = fields.Selection(string="Filter By", selection=[('depart', 'Department'), ('location', 'Location'),
+    filter_by = fields.Selection(string="Filter By", selection=[('depart', 'Department'),
                                                                 ('employee', 'Employee'), ], default='employee',
                                                                 required=True, )
     state = fields.Selection([
@@ -29,7 +29,7 @@ class contractsEmployee(models.TransientModel):
     @api.onchange('filter_by')
     def _onchange_filter_by(self):
         self.department_ids = False
-        self.location_ids = False
+        # self.location_ids = False
         self.employee_ids = False
 
     @api.multi

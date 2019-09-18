@@ -51,9 +51,9 @@
                                             <th style="border: 1px solid black;" class="text-center">
                                                 Name
                                             </th>
-                                            <th style="border: 1px solid black;" class="text-center">
-                                                ID
-                                            </th>
+                                            <!--<th style="border: 1px solid black;" class="text-center">-->
+                                                <!--ID-->
+                                            <!--</th>-->
                                             <th style="border: 1px solid black;" class="text-center">
                                                 Reference
                                             </th>
@@ -69,9 +69,9 @@
                                             <th style="border: 1px solid black;" class="text-center">
                                                 Job
                                             </th>
-                                            <th style="border: 1px solid black;" class="text-center">
-                                                Location
-                                            </th>
+                                            <!--<th style="border: 1px solid black;" class="text-center">-->
+                                                <!--Location-->
+                                            <!--</th>-->
                                             <th style="border: 1px solid black;" class="text-center">
                                                 Department
                                             </th>
@@ -87,18 +87,18 @@
                                             <th style="border: 1px solid black;" class="text-center">
                                                 Mobile
                                             </th>
-                                            <th style="border: 1px solid black;" class="text-center">
-                                                Fuels
-                                            </th>
-                                            <th style="border: 1px solid black;" class="text-center">
-                                                Leave
-                                            </th>
-                                            <th style="border: 1px solid black;" class="text-center">
-                                                Ticket
-                                            </th>
-                                            <th style="border: 1px solid black;" class="text-center">
-                                                End Service
-                                            </th>
+                                            <!--<th style="border: 1px solid black;" class="text-center">-->
+                                                <!--Fuels-->
+                                            <!--</th>-->
+                                            <!--<th style="border: 1px solid black;" class="text-center">-->
+                                                <!--Leave-->
+                                            <!--</th>-->
+                                            <!--<th style="border: 1px solid black;" class="text-center">-->
+                                                <!--Ticket-->
+                                            <!--</th>-->
+                                            <!--<th style="border: 1px solid black;" class="text-center">-->
+                                                <!--End Service-->
+                                            <!--</th>-->
                                             <th style="border: 1px solid black;" class="text-center">
                                                 Other Allowance
                                             </th>
