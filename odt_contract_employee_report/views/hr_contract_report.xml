@@ -91,11 +91,12 @@
                                                             <!--Contract Type-->
                                                         <!--</th>-->
 
-                                                        <!--<th style="border: 1px solid black;" class="text-center">-->
-                                                            <!--Location-->
-                                                        <!--</th>-->
+
                                                         <th style="border: 1px solid black;" class="text-center">
                                                             Department
+                                                        </th>
+                                                         <th style="border: 1px solid black;" class="text-center">
+                                                            job
                                                         </th>
 
                                                         <th style="border: 1px solid black;" class="text-center">
