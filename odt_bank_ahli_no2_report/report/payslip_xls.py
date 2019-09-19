@@ -63,10 +63,9 @@ class PayrollXlsx(models.AbstractModel):
                 if payslip_line_rec.salary_rule_id.id in salary_rules:
                     if payslip_line_rec.salary_rule_id.code == 'NET':
                         net += payslip_line_rec.total
-            data_list = [payslip.employee_id.bank_account_id.bank_id.name or ' ',
-                         payslip.employee_id.bank_account_id.acc_number or ' ', net, payslip.employee_id.employee_id,
+            data_list = [payslip.employee_id.bank_name or ' ', payslip.employee_id.iban_number or ' ', net, payslip.employee_id.employee_id,
                          payslip.employee_id.name, payslip.employee_id.identification_id or ' ',
-                         payslip.employee_id.zw_idara.name or ' ']
+                         payslip.employee_id.emp_city or ' ']
             tot_net += net
 
             all_data.append(data_list)
