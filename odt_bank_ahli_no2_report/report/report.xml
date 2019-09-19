@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <report
+                id="report_bank_ahli_n2_xlsx"
+                model="bank.ahli.n2.wiz"
+                string="Bank Report With Out WPS"
+                report_type="xlsx"
+                name="odt_bank_ahli_no2_report.report_bank_ahli_n2_xlsx"
+                file="Bank Report With Out WPS"
+                attachment_use="False"
+
+        />
+    </data>
+</odoo>
