@@ -61,10 +61,10 @@
                                                 Status
                                             </th>
                                             <th style="border: 1px solid black;" width="75px" class="text-center">
-                                                Date Start
+                                                Date.Of.Start
                                             </th>
                                             <th style="border: 1px solid black;" width="75px" class="text-center">
-                                                Date End
+                                                Date.Of.End
                                             </th>
                                             <th style="border: 1px solid black;" class="text-center">
                                                 Job
