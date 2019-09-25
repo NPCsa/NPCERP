@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+    <data>
+        <template id="hr_contract_employee_report">
+            <t t-call="web.html_container">
+                <t t-call="web.internal_layout">
+
+                    <t t-foreach="docs" t-as="o">
+                        <div class="page">
+                            <div class="row">
+                                <center>
+                                    <t t-foreach="get_data" t-as="datar">
+                                        <div style="page-break-before: always;">
+                                            <table class="table table-condensed" style="width:50%">
+                                                <tr>
+                                                    <th style="border: 1px solid black;" class="text-center">
+                                                        Employee Name
+                                                    </th>
+                                                    <td style="border: 1px solid black;" class="text-center">
+                                                        <span t-esc="datar[0]['employee'].name"/>
+                                                    </td>
+                                                    <th style="border: 1px solid black;" class="text-center">
+                                                        Employee ID
+                                                    </th>
+                                                    <td style="border: 1px solid black;" class="text-center">
+                                                        <span t-esc="datar[0]['employee'].employee_id"/>
+                                                    </td>
+
+                                                </tr>
+                                                <tr>
+                                                    <th style="border: 1px solid black;" class="text-center">
+                                                        Date From
+                                                    </th>
+                                                    <td style="border: 1px solid black;" class="text-center">
+                                                        <span t-esc="date_from"/>
+                                                    </td>
+                                                    <th style="border: 1px solid black;" class="text-center">
+                                                        Date To
+                                                    </th>
+                                                    <td style="border: 1px solid black;" class="text-center">
+                                                        <span t-esc="date_to"/>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th style="border: 1px solid black;" class="text-center">
+                                                        Bank Name
+                                                    </th>
+                                                    <td style="border: 1px solid black;" class="text-center">
+                                                        <span t-esc="datar[0]['employee'].bank_account_id.bank_id.name"/>
+                                                    </td>
+                                                    <th style="border: 1px solid black;" class="text-center">
+                                                        Bank Number
+                                                    </th>
+                                                    <td style="border: 1px solid black;" class="text-center">
+                                                        <span t-esc="datar[0]['employee'].bank_account_id.acc_number"/>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th style="border: 1px solid black;" class="text-center">
+                                                        Department Name
+                                                    </th>
+                                                    <td style="border: 1px solid black;" class="text-center">
+                                                        <span t-esc="datar[0]['employee'].department_id.name"/>
+                                                    </td>
+                                                    <th style="border: 1px solid black;" class="text-center">
+                                                        Company Name
+                                                    </th>
+                                                    <td style="border: 1px solid black;" class="text-center">
+                                                        <span t-esc="datar[0]['employee'].zw_idara.name"/>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                        <th style="border: 1px solid black;" class="text-center">
+                                                        Employee Job
+                                                    </th>
+                                                    <td style="border: 1px solid black;" class="text-center">
+                                                        <span t-esc="datar[0]['employee'].job_id.name"/>
+                                                    </td>
+
+                                                </tr>
+                                            </table>
+                                            <br/>
+                                            <br/>
+                                            <table class="table table-condensed">
+                                                <head>
+                                                    <tr>
+                                                        <th style="border: 1px solid black;" class="text-center">
+                                                            Contract Name
+                                                        </th>
+                                                        <th style="border: 1px solid black;" class="text-center">
+                                                            Contract Status
+                                                        </th>
+                                                        <th style="border: 1px solid black;" class="text-center">
+                                                            Date.Of.Start
+                                                        </th>
+                                                        <th style="border: 1px solid black;" class="text-center">
+                                                            Date.Of.End
+                                                        </th>
+                                                        <!--<th style="border: 1px solid black;" class="text-center">-->
+                                                            <!--Contract Type-->
+                                                        <!--</th>-->
+
+
+                                                        <th style="border: 1px solid black;" class="text-center">
+                                                            Department
+                                                        </th>
+                                                         <!--<th style="border: 1px solid black;" class="text-center">-->
+                                                            <!--job-->
+                                                        <!--</th>-->
+
+                                                        <th style="border: 1px solid black;" class="text-center">
+                                                            Basic Salary
+                                                        </th>
+                                                        <th style="border: 1px solid black;" class="text-center">
+                                                            Transportation Allowance
+                                                        </th>
+                                                        <th style="border: 1px solid black;" class="text-center">
+                                                            Housing Allowance
+                                                        </th>
+                                                        <th style="border: 1px solid black;" class="text-center">
+                                                            Mobile Allowance
+                                                        </th>
+                                                        <!--<th style="border: 1px solid black;" class="text-center">-->
+                                                            <!--Fuels Allowance-->
+                                                        <!--</th>-->
+                                                        <!--<th style="border: 1px solid black;" class="text-center">-->
+                                                            <!--Leave Allowance-->
+                                                        <!--</th>-->
+                                                        <!--<th style="border: 1px solid black;" class="text-center">-->
+                                                            <!--Ticket Allowance-->
+                                                        <!--</th>-->
+                                                        <!--<th style="border: 1px solid black;" class="text-center">-->
+                                                            <!--End Service Allowance-->
+                                                        <!--</th>-->
+                                                        <th style="border: 1px solid black;" class="text-center">
+                                                            Other Allowance
+                                                        </th>
+                                                        <th style="border: 1px solid black;" class="text-center">
+                                                            Deduction
+                                                        </th>
+                                                        <th style="border: 1px solid black;" class="text-center">
+                                                            Gosi
+                                                        </th>
+                                                        <th style="border: 1px solid black;" class="text-center">
+                                                            Total Salary
+                                                        </th>
+                                                        <th style="border: 1px solid black;" class="text-center">
+                                                            Notes
+                                                        </th>
+                                                    </tr>
+                                                </head>
+                                                <body>
+                                                    <tr t-foreach="datar[1]" t-as="lines">
+                                                        <td style="border: 1px solid black;" class="text-center"
+                                                            t-foreach="lines" t-as="line">
+                                                            <span t-esc="line"/>
+                                                        </td>
+                                                    </tr>
+                                                </body>
+                                            </table>
+                                            <br/>
+                                            <table style="height: 117px; width: 1042px;">
+                                                <tbody>
+                                                    <tr>
+                                                        <td style="width: 277px; text-align: center;">
+                                                            <strong>إدارة الموارد البشرية</strong>
+                                                        </td>
+                                                        <td style="width: 417px; text-align: center;">
+                                                            <strong>اﻹدارة المالية</strong>
+                                                        </td>
+                                                        <td style="width: 336px; text-align: center;">
+                                                            <strong>المدير العام</strong>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="width: 277px; text-align: center;">
+                                                            <strong>
+                                                                .............................................................
+                                                            </strong>
+                                                        </td>
+                                                        <td style="width: 417px; text-align: center;">
+                                                            <strong>
+                                                                .............................................................
+                                                            </strong>
+                                                        </td>
+                                                        <td style="width: 336px; text-align: center;">
+                                                            <strong>
+                                                                .............................................................
+                                                            </strong>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+
+                                        </div>
+                                    </t>
+
+                                </center>
+                            </div>
+                            <br/>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>
