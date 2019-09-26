@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_odt_payslip_employee_report_odt_payslip_employee_report,odt_payslip_employee_report.odt_payslip_employee_report,model_odt_payslip_employee_report_odt_payslip_employee_report,,1,0,0,0

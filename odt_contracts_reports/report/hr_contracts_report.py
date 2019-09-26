@@ -64,7 +64,7 @@ class HrContractParser(models.AbstractModel):
                             for contract in contracts_ids:
                                 line = [contract.employee_id.name, contract.name,
                                         contract.state, contract.date_start, contract.date_end,
-                                        contract.job_id.name, contract.department_id.name,
+                                         contract.department_id.name,
                                         contract.wage,contract.transportation_allowance,
                                         contract.housing_allowance, contract.mobile_allowance, contract.other_allowance,
                                         contract.deduction,
@@ -116,7 +116,7 @@ class HrContractParser(models.AbstractModel):
                     for contract in contracts_ids:
                         line = [contract.employee_id.name, contract.name,
                                 contract.state, contract.date_start, contract.date_end,
-                                contract.job_id.name, contract.department_id.name,
+                                 contract.department_id.name,
                                 contract.wage, contract.transportation_allowance,
                                 contract.housing_allowance, contract.mobile_allowance, contract.other_allowance,
                                 contract.deduction,

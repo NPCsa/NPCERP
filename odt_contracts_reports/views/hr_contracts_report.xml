@@ -49,7 +49,7 @@
                                     <head>
                                         <tr>
                                             <th style="border: 1px solid black;" class="text-center">
-                                                Name
+                                                Employee.Name
                                             </th>
                                             <!--<th style="border: 1px solid black;" class="text-center">-->
                                                 <!--ID-->
@@ -66,9 +66,9 @@
                                             <th style="border: 1px solid black;" width="75px" class="text-center">
                                                 Date.Of.End
                                             </th>
-                                            <th style="border: 1px solid black;" class="text-center">
-                                                Job
-                                            </th>
+                                            <!--<th style="border: 1px solid black;" class="text-center">-->
+                                                <!--Job-->
+                                            <!--</th>-->
                                             <!--<th style="border: 1px solid black;" class="text-center">-->
                                                 <!--Location-->
                                             <!--</th>-->
@@ -79,7 +79,7 @@
                                                 Basic
                                             </th>
                                             <th style="border: 1px solid black;" class="text-center">
-                                                Transportation
+                                                Trans.
                                             </th>
                                             <th style="border: 1px solid black;" class="text-center">
                                                 Housing

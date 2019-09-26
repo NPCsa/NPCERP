@@ -14,60 +14,76 @@
                                         <div style="page-break-before: always;">
                                             <table class="table table-condensed" style="width:50%">
                                                 <tr>
-                                                    <th style="border: 1px solid black;" class="text-center">
+                                                    <th style="border: 1px solid black;" class="text-left">
                                                         Employee Name
                                                     </th>
-                                                    <td style="border: 1px solid black;" class="text-center">
+                                                    <td style="border: 1px solid black;" class="text-left">
                                                         <span t-esc="datar[0]['employee'].name"/>
                                                     </td>
-                                                    <th style="border: 1px solid black;" class="text-center">
+                                                    <th style="border: 1px solid black;" class="text-left">
                                                         Employee ID
                                                     </th>
-                                                    <td style="border: 1px solid black;" class="text-center">
+                                                    <td style="border: 1px solid black;" class="text-left">
                                                         <span t-esc="datar[0]['employee'].employee_id"/>
                                                     </td>
+
                                                 </tr>
                                                 <tr>
-                                                    <th style="border: 1px solid black;" class="text-center">
+                                                    <th style="border: 1px solid black;" class="text-left">
                                                         Date From
                                                     </th>
-                                                    <td style="border: 1px solid black;" class="text-center">
+                                                    <td style="border: 1px solid black;" class="text-left">
                                                         <span t-esc="date_from"/>
                                                     </td>
-                                                    <th style="border: 1px solid black;" class="text-center">
+                                                    <th style="border: 1px solid black;" class="text-left">
                                                         Date To
                                                     </th>
-                                                    <td style="border: 1px solid black;" class="text-center">
+                                                    <td style="border: 1px solid black;" class="text-left">
                                                         <span t-esc="date_to"/>
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <th style="border: 1px solid black;" class="text-center">
+                                                    <th style="border: 1px solid black;" class="text-left">
                                                         Bank Name
                                                     </th>
-                                                    <td style="border: 1px solid black;" class="text-center">
+                                                    <td style="border: 1px solid black;" class="text-left">
                                                         <span t-esc="datar[0]['employee'].bank_account_id.bank_id.name"/>
                                                     </td>
-                                                    <th style="border: 1px solid black;" class="text-center">
+                                                    <th style="border: 1px solid black;" class="text-left">
                                                         Bank Number
                                                     </th>
-                                                    <td style="border: 1px solid black;" class="text-center">
+                                                    <td style="border: 1px solid black;" class="text-left">
                                                         <span t-esc="datar[0]['employee'].bank_account_id.acc_number"/>
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <th style="border: 1px solid black;" class="text-center">
+                                                    <th style="border: 1px solid black;" class="text-left">
                                                         Department Name
                                                     </th>
-                                                    <td style="border: 1px solid black;" class="text-center">
+                                                    <td style="border: 1px solid black;" class="text-left">
                                                         <span t-esc="datar[0]['employee'].department_id.name"/>
                                                     </td>
-                                                    <th style="border: 1px solid black;" class="text-center">
+                                                    <th style="border: 1px solid black;" class="text-left">
                                                         Company Name
                                                     </th>
-                                                    <td style="border: 1px solid black;" class="text-center">
+                                                    <td style="border: 1px solid black;" class="text-left">
                                                         <span t-esc="datar[0]['employee'].zw_idara.name"/>
                                                     </td>
+                                                </tr>
+                                                <tr>
+                                                        <th style="border: 1px solid black;" class="text-left">
+                                                        Employee Job
+                                                    </th>
+                                                    <td style="border: 1px solid black;" class="text-left">
+                                                        <span t-esc="datar[0]['employee'].job_id.name"/>
+                                                    </td>
+                                                     <th style="border: 1px solid black;" class="text-left">
+
+                                                    </th>
+                                                    <td style="border: 1px solid black;" class="text-left">
+                                                        <!--<span t-esc="datar[0]['employee'].job_id.name"/>-->
+                                                    </td>
+
                                                 </tr>
                                             </table>
                                             <br/>
@@ -95,9 +111,9 @@
                                                         <th style="border: 1px solid black;" class="text-center">
                                                             Department
                                                         </th>
-                                                         <th style="border: 1px solid black;" class="text-center">
-                                                            job
-                                                        </th>
+                                                         <!--<th style="border: 1px solid black;" class="text-center">-->
+                                                            <!--job-->
+                                                        <!--</th>-->
 
                                                         <th style="border: 1px solid black;" class="text-center">
                                                             Basic Salary
