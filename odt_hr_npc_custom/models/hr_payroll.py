@@ -3,7 +3,7 @@
 from __future__ import division
 from dateutil import relativedelta
 from odoo import api, fields, models, tools, _
-from odoo.exceptions import UserError
+from odoo.exceptions import UserError,Warning
 from datetime import datetime,date
 
 
@@ -75,14 +75,22 @@ class Payslip(models.Model):
                         else:
                             if t_time != 0:
                                 record.absent_times = 32
-            print('------------------self.absent_times--------------',self.absent_times)
             # if record.absent_times in [23,32]:
             #     raise UserError(_('You can not Compute Payslip Absence Days Exceeded %s' %record.employee_id.name))
+
     @api.multi
     def compute_sheet(self):
         for record in self:
             record._compute_absent_days()
-        return super(Payslip, self).compute_sheet()
+        res = super(Payslip, self).compute_sheet()
+        for record in self:
+            net = record.line_ids.filtered(lambda line: line.salary_rule_id.code == 'NET')
+            if net:
+                if net.total <= 0.0:
+                    raise Warning(
+                        _('You Can not Create Payslip with NET equal or less Than Zero , Employee %s and Amount is %s') % (
+                            record.employee_id.name, net.total))
+        return res
 
     @api.model
     def create(self, values):
