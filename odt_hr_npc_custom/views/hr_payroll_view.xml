@@ -2,6 +2,30 @@
 <odoo>
     <data>
 
+         <!-- Inherit Form View to Modify it -->
+        <record id="hr_view_hr_payslip_form_003" model="ir.ui.view">
+            <field name="name">hr.payslip.form</field>
+            <field name="model">hr.payslip</field>
+            <field name="inherit_id" ref="hr_payroll.view_hr_payslip_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group//field[@name='credit_note']" position="after">
+                    <field name="payment_method"/>
+                </xpath>
+
+            </field>
+        </record>
+
+        <record id="hr_view_hr_payslip_filter_inherit_002" model="ir.ui.view">
+            <field name="name">hr.payslip.form.inherit</field>
+            <field name="model">hr.payslip</field>
+            <field name="inherit_id" ref="hr_payroll.view_hr_payslip_filter"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group//filter[@name='state']" position="after">
+                    <filter string="Payment Method" name="payment_method" context="{'group_by':'payment_method'}"/>
+                </xpath>
+            </field>
+        </record>
+
        <!-- Inherit Form View to Modify it -->
        <record id="view_hr_payslip_form_in_005" model="ir.ui.view">
            <field name="name">hr.payslip.form.in.inherit</field>

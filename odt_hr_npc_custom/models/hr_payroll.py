@@ -10,6 +10,7 @@ from datetime import datetime,date
 class Payslip(models.Model):
     _inherit = 'hr.payslip'
 
+    payment_method = fields.Selection(related='employee_id.payment_method', store=True)
     absent_times = fields.Integer(string="Absent Times",  required=False )
 
     struct_id = fields.Many2one('hr.payroll.structure', string='Structure', related='contract_id.struct_id',

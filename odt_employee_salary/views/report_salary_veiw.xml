@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <report
+                id="hr_employee_salary_report"
+                model="hr.contract"
+                report_type="qweb-pdf"
+                string="Salary Report"
+                name="odt_employee_salary.hr_employee_salary_report_view"
+                file="odt_employee_salary.hr_employee_salary_report_view"
+        />
+
+        <template id="hr_employee_salary_report_view">
+            <t t-call="web.html_container">
+                <!--<t t-call="report.internal_layout">-->
+                <t t-call="web.external_layout">
+                    <div class="page" style="direction:rtl;">
+                        <t t-foreach="docs" t-as="item">
+                            <h4 align="right"> التاريخ : <span t-esc="datetime.datetime.now().strftime('%d-%m-%Y %H:%M:%S')"/></h4>
+                            <h4 align="right"> الموافق : <span t-esc="datetime.datetime.now().strftime('%A')"/></h4>
+                            <h2 align="center">خطاب تعريف- إلى من يهمه الأمر</h2>
+                            <br/>
+                            <br/>
+                            <table class="table table-condensed" align="center">
+                                <tbody>
+                                    <tr>
+                                        <th class="text-center">الاســـم</th>
+                                        <td class="text-center" colspan="2">
+                                            <span t-esc="item.employee_id.name"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th class="text-center">الجنسيه</th>
+                                        <td class="text-center" colspan="2">
+                                            <span t-esc="item.employee_id.country_id.name"/>
+                                        </td>
+                                    </tr>
+                                     <tr>
+                                        <th class="text-center">رقم البطاقة / اقامة</th>
+                                        <td class="text-center">
+                                            <span t-esc="item.employee_id.identification_id"/>
+                                        </td>
+                                         <td class="text-right">مصدرها:
+                                            <span t-esc="item.employee_id.iqama_issuing_city"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th class="text-center">مسمي الوظيـــفة</th>
+                                        <td class="text-center" colspan="2">
+                                            <span t-esc="item.employee_id.job_id.name"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th class="text-center">تاريــــخ التعيـين</th>
+                                        <td class="text-center" colspan="2">
+                                            <span t-esc="item.date_start"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th class="text-center">الراتــــــــــــــب</th>
+                                        <td class="text-center" colspan="2">
+                                            <span t-esc="item.total_salary"/>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+<p align="center">
+    <span>
+          بهذا تشهد شركة الأوائل الوطنية للمقاولات وتموين السفن بأن الموظف الموضح اسمه وبياناته أعلاه
+        <br/>
+        هو أحد العاملين بالشركة ولا يزال على رأس العمل حتى تاريخه. وقد اعطي هذا التعريف بناءً على
+         <br/>
+        طلبه وذلك دون أدنى مسئولية تجاه الشركة علماً بأن هذا الخطاب صالح لمدة شهر من تاريخه.
+    </span>
+</p>
+                            <h4 align="center">وتقبلوا وافر الشكر والتقدير ودمتم</h4>
+
+<br/>
+                            <br/>
+                            <br/>
+                            <h4 align="left" style="margin-left: 60px;">نضال ابراهيم النعمى</h4>
+                            <br/>
+                            <h4 align="left">مدير الشئون الادارية والموارد البشرية</h4>
+                            <br/>
+                            <br/>
+                            <h6 align="right">ملاحظه: أي تعديل أو كشط أو تغيير في هذا الخطاب يلغيه.</h6>
+                        </t>
+                    </div>
+                </t>
+            </t>
+        </template>
+
+
+    </data>
+</odoo>
