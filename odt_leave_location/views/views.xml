@@ -1,0 +1,32 @@
+<odoo>
+  <data>
+    <report
+                id="action_report_holidays_wiz"
+                string="Holidays Filter Report"
+                model="hr.holidays"
+                name="odt_leave_location.hr_holidays_wiz_report"
+                report_type="qweb-pdf"
+                file="odt_leave_location.hr_holidays_wiz_report"
+                menu="False"
+        />
+
+      <record id="paperformat_hr_holidays_module" model="report.paperformat">
+            <field name="name">BOM</field>
+            <field name="format">A4</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Landscape</field>
+            <field name="margin_top">30</field>
+            <field name="margin_bottom">10</field>
+            <field name="margin_left">10</field>
+            <field name="margin_right">10</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">30</field>
+            <field name="dpi">100</field>
+        </record>
+
+      <record id="odt_leave_location.action_report_holidays_wiz" model="ir.actions.report">
+            <field name="paperformat_id" ref="odt_leave_location.paperformat_hr_holidays_module"/>
+        </record>
+  </data>
+</odoo>

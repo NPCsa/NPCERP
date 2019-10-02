@@ -16,12 +16,34 @@
                 <t t-call="web.external_layout">
                     <div class="page" style="direction:rtl;">
                         <t t-foreach="docs" t-as="item">
-                            <h4 align="right"> التاريخ : <span t-esc="datetime.datetime.now().strftime('%d-%m-%Y %H:%M:%S')"/></h4>
-                            <h4 align="right"> الموافق : <span t-esc="datetime.datetime.now().strftime('%A')"/></h4>
+                            <h4 align="right"> التاريخ : <span t-esc="datetime.datetime.now().strftime('%d/%m/%Y')"/></h4>
+                            <t t-set="day" t-value="datetime.datetime.now().weekday()"/>
+                            <t t-if="(day == 0)">
+                                <h4 align="right"> الموافق : الاثنين</h4>
+                            </t>
+                            <t t-if="(day == 1)">
+                                <h4 align="right"> الموافق : الثلاثاء</h4>
+                            </t>
+                            <t t-if="(day == 2)">
+                                <h4 align="right"> الموافق : الاربعاء</h4>
+                            </t>
+                            <t t-if="(day == 3)">
+                                <h4 align="right"> الموافق : الخميس</h4>
+                            </t>
+                            <t t-if="(day == 4)">
+                                <h4 align="right"> الموافق : الجمعه</h4>
+                            </t>
+                            <t t-if="(day == 5)">
+                                <h4 align="right"> الموافق : السبت</h4>
+                            </t>
+                            <t t-if="(day == 6)">
+                                <h4 align="right"> الموافق : الاحد </h4>
+                            </t>
+
                             <h2 align="center">خطاب تعريف- إلى من يهمه الأمر</h2>
                             <br/>
                             <br/>
-                            <table class="table table-condensed" align="center">
+                            <table class="table table-sm table-bordered" align="center">
                                 <tbody>
                                     <tr>
                                         <th class="text-center">الاســـم</th>
@@ -64,15 +86,18 @@
                                     </tr>
                                 </tbody>
                             </table>
-<p align="center">
-    <span>
-          بهذا تشهد شركة الأوائل الوطنية للمقاولات وتموين السفن بأن الموظف الموضح اسمه وبياناته أعلاه
+
+         <h5 style="text-align: center;">
+                                   بهذا تشهد
+                                        <span t-esc="item.company_id.name"/>
+                                        بأن الموظف الموضح اسمه وبياناته أعلاه
+
         <br/>
         هو أحد العاملين بالشركة ولا يزال على رأس العمل حتى تاريخه. وقد اعطي هذا التعريف بناءً على
          <br/>
         طلبه وذلك دون أدنى مسئولية تجاه الشركة علماً بأن هذا الخطاب صالح لمدة شهر من تاريخه.
-    </span>
-</p>
+    </h5>
+
                             <h4 align="center">وتقبلوا وافر الشكر والتقدير ودمتم</h4>
 
 <br/>

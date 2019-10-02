@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <report
+            id="action_report_termination"
+            model="hr.termination"
+            report_type="qweb-pdf"
+            string="Termination"
+            name="odt_termination_report_filter.report_termination_wiz"
+            file="odt_termination_report_filter.report_termination_wiz"
+            menu="False"
+    />
+    <record id="paperformat_hr_termination_module" model="report.paperformat">
+        <field name="name">BOM</field>
+        <field name="format">A4</field>
+        <field name="page_height">0</field>
+        <field name="page_width">0</field>
+        <field name="orientation">Landscape</field>
+        <field name="margin_top">30</field>
+        <field name="margin_bottom">10</field>
+        <field name="margin_left">10</field>
+        <field name="margin_right">10</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">30</field>
+        <field name="dpi">100</field>
+    </record>
+
+    <record id="odt_termination_report_filter.action_report_termination" model="ir.actions.report">
+        <field name="paperformat_id" ref="odt_termination_report_filter.paperformat_hr_termination_module"/>
+    </record>
+
+    <template id="report_termination_wiz">
+        <t t-call="web.html_container">
+            <t t-call="web.internal_layout">
+                <!--<t t-call="report.external_layout">-->
+                <div class="page">
+                    <center>
+                        <h1 class="p3 ft0">Termination Report</h1>
+                        <hr style="height:5px; border:none; color:#333; background-color:#333"/>
+                        <t t-set="info" t-value="get_header_info"/>
+                        <h3 class="text-center mb32">
+                            Analyze from
+                            <u>
+                                <t t-esc="info['start_date']"/>
+                            </u>
+                            to
+                            <u>
+                                <t t-esc="info['end_date']"/>
+                            </u>
+                        </h3>
+                        <!--<t t-foreach="get_data" t-as="d">-->
+                        <table width="100%" class="tb0">
+                            <thead>
+                                <tr>
+                                    <th class="text-center td5"
+                                        style="border: 2px solid black;text-align: center;">#
+                                    </th>
+                                    <th class="text-center td5"
+                                        style="border: 2px solid black;text-align: center;">Number
+                                    </th>
+                                    <th class="text-center td5"
+                                        style="border: 2px solid black;text-align: center;">Employee
+                                    </th>
+                                    <th class="text-center td5"
+                                        style="border: 2px solid black;text-align: center;">Employee code
+                                    </th>
+                                    <th class="text-center td5"
+                                        style="border: 2px solid black;text-align: center;">Date
+                                    </th>
+                                    <th class="text-center td5"
+                                        style="border: 2px solid black;text-align: center;">Contract
+                                    </th>
+                                    <th class="text-center td5"
+                                        style="border: 2px solid black;text-align: center;">Location
+                                    </th>
+                                    <th class="text-center td5"
+                                        style="border: 2px solid black;text-align: center;">Department
+                                    </th>
+                                    <th class="text-center td4"
+                                        style="border: 2px solid black;text-align: center;">State
+                                    </th>
+                                    <th class="text-center td4"
+                                        style="border: 2px solid black;text-align: center;">End Of Service Amount
+                                    </th>
+                                    <th class="text-center td5"
+                                        style="border: 2px solid black;text-align: center;">Leaves Amount
+                                    </th>
+                                    <th class="text-center td5"
+                                        style="border: 2px solid black;text-align: center;">Addition Value
+                                    </th>
+                                    <th class="text-center td5"
+                                        style="border: 2px solid black;text-align: center;">Deduction Value
+                                    </th>
+                                    <th class="text-center td5"
+                                        style="border: 2px solid black;text-align: center;">Loan Value
+                                    </th>
+                                    <th class="text-center td5"
+                                        style="border: 2px solid black;text-align: center;">Total Deserved
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                <tr t-foreach="get_data" t-as="line">
+                                    <td class="text-center td2" style="border: 2px solid black;text-align: center;">
+                                        <span t-esc="line['increment']"/>
+                                    </td>
+                                    <td class="text-center td2" style="border: 2px solid black;text-align: center;">
+                                        <span t-esc="line['number']"/>
+                                    </td>
+                                    <td class="text-center td2" style="border: 2px solid black;text-align: center;">
+                                        <span t-esc="line['employee']"/>
+                                    </td>
+                                    <td class="text-center td2" style="border: 2px solid black;text-align: center;">
+                                        <span t-esc="line['employee_code']"/>
+                                    </td>
+                                    <td class="text-center td2" style="border: 2px solid black;text-align: center;">
+                                        <span  style="font-size: xx-small;" t-esc="line['date']"/>
+                                    </td>
+                                    <td class="text-center td2" style="border: 2px solid black;text-align: center;">
+                                        <span t-esc="line['contract_id']"/>
+                                    </td>
+                                    <td class="text-center td2" style="border: 2px solid black;text-align: center;">
+                                        <span t-esc="line['zw_idara']"/>
+                                    </td>
+                                    <td class="text-center td2" style="border: 2px solid black;text-align: center;">
+                                        <span t-esc="line['department']"/>
+                                    </td>
+                                    <td class="text-center td2" style="border: 2px solid black;text-align: center;">
+                                        <span t-esc="line['state']"/>
+                                    </td>
+                                    <td class="text-center td2" style="border: 2px solid black;text-align: center;">
+                                        <span t-esc="'%.2f'% line['total_deserve']"/>
+                                    </td>
+                                    <td class="text-center td2" style="border: 2px solid black;text-align: center;">
+                                        <span t-esc="'%.2f'%  line['deserve_salary_amount']"/>
+                                    </td>
+                                    <td class="text-center td2" style="border: 2px solid black;text-align: center;">
+                                        <span t-esc="'%.2f'% line['add_value']"/>
+                                    </td>
+                                    <td class="text-center td2" style="border: 2px solid black;text-align: center;">
+                                        <span t-esc="'%.2f'% line['ded_value']"/>
+                                    </td>
+                                    <td class="text-center td2" style="border: 2px solid black;text-align: center;">
+                                        <span t-esc="'%.2f'% line['loan_value']"/>
+                                    </td>
+                                    <td class="text-center td2" style="border: 2px solid black;text-align: center;">
+                                        <span t-esc="'%.2f'% line['total_deserve_amount']"/>
+                                    </td>
+
+
+                                </tr>
+                                <br/>
+
+                            </tbody>
+                        </table>
+                        <br/>
+
+                        <!--</t>-->
+                    </center>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>
+
