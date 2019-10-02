@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="hr_holidays_wiz_report">
+        <t t-call="web.html_container">
+            <t t-call="web.internal_layout">
+                <!--<t t-call="report.external_layout">-->
+                <div class="page">
+                    <center>
+                        <h1 class="p3 ft0">Holidays Report</h1>
+                        <hr style="height:5px; border:none; color:#333; background-color:#333"/>
+                        <t t-set="info" t-value="get_header_info"/>
+                        <h3 class="text-center mb32">
+                            Analyze from
+                            <u>
+                                <t t-esc="info['start_date']"/>
+                            </u>
+                            to
+                            <u>
+                                <t t-esc="info['end_date']"/>
+                            </u>
+                        </h3>
+                        <!--<t t-foreach="get_data" t-as="d">-->
+                        <table width="100%" class="tb0">
+                            <thead>
+                                <tr>
+                                    <th class="text-center td5"
+                                        style="border: 2px solid black;text-align: center;">#
+                                    </th>
+                                    <th class="text-center td5"
+                                        style="border: 2px solid black;text-align: center;">Name
+                                    </th>
+                                    <!--<th class="text-center td5"-->
+                                        <!--style="border: 2px solid black;text-align: center;">Work Email-->
+                                    <!--</th>-->
+                                    <!--<th class="text-center td5"-->
+                                        <!--style="border: 2px solid black;text-align: center;">Work Phone-->
+                                    <!--</th>-->
+                                    <th class="text-center td5"
+                                        style="border: 2px solid black;text-align: center;">Job Position
+                                    </th>
+                                    <th class="text-center td5"
+                                        style="border: 2px solid black;text-align: center;">Description
+                                    </th>
+                                    <th class="text-center td5"
+                                        style="border: 2px solid black;text-align: center;">Holiday Type
+                                    </th>
+                                    <th class="text-center td4"
+                                        style="border: 2px solid black;text-align: center;">From
+                                    </th>
+                                    <th class="text-center td4"
+                                        style="border: 2px solid black;text-align: center;">To
+                                    </th>
+                                    <!--<th class="text-center td5"-->
+                                        <!--style="border: 2px solid black;text-align: center;">Location-->
+                                    <!--</th>-->
+                                    <th class="text-center td5"
+                                        style="border: 2px solid black;text-align: center;">Department
+                                    </th>
+                                    <th class="text-center td5"
+                                        style="border: 2px solid black;text-align: center;">State
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                <tr t-foreach="get_data" t-as="line">
+                                    <td class="text-center td2" style="border: 2px solid black;text-align: center;">
+                                        <span t-esc="line['increment']"/>
+                                    </td>
+                                    <td class="text-center td2" style="border: 2px solid black;text-align: center;">
+                                        <span t-esc="line['employee']"/>
+                                    </td>
+                                    <!--<td class="text-center td2" style="border: 2px solid black;text-align: center;">-->
+                                        <!--<span t-esc="line['work_email']"/>-->
+                                    <!--</td>-->
+                                    <!--<td class="text-center td2" style="border: 2px solid black;text-align: center;">-->
+                                        <!--<span t-esc="line['work_phone']"/>-->
+                                    <!--</td>-->
+                                    <td class="text-center td2" style="border: 2px solid black;text-align: center;">
+                                        <span t-esc="line['job']"/>
+                                    </td>
+                                    <td class="text-center td2" style="border: 2px solid black;text-align: center;">
+                                        <span t-esc="line['name']"/>
+                                    </td>
+                                    <td class="text-center td2" style="border: 2px solid black;text-align: center;">
+                                        <span t-esc="line['holiday_type']"/>
+                                    </td>
+                                    <td class="text-center td2" style="border: 2px solid black;text-align: center;">
+                                        <span t-esc="line['date_from']"/>
+                                    </td>
+                                    <td class="text-center td2" style="border: 2px solid black;text-align: center;">
+                                        <span t-esc="line['date_to']"/>
+                                    </td>
+                                    <!--<td class="text-center td2" style="border: 2px solid black;text-align: center;">-->
+                                        <!--<span t-esc="line['zw_idara']"/>-->
+                                    <!--</td>-->
+                                    <td class="text-center td2" style="border: 2px solid black;text-align: center;">
+                                        <span t-esc="line['department']"/>
+                                    </td>
+                                    <td class="text-center td2" style="border: 2px solid black;text-align: center;">
+                                        <span t-esc="line['state']"/>
+                                    </td>
+
+                                </tr>
+                                <br/>
+
+                            </tbody>
+                        </table>
+                        <br/>
+
+                        <!--</t>-->
+                    </center>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>
+

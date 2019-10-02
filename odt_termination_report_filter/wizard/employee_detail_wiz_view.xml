@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Wizard view -->
+        <record id="termination_wiz_report_form" model="ir.ui.view">
+            <field name="model">hr.termination.wiz</field>
+            <field name="arch" type="xml">
+                <form string="Model">
+                    <group string="Termination">
+                        <field name="report_option"/>
+                    </group>
+                    <group string="Date">
+                        <group>
+                            <field name="start_date"/>
+                        </group>
+                        <group>
+                            <field name="end_date"/>
+                        </group>
+                    </group>
+                    <group string="Departments" attrs="{'invisible':[('report_option','!=','department')]}">
+                        <field name="department_ids" attrs="{'required':[('report_option','=','department')]}"/>
+                    </group>
+                    <group string="Location" attrs="{'invisible':[('report_option','!=','location')]}">
+                        <field name="location_ids" attrs="{'required':[('report_option','=','location')]}"/>
+                    </group>
+                    <footer>
+                        <button name="print_report" string="Print" type="object" default_focus="1"
+                               class="oe_highlight" icon="fa-download"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <!-- Wizard action -->
+        <record id="action_termination_wiz_report" model="ir.actions.act_window">
+            <field name="name">Termination Filter Report</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hr.termination.wiz</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="termination_wiz_report_form"/>
+            <field name="target">new</field>
+        </record>
+
+        <!-- Action placement -->
+        <menuitem action="action_termination_wiz_report"
+                  id="menu_termination_wiz_report"
+                  name = "Termination Filter Report"
+                  parent="odt_end_of_service.menu_hr_terminationv_root"/>
+
+    </data>
+</odoo>
