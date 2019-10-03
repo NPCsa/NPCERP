@@ -65,7 +65,10 @@
                                         style="border: 2px solid black;text-align: center;">Employee code
                                     </th>
                                     <th class="text-center td5"
-                                        style="border: 2px solid black;text-align: center;">Date
+                                        style="border: 2px solid black;text-align: center;">App/Date
+                                    </th>
+                                    <th class="text-center td5"
+                                        style="border: 2px solid black;text-align: center;">EndDate
                                     </th>
                                     <th class="text-center td5"
                                         style="border: 2px solid black;text-align: center;">Contract
@@ -116,6 +119,9 @@
                                     </td>
                                     <td class="text-center td2" style="border: 2px solid black;text-align: center;">
                                         <span  style="font-size: xx-small;" t-esc="line['date']"/>
+                                    </td>
+                                    <td class="text-center td2" style="border: 2px solid black;text-align: center;">
+                                        <span  style="font-size: xx-small;" t-esc="line['approval_date']"/>
                                     </td>
                                     <td class="text-center td2" style="border: 2px solid black;text-align: center;">
                                         <span t-esc="line['contract_id']"/>
