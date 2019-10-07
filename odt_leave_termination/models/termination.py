@@ -313,7 +313,7 @@ class TerminationsPayments(models.Model):
     _name = "termination.leave.payments"
 
     name = fields.Char('Name', required=True, help='Payment name')
-
+    company_id = fields.Many2one('res.company', 'Company', default=lambda self: self.env.user.company_id)
     ticket_debit_account_id = fields.Many2one('account.account', 'Ticket Debit Account', required=False,
                                               help='Ticket Debit account for journal entry')
     ticket_credit_account_id = fields.Many2one('account.account', 'Ticket Credit Account', required=False,

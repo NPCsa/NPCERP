@@ -553,6 +553,7 @@ class TerminationsPayments(models.Model):
     _name = "termination.payments"
 
     name = fields.Char('Name', required=True, help='Payment name')
+    company_id = fields.Many2one('res.company', 'Company', default=lambda self: self.env.user.company_id)
     debit_account_id = fields.Many2one('account.account', 'EOS Debit Account', required=False,
                                        help='EOS Debit account for journal entry')
     credit_account_id = fields.Many2one('account.account', 'EOS Credit Account', required=False,
