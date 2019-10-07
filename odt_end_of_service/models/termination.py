@@ -576,7 +576,7 @@ class TerminationsPayments(models.Model):
     field_ids = fields.Many2many(comodel_name="ir.model.fields", relation="termination_field_rel",
                                  string="End Of Service Rules",
                                  domain=[('model_id', '=', 'hr.contract'), ('ttype', 'in', ['float', 'monetary'])])
-    leave_rules = fields.Many2many(comodel_name="ir.model.fields", relation="leave_field_rel", string="Leave Rules",
+    leave_rules = fields.Many2many(comodel_name="ir.model.fields", relation="leaves_field_rel", string="Leave Rules",
                                    domain=[('model_id', '=', 'hr.contract'), ('ttype', 'in', ['float', 'monetary'])])
 
 
