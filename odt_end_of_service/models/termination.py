@@ -66,7 +66,7 @@ class Termination(models.Model):
     contract_id = fields.Many2one('hr.contract', 'Contract', required=True, readonly=True,
                                   states={'draft': [('readonly', False)]})
     job_id = fields.Many2one('hr.job', 'Job Title', readonly=True, states={'draft': [('readonly', False)]})
-    company_id = fields.Many2one('res.company', 'Company', readonly=True, states={'draft': [('readonly', False)]})
+    company_id = fields.Many2one('res.company', 'Company', default=lambda self: self.env.user.company_id)
     job_ending_date = fields.Date('Job Ending Date', required=True, readonly=True,
                                   states={'draft': [('readonly', False)]}, defualt=fields.Date.today())
     hire_date = fields.Date('Hire Date', readonly=True, required=True, states={'draft': [('readonly', False)]})
@@ -178,7 +178,6 @@ class Termination(models.Model):
         if self.employee_id:
             vals = {'domain': {'contract_id': False}}
             self.job_id = self.employee_id.job_id.id
-            self.company_id = self.employee_id.company_id.id
             self.hire_date = self.employee_id.joining_date
             remaining_vacation = self.employee_id.remaining_leaves + self.get_employee_balance_leave()
             self.vacation_days = remaining_vacation

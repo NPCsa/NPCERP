@@ -27,6 +27,7 @@ class Termination(models.Model):
     contract_id = fields.Many2one('hr.contract', 'Contract', required=True, readonly=True,
                                   states={'draft': [('readonly', False)]})
     job_id = fields.Many2one('hr.job', 'Job Title', readonly=True, states={'draft': [('readonly', False)]})
+    company_id = fields.Many2one('res.company', 'Company', default=lambda self: self.env.user.company_id)
     leave_date = fields.Date('leave Date From', required=True, readonly=True,
                              states={'draft': [('readonly', False)]}, defualt=fields.Date.today())
     last_leave_date = fields.Date('leave Date To', readonly=True, required=True,
