@@ -35,6 +35,7 @@
                             <group>
                                 <field name="date"/>
                                 <field name="job_id"/>
+                                <field name="company_id" groups="base.group_multi_company"/>
                             </group>
                             <group>
                                 <field name="hire_date"/>
@@ -43,14 +44,14 @@
                                 <field name="job_ending_date"/>
                             </group>
                             <group>
-                            <field name="payment_method" widget="selection" attrs="{'readonly':[('state','not in',('approved'))],'required':[('state','in',('approved'))]}"/>
+                            <field name="payment_method" widget="selection" attrs="{'readonly':[('state','in',('approved2'))],'required':[('state','not in',('approved2'))]}"/>
                             </group>
                             <group>
-                            <field name="journal_id" widget="selection" attrs="{'readonly':[('state','not in',('approved'))],'required':[('state','in',('approved'))]}"/>
+                            <field name="journal_id" widget="selection" attrs="{'readonly':[('state','in',('approved2'))],'required':[('state','not in',('approved2'))]}"/>
                             </group>
 
                             <group class="o_group o_inner_group o_group_col_12" >
-                                <field name="eos_reason"/>
+                                <field name="eos_reason" attrs="{'readonly':[('state','in',('approved2'))],'required':[('state','not in',('approved2'))]}"/>
                             </group>
                         </group>
 
@@ -62,14 +63,14 @@
                                 <field name="approval_date"/>
                             </group>
                             <group class="o_group o_inner_group o_group_col_12">
-                                <field name="is_clearance"/>
-                                <field name="total_deserve"/>
-                                <field name="deserve_salary_amount"/>
+                                <field name="is_clearance" attrs="{'readonly':[('state','in',('approved2'))]}"/>
+                                <field name="end_of_service_amount"/>
+                                <field name="leave_amount"/>
                                 <field name="add_value"/>
-                                <field name="loan_value"/>
+                                <field name="loan_value" attrs="{'readonly':[('state','in',('approved2'))]}"/>
                                 <field name="ded_value"/>
-                                <field name="total_deserve_amount"/>
-                                <field name="notes"/>
+                                <field name="total_deserve"/>
+                                <field name="notes" attrs="{'readonly':[('state','in',('approved2'))]}"/>
                                 <field name="move_id" invisible="1"/>
                             </group>
                         </group>
@@ -155,14 +156,21 @@
                             <field name="ded_credit_account_id" />
                         </group>
                         <notebook>
-                             <page string="Calculation Lines">
+                             <page string="End Of Service Rules">
                                <field name="field_ids" nolabel="1">
                                     <tree editable="top">
-                                        <field name="name" readonly="1"/>
-                                        <field name="ttype" readonly="1"/>
+                                        <field name="field_description"/>
                                     </tree>
                                 </field>
                             </page>
+                            <page string="Leaves Rules">
+                               <field name="leave_rules" nolabel="1">
+                                    <tree editable="top">
+                                        <field name="field_description"/>
+                                    </tree>
+                                </field>
+                            </page>
+
                         </notebook>
 
                     </sheet>
