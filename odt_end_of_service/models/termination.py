@@ -16,10 +16,10 @@ class Termination(models.Model):
     _rec_name = 'termination_code'
 
     @api.one
-    @api.depends('end_of_service_amount', 'leave_amount')
+    @api.depends('total_deserve', 'deserve_salary_amount', 'add_value', 'loan_value', 'ded_value')
     def _compute_total_deserve(self):
         for termination in self:
-            termination.total_deserve = termination.end_of_service_amount + termination.leave_amount + termination.add_value - termination.loan_value - termination.ded_value
+            termination.total_deserve_amount = termination.total_deserve + termination.deserve_salary_amount + termination.add_value - termination.loan_value - termination.ded_value
 
     @api.multi
     def get_contracts(self):
@@ -74,11 +74,11 @@ class Termination(models.Model):
     approval_date = fields.Date('Approval Date', readonly=True, states={'draft': [('readonly', False)]},
                                 default=fields.Date.today)
     loan_value = fields.Float('Loan Value')
-    ded_value = fields.Float('Deduction Value', readonly=True, states={'draft': [('readonly', False)]}, )
-    add_value = fields.Float('Addition Value', readonly=True, states={'draft': [('readonly', False)]}, )
-    end_of_service_amount = fields.Float('End Of Service Amount', compute='_calculate_severance', readonly=True,
-                                         help="Calculation By Basic Salary + Housing Allowance + Transportation Allowance")
-    total_deserve = fields.Float('Total Deserved', compute='_compute_total_deserve', readonly=True)
+    ded_value = fields.Float('Deduction Value')
+    add_value = fields.Float('Addition Value')
+    total_deserve = fields.Float('End Of Service Amount', compute='_calculate_severance', readonly=True,
+                                 help="Calculation By Basic Salary + Housing Allowance + Transportation Allowance")
+    total_deserve_amount = fields.Float('Total Deserved', compute='_compute_total_deserve', readonly=True)
     from_years = fields.Float('From Years', readonly=True, states={'draft': [('readonly', False)]})
     to_years = fields.Float('To Years', readonly=True, states={'draft': [('readonly', False)]})
     basic_salary = fields.Float('Total Salary', readonly=True, states={'draft': [('readonly', False)]})
@@ -87,8 +87,8 @@ class Termination(models.Model):
     period_in_years = fields.Float('Period in Years', readonly=True, states={'draft': [('readonly', False)]})
     vacation_days = fields.Float('Vacation Days', readonly=True, states={'draft': [('readonly', False)]})
     salary_amount = fields.Float('Salary Amount', readonly=True, states={'draft': [('readonly', False)]})
-    leave_amount = fields.Float('Leaves Amount', readonly=True, states={'draft': [('readonly', False)]},
-                                help="Calculation By (Total Salary - Transportation Allowance)/ 30 ")
+    deserve_salary_amount = fields.Float('Leaves Amount', readonly=True, states={'draft': [('readonly', False)]},
+                                         help="Calculation By (Total Salary - Transportation Allowance)/ 30 ")
     move_id = fields.Many2one('account.move', 'Journal Entry', help='Journal Entry for Termination')
     payment_method = fields.Many2one('termination.payments', 'Payment Method', help='Payment method for termination')
     journal_id = fields.Many2one('account.journal', 'Journal', help='Journal for journal entry')
@@ -262,12 +262,12 @@ class Termination(models.Model):
             record.basic_salary = basic_salary
             remaining_vacation = record.employee_id.remaining_leaves + record.get_employee_balance_leave()
             record.vacation_days = remaining_vacation
-            record.leave_amount = (salary_amount / 30) * remaining_vacation
+            record.deserve_salary_amount = (salary_amount / 30) * remaining_vacation
 
     @api.onchange('vacation_days')
     def _onchange_vacation(self):
         if self.vacation_days:
-            self.leave_amount = (self.salary_amount / 30) * self.vacation_days
+            self.deserve_salary_amount = (self.salary_amount / 30) * self.vacation_days
 
     @api.onchange('job_ending_date', 'hire_date')
     def _onchange_dates(self):
@@ -285,28 +285,28 @@ class Termination(models.Model):
         total_severance = 0
         pass_duration = 0
         if self.eos_reason in ['2', '20', '21']:  # for the zeros issues
-            self.end_of_service_amount = 0
+            self.total_deserve = 0
         elif self.eos_reason in ['1', '10', '11', '12', '13', '14', '15']:  # for the normal issues
             if self.working_period < 60:
-                self.end_of_service_amount = self.working_period * 1 / 24 * self.basic_salary
+                self.total_deserve = self.working_period * 1 / 24 * self.basic_salary
             else:
                 total_severance = 60 * 1 / 24 * self.basic_salary
                 pass_duration = self.working_period - 60
                 total_severance = total_severance + (pass_duration * 1 / 12 * self.basic_salary)
-                self.end_of_service_amount = total_severance
+                self.total_deserve = total_severance
         elif self.eos_reason == '3':  # Worst case resignation
             if self.working_period < 24:
-                self.end_of_service_amount = 0
+                self.total_deserve = 0
             elif self.working_period < 60:
-                self.end_of_service_amount = self.working_period * 1 / 24 * 1 / 3 * self.basic_salary
+                self.total_deserve = self.working_period * 1 / 24 * 1 / 3 * self.basic_salary
             elif self.working_period < 120:
                 total_severance = 60 * 1 / 24 * 2 / 3 * self.basic_salary
                 pass_duration = self.working_period - 60
-                self.end_of_service_amount = total_severance + (pass_duration * 1 / 12 * 2 / 3 * self.basic_salary)
+                self.total_deserve = total_severance + (pass_duration * 1 / 12 * 2 / 3 * self.basic_salary)
             else:
                 total_severance = 60 * 1 / 24 * self.basic_salary
                 pass_duration = self.working_period - 60
-                self.end_of_service_amount = total_severance + (pass_duration * 1 / 12 * self.basic_salary)
+                self.total_deserve = total_severance + (pass_duration * 1 / 12 * self.basic_salary)
 
     @api.multi
     def button_review(self):
@@ -363,9 +363,9 @@ class Termination(models.Model):
                 'journal_id': self.journal_id.id,
             }
 
-            total_amount = self.total_deserve
-            eos_amount = self.end_of_service_amount
-            leave_amount = self.leave_amount
+            total_amount = self.total_deserve_amount
+            eos_amount = self.total_deserve
+            leave_amount = self.deserve_salary_amount
             add_amount = self.add_value
             loan_amount = self.loan_value
             ded_amount = self.ded_value
@@ -578,7 +578,7 @@ class TerminationsPayments(models.Model):
                                  domain=[('model_id', '=', 'hr.contract'), ('ttype', 'in', ['float', 'monetary'])])
     leave_rules = fields.Many2many(comodel_name="ir.model.fields", relation="leave_field_rel", string="Leave Rules",
                                    domain=[('model_id', '=', 'hr.contract'), ('ttype', 'in', ['float', 'monetary'])])
-    
+
 
 class HrContract(models.Model):
     _inherit = "hr.contract"

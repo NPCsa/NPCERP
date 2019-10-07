@@ -64,12 +64,12 @@
                             </group>
                             <group class="o_group o_inner_group o_group_col_12">
                                 <field name="is_clearance" attrs="{'readonly':[('state','in',('approved2'))]}"/>
-                                <field name="end_of_service_amount"/>
-                                <field name="leave_amount"/>
-                                <field name="add_value"/>
+                                <field name="total_deserve" string="End Of Service Amount"/>
+                                <field name="deserve_salary_amount" string="Leave Amount"/>
+                                <field name="add_value" attrs="{'readonly':[('state','in',('approved2'))]}"/>
                                 <field name="loan_value" attrs="{'readonly':[('state','in',('approved2'))]}"/>
-                                <field name="ded_value"/>
-                                <field name="total_deserve"/>
+                                <field name="ded_value" attrs="{'readonly':[('state','in',('approved2'))]}"/>
+                                <field name="total_deserve_amount" string="Total Deserved"/>
                                 <field name="notes" attrs="{'readonly':[('state','in',('approved2'))]}"/>
                                 <field name="move_id" invisible="1"/>
                             </group>
@@ -109,7 +109,7 @@
                     <field name="date"/>
                     <field name="employee_id"/>
                     <field name="job_id"/>
-                    <field name="total_deserve"/>
+                    <field name="total_deserve_amount"/>
                     <field name="state"/>
                 </tree>
             </field>
