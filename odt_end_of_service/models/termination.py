@@ -16,8 +16,8 @@ class Termination(models.Model):
     _rec_name = 'termination_code'
 
     @api.one
-    @api.depends('total_deserve', 'deserve_salary_amount')
-    def _compute_total_deserve_amount(self):
+    @api.depends('total_deserve', 'deserve_salary_amount', 'add_value', 'loan_value', 'ded_value')
+    def _compute_total_deserve(self):
         for termination in self:
             termination.total_deserve_amount = termination.total_deserve + termination.deserve_salary_amount + termination.add_value - termination.loan_value - termination.ded_value
 
@@ -66,6 +66,7 @@ class Termination(models.Model):
     contract_id = fields.Many2one('hr.contract', 'Contract', required=True, readonly=True,
                                   states={'draft': [('readonly', False)]})
     job_id = fields.Many2one('hr.job', 'Job Title', readonly=True, states={'draft': [('readonly', False)]})
+    company_id = fields.Many2one('res.company', 'Company', readonly=True, states={'draft': [('readonly', False)]})
     job_ending_date = fields.Date('Job Ending Date', required=True, readonly=True,
                                   states={'draft': [('readonly', False)]}, defualt=fields.Date.today())
     hire_date = fields.Date('Hire Date', readonly=True, required=True, states={'draft': [('readonly', False)]})
@@ -73,11 +74,11 @@ class Termination(models.Model):
     approval_date = fields.Date('Approval Date', readonly=True, states={'draft': [('readonly', False)]},
                                 default=fields.Date.today)
     loan_value = fields.Float('Loan Value')
-    ded_value = fields.Float('Deduction Value', readonly=True, states={'draft': [('readonly', False)]}, )
-    add_value = fields.Float('Addition Value', readonly=True, states={'draft': [('readonly', False)]}, )
+    ded_value = fields.Float('Deduction Value')
+    add_value = fields.Float('Addition Value')
     total_deserve = fields.Float('End Of Service Amount', compute='_calculate_severance', readonly=True,
                                  help="Calculation By Basic Salary + Housing Allowance + Transportation Allowance")
-    total_deserve_amount = fields.Float('Total Deserved', compute='_compute_total_deserve_amount', readonly=True)
+    total_deserve_amount = fields.Float('Total Deserved', compute='_compute_total_deserve', readonly=True)
     from_years = fields.Float('From Years', readonly=True, states={'draft': [('readonly', False)]})
     to_years = fields.Float('To Years', readonly=True, states={'draft': [('readonly', False)]})
     basic_salary = fields.Float('Total Salary', readonly=True, states={'draft': [('readonly', False)]})
@@ -177,6 +178,7 @@ class Termination(models.Model):
         if self.employee_id:
             vals = {'domain': {'contract_id': False}}
             self.job_id = self.employee_id.job_id.id
+            self.company_id = self.employee_id.company_id.id
             self.hire_date = self.employee_id.joining_date
             remaining_vacation = self.employee_id.remaining_leaves + self.get_employee_balance_leave()
             self.vacation_days = remaining_vacation
@@ -192,14 +194,15 @@ class Termination(models.Model):
     def _onchange_contract_id(self):
         for record in self:
             salary_amount = 0.0
+            basic_salary = 0.0
             if record.contract_id and record.payment_method:
                 basic = record.contract_id.wage
-                for field in record.payment_method.field_ids:
+                for field in record.payment_method.leave_rules:
                     if field.name == 'wage':
                         salary_amount += record.contract_id[field.name]
                     elif field.name == 'transportation_allowance':
                         salary_amount += (basic * (
-                                    record.contract_id.transportation_allowance / 100) if record.contract_id.is_trans else record.contract_id.transportation_allowance)
+                                record.contract_id.transportation_allowance / 100) if record.contract_id.is_trans else record.contract_id.transportation_allowance)
                     elif field.name == 'housing_allowance':
                         salary_amount += (basic * (
                                 record.contract_id.housing_allowance / 100) if record.contract_id.is_house else record.contract_id.housing_allowance)
@@ -224,8 +227,39 @@ class Termination(models.Model):
                     elif field.name == 'other_allowance':
                         salary_amount += (basic * (
                                 record.contract_id.other_allowance / 100) if record.contract_id.is_other else record.contract_id.other_allowance)
+                for field_id in record.payment_method.field_ids:
+                    if field_id.name == 'wage':
+                        basic_salary += record.contract_id[field_id.name]
+                    elif field_id.name == 'transportation_allowance':
+                        basic_salary += (basic * (
+                                record.contract_id.transportation_allowance / 100) if record.contract_id.is_trans else record.contract_id.transportation_allowance)
+                    elif field_id.name == 'housing_allowance':
+                        basic_salary += (basic * (
+                                record.contract_id.housing_allowance / 100) if record.contract_id.is_house else record.contract_id.housing_allowance)
+                    elif field_id.name == 'mobile_allowance':
+                        basic_salary += (basic * (
+                                record.contract_id.mobile_allowance / 100) if record.contract_id.is_mobile else record.contract_id.mobile_allowance)
+                    elif field_id.name == 'overtime_allowance':
+                        basic_salary += (basic * (
+                                record.contract_id.overtime_allowance / 100) if record.contract_id.is_over else record.contract_id.overtime_allowance)
+                    elif field_id.name == 'work_allowance':
+                        basic_salary += (basic * (
+                                record.contract_id.work_allowance / 100) if record.contract_id.is_work else record.contract_id.work_allowance)
+                    elif field_id.name == 'reward':
+                        basic_salary += (basic * (
+                                record.contract_id.reward / 100) if record.contract_id.is_reward else record.contract_id.reward)
+                    elif field_id.name == 'ticket_allowance':
+                        basic_salary += (basic * (
+                                record.contract_id.ticket_allowance / 100) if record.contract_id.is_ticket else record.contract_id.ticket_allowance)
+                    elif field_id.name == 'food_allowance':
+                        basic_salary += (basic * (
+                                record.contract_id.food_allowance / 100) if record.contract_id.is_food else record.contract_id.food_allowance)
+                    elif field_id.name == 'other_allowance':
+                        basic_salary += (basic * (
+                                record.contract_id.other_allowance / 100) if record.contract_id.is_other else record.contract_id.other_allowance)
 
             record.salary_amount = salary_amount
+            record.basic_salary = basic_salary
             remaining_vacation = record.employee_id.remaining_leaves + record.get_employee_balance_leave()
             record.vacation_days = remaining_vacation
             record.deserve_salary_amount = (salary_amount / 30) * remaining_vacation
@@ -539,8 +573,11 @@ class TerminationsPayments(models.Model):
                                            help='Addition Debit account for journal entry')
     add_credit_account_id = fields.Many2one('account.account', 'Addition Credit Account', required=False,
                                             help='Addition Credit account for journal entry')
-    field_ids = fields.Many2many('ir.model.fields', 'termination_field_rel', 'termination_id', 'field_id', 'Calculation Lines',
+    field_ids = fields.Many2many(comodel_name="ir.model.fields", relation="termination_field_rel",
+                                 string="End Of Service Rules",
                                  domain=[('model_id', '=', 'hr.contract'), ('ttype', 'in', ['float', 'monetary'])])
+    leave_rules = fields.Many2many(comodel_name="ir.model.fields", relation="leaves_field_rel", string="Leave Rules",
+                                   domain=[('model_id', '=', 'hr.contract'), ('ttype', 'in', ['float', 'monetary'])])
 
 
 class HrContract(models.Model):

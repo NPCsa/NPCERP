@@ -55,24 +55,27 @@
                                     <th class="text-center td5"
                                         style="border: 2px solid black;text-align: center;">#
                                     </th>
-                                    <th class="text-center td5"
-                                        style="border: 2px solid black;text-align: center;">Number
-                                    </th>
+                                    <!--<th class="text-center td5"-->
+                                        <!--style="border: 2px solid black;text-align: center;">Number-->
+                                    <!--</th>-->
                                     <th class="text-center td5"
                                         style="border: 2px solid black;text-align: center;">Employee
                                     </th>
                                     <th class="text-center td5"
                                         style="border: 2px solid black;text-align: center;">Employee code
                                     </th>
+                                    <!--<th class="text-center td5"-->
+                                        <!--style="border: 2px solid black;text-align: center;">App/Date-->
+                                    <!--</th>-->
                                     <th class="text-center td5"
-                                        style="border: 2px solid black;text-align: center;">Date
+                                        style="border: 2px solid black;text-align: center;">EndingDate
                                     </th>
                                     <th class="text-center td5"
                                         style="border: 2px solid black;text-align: center;">Contract
                                     </th>
-                                    <th class="text-center td5"
-                                        style="border: 2px solid black;text-align: center;">Location
-                                    </th>
+                                    <!--<th class="text-center td5"-->
+                                        <!--style="border: 2px solid black;text-align: center;">Location-->
+                                    <!--</th>-->
                                     <th class="text-center td5"
                                         style="border: 2px solid black;text-align: center;">Department
                                     </th>
@@ -105,9 +108,9 @@
                                     <td class="text-center td2" style="border: 2px solid black;text-align: center;">
                                         <span t-esc="line['increment']"/>
                                     </td>
-                                    <td class="text-center td2" style="border: 2px solid black;text-align: center;">
-                                        <span t-esc="line['number']"/>
-                                    </td>
+                                    <!--<td class="text-center td2" style="border: 2px solid black;text-align: center;">-->
+                                        <!--<span t-esc="line['number']"/>-->
+                                    <!--</td>-->
                                     <td class="text-center td2" style="border: 2px solid black;text-align: center;">
                                         <span t-esc="line['employee']"/>
                                     </td>
@@ -115,14 +118,17 @@
                                         <span t-esc="line['employee_code']"/>
                                     </td>
                                     <td class="text-center td2" style="border: 2px solid black;text-align: center;">
-                                        <span  style="font-size: xx-small;" t-esc="line['date']"/>
+                                        <span   t-esc="line['date']"/>
                                     </td>
+                                    <!--<td class="text-center td2" style="border: 2px solid black;text-align: center;">-->
+                                        <!--<span  style="font-size: xx-small;" t-esc="line['approval_date']"/>-->
+                                    <!--</td>-->
                                     <td class="text-center td2" style="border: 2px solid black;text-align: center;">
                                         <span t-esc="line['contract_id']"/>
                                     </td>
-                                    <td class="text-center td2" style="border: 2px solid black;text-align: center;">
-                                        <span t-esc="line['zw_idara']"/>
-                                    </td>
+                                    <!--<td class="text-center td2" style="border: 2px solid black;text-align: center;">-->
+                                        <!--<span t-esc="line['zw_idara']"/>-->
+                                    <!--</td>-->
                                     <td class="text-center td2" style="border: 2px solid black;text-align: center;">
                                         <span t-esc="line['department']"/>
                                     </td>

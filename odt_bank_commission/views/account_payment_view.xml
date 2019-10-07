@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+     <record id="view_account_payment_form_bank" model="ir.ui.view">
+            <field name="name">view.account.payment.form.inherit</field>
+            <field name="model">account.payment</field>
+            <field name="inherit_id" ref="account.view_account_payment_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='communication']" position="after">
+                        <field name="bank_commission"/>
+                        <field name="bank_commission_account" attrs="{'required': [('bank_commission', '>', 0)]}"/>
+                        <field name="commision_tax_id" domain="[('type_tax_use','=','purchase'),('default_bank_commission','=',True)]"/>
+                        <field name="tax_amount"/>
+                        <field name="analytic_account_id"/>
+                </xpath>
+            </field>
+    </record>
+
+    <record id="view_account_payment_invoice_form_inherit_branch" model="ir.ui.view">
+            <field name="name">view.account.payment.invoice.form.inherit.branch</field>
+            <field name="model">account.payment</field>
+            <field name="inherit_id" ref="account.view_account_payment_invoice_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='communication']" position="after">
+                        <field name="bank_commission" attrs="{'invisible': [('type', '!=','in_invoice')]}"/>
+                        <field name="bank_commission_account" attrs="{'required': [('bank_commission', '>', 0)],'invisible': [('type', '!=','in_invoice')]}"/>
+                        <field name="commision_tax_id" domain="[('type_tax_use','=','purchase'),('default_bank_commission','=',True)]" attrs="{'invisible': [('type', '!=','in_invoice')]}"/>
+                        <field name="tax_amount" attrs="{'invisible': [('type', '!=','in_invoice')]}"/>
+                        <field name="type" invisible="1"/>
+                        <field name="analytic_account_id"/>
+                </xpath>
+            </field>
+    </record>
+
+</odoo>

@@ -47,13 +47,13 @@
                                                         Bank Name
                                                     </th>
                                                     <td style="border: 1px solid black;" class="text-left">
-                                                        <span t-esc="datar[0]['employee'].bank_account_id.bank_id.name"/>
+                                                        <span t-esc="datar[0]['employee'].bank_name"/>
                                                     </td>
                                                     <th style="border: 1px solid black;" class="text-left">
                                                         Bank Number
                                                     </th>
                                                     <td style="border: 1px solid black;" class="text-left">
-                                                        <span t-esc="datar[0]['employee'].bank_account_id.acc_number"/>
+                                                        <span t-esc="datar[0]['employee'].iban_number"/>
                                                     </td>
                                                 </tr>
                                                 <tr>
