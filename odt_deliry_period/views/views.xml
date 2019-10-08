@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="deliery_period_form" model="ir.ui.view">
+            <field name="name">deliery.period.form</field>
+            <field name="model">deliery.period</field>
+            <field name="arch" type="xml">
+                <form string="Deliery Period">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="period_day"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="deliery_period_tree" model="ir.ui.view">
+            <field name="name">deliery.period.tree</field>
+            <field name="model">deliery.period</field>
+            <field name="arch" type="xml">
+                <tree string="Deliery Period">
+                    <field name="name"/>
+                    <field name="period_day"/>
+
+                </tree>
+            </field>
+        </record>
+        <record id="deliery_period_menu_action" model="ir.actions.act_window">
+            <field name="name">Deliery Period</field>
+            <field name="res_model">deliery.period</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Create The First Student
+                </p>
+            </field>
+        </record>
+        <menuitem id="deliery_period_menu"
+                  parent="sale.menu_sale_config"
+                  name="Deliery Period"
+                  action="deliery_period_menu_action"/>
+
+
+
+        <!-- Inherit Form View to Modify it -->
+        <record id="sale_order_form_delery_period111" model="ir.ui.view">
+            <field name="name">sale.order.form.delery.period</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='payment_term_id']" position="after">
+                    <field name="deliery_period"/>
+                    <!-- Add your fields or attributes here -->
+                </xpath>
+
+            </field>
+        </record>
+    </data>
+</odoo>

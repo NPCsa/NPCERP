@@ -278,7 +278,7 @@ class Termination(models.Model):
             self.working_period = months
             self.period_in_years = years
 
-    @api.one
+    @api.one 
     @api.depends('working_period', 'eos_reason', 'basic_salary')
     def _calculate_severance(self):
         total_severance = 0

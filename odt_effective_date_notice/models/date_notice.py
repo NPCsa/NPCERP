@@ -76,7 +76,7 @@ class DateNotice(models.Model):
             st_dt = datetime.strptime(str(self.start_work), "%Y-%m-%d")
             ret_dt = str(st_dt + timedelta(days=-1))
             vacation = self.env['hr.leave'].search(
-                [('employee_id', '=', self.employee_id.id), ('type', '=', 'remove'), ('date_to', '>=', ret_dt),
+                [('employee_id', '=', self.employee_id.id),('date_to', '>=', ret_dt),
                  ('state', '=', 'validate')])
             if vacation:
                 if employee.on_vacation == True:
