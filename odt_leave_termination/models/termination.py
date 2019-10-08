@@ -12,7 +12,7 @@ class AccountMove(models.Model):
     termination_leave_id = fields.Many2one('hr.holiday.termination', 'Settlement', help='Settlement Record')
 
 
-class Termination(models.Model):
+class Settlement(models.Model):
     _name = 'hr.holiday.termination'
     _rec_name = 'termination_code'
     _description = 'New Settlement'
@@ -41,7 +41,7 @@ class Termination(models.Model):
                                 help="Calculation By (Total Salary - Transportation Allowance) / 30 ")
     ticket_amount = fields.Float(string="Ticket Amount", required=False, )
     total_amount = fields.Float(string="Total Amount", required=False, compute='_compute_total_amount')
-    move_id = fields.Many2one('account.move', 'Journal Entry', help='Journal Entry for Termination')
+    move_id = fields.Many2one('account.move', 'Journal Entry', help='Journal Entry for Settlement')
 
     payment_method = fields.Many2one('termination.leave.payments', 'Payment Method',
                                      help='payment method for Settlement')
@@ -292,7 +292,7 @@ class Termination(models.Model):
             if termination.state not in ['draft', 'review']:
                 raise Warning(_('You cannot delete a Settlement document'
                                 ' which is not draft or cancelled!'))
-        return super(Termination, self).unlink()
+        return super(Settlement, self).unlink()
 
     @api.multi
     def open_entries(self):
