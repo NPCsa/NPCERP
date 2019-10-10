@@ -57,7 +57,7 @@ class AccountMove(models.Model):
 class NewModule(models.Model):
     _inherit = 'account.move.line'
 
-    parent_account = fields.Many2one(comodel_name="account.account", string="Group of Account", required=False, )
+    parent_account = fields.Many2one(comodel_name="account.group", string="Group of Account", required=False, )
 
 class Account(models.Model):
     _inherit = 'account.account'
