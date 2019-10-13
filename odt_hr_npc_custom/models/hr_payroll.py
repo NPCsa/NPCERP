@@ -5,22 +5,48 @@ from dateutil import relativedelta
 from odoo import api, fields, models, tools, _
 from odoo.exceptions import UserError,Warning
 from datetime import datetime,date
-
+from datetime import date, datetime, time
+from dateutil.relativedelta import relativedelta
+from pytz import timezone
 
 class Payslip(models.Model):
-    _inherit = 'hr.payslip'
+    _name = 'hr.payslip'
+    _inherit = ['mail.thread','hr.payslip']
 
-    payment_method = fields.Selection(related='employee_id.payment_method', store=True)
-    absent_times = fields.Integer(string="Absent Times",  required=False )
+    payment_method = fields.Selection(related='employee_id.payment_method', store=True,track_visibility='onchange')
+    absent_times = fields.Integer(string="Absent Times",  required=False ,track_visibility='onchange')
 
-    struct_id = fields.Many2one('hr.payroll.structure', string='Structure', related='contract_id.struct_id',
+    struct_id = fields.Many2one('hr.payroll.structure', string='Structure', related='contract_id.struct_id',track_visibility='onchange',
                                 readonly=True, states={'draft': [('readonly', False)]},
                                 help='Defines the rules that have to be applied to this payslip, accordingly '
                                      'to the contract chosen. If you let empty the field contract, this field isn\'t '
                                      'mandatory anymore and thus the rules applied will be all the rules set on the '
                                      'structure of all contracts of the employee valid for the chosen period')
 
-
+    name = fields.Char(string='Payslip Name', readonly=True,track_visibility='onchange',
+                       states={'draft': [('readonly', False)]})
+    number = fields.Char(string='Reference', readonly=True, copy=False,track_visibility='onchange',
+                         states={'draft': [('readonly', False)]})
+    employee_id = fields.Many2one('hr.employee', string='Employee', required=True, readonly=True,track_visibility='onchange',
+                                  states={'draft': [('readonly', False)]})
+    date_from = fields.Date(string='Date From', readonly=True, required=True,track_visibility='onchange',
+                            default=lambda self: fields.Date.to_string(date.today().replace(day=1)),
+                            states={'draft': [('readonly', False)]})
+    date_to = fields.Date(string='Date To', readonly=True, required=True,track_visibility='onchange',
+                          default=lambda self: fields.Date.to_string(
+                              (datetime.now() + relativedelta(months=+1, day=1, days=-1)).date()),
+                          states={'draft': [('readonly', False)]})
+    # this is chaos: 4 states are defined, 3 are used ('verify' isn't) and 5 exist ('confirm' seems to have existed)
+    state = fields.Selection([
+        ('draft', 'Draft'),
+        ('verify', 'Waiting'),
+        ('done', 'Done'),
+        ('cancel', 'Rejected'),
+    ], string='Status', index=True, readonly=True, copy=False, default='draft',track_visibility='onchange',
+        help="""* When the payslip is created the status is \'Draft\'
+                    \n* If the payslip is under verification, the status is \'Waiting\'.
+                    \n* If the payslip is confirmed then status is set to \'Done\'.
+                    \n* When user cancel payslip the status is \'Rejected\'.""")
     @api.one
     def _compute_absent_days(self):
         for record in self:
