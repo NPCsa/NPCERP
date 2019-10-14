@@ -6,7 +6,6 @@ from odoo import api, fields, models, tools, _
 from odoo.exceptions import UserError,Warning
 from datetime import datetime,date
 from datetime import date, datetime, time
-from dateutil.relativedelta import relativedelta
 from pytz import timezone
 
 class Payslip(models.Model):
