@@ -146,9 +146,21 @@ class Payslip(models.Model):
         return res
 
 class PayslipRun(models.Model):
-    _inherit = 'hr.payslip.run'
+    _name = 'hr.payslip.run'
+    _inherit = ['mail.thread', 'hr.payslip.run']
 
-    state = fields.Selection(selection_add=[('done', 'Confirm')])
+    name = fields.Char(required=True, readonly=True, states={'draft': [('readonly', False)]},track_visibility='onchange')
+    slip_ids = fields.One2many('hr.payslip', 'payslip_run_id', string='Payslips', readonly=True,track_visibility='onchange',
+                               states={'draft': [('readonly', False)]})
+
+    date_start = fields.Date(string='Date From', required=True, readonly=True,track_visibility='onchange',
+                             states={'draft': [('readonly', False)]},
+                             default=lambda self: fields.Date.to_string(date.today().replace(day=1)))
+
+    credit_note = fields.Boolean(string='Credit Note', readonly=True,track_visibility='onchange',
+                                 states={'draft': [('readonly', False)]},
+                                 help="If its checked, indicates that all payslips generated from here are refund payslips.")
+    state = fields.Selection(selection_add=[('done', 'Confirm')],track_visibility='onchange')
 
     @api.onchange('date_start', 'date_end')
     def onchange_batch_dates(self):
