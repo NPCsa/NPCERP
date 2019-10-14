@@ -6,7 +6,6 @@ from odoo import api, fields, models, tools, _
 from odoo.exceptions import UserError,Warning
 from datetime import datetime,date
 from datetime import date, datetime, time
-from dateutil.relativedelta import relativedelta
 from pytz import timezone
 
 class Payslip(models.Model):
@@ -32,11 +31,6 @@ class Payslip(models.Model):
     date_from = fields.Date(string='Date From', readonly=True, required=True,track_visibility='onchange',
                             default=lambda self: fields.Date.to_string(date.today().replace(day=1)),
                             states={'draft': [('readonly', False)]})
-    date_to = fields.Date(string='Date To', readonly=True, required=True,track_visibility='onchange',
-                          default=lambda self: fields.Date.to_string(
-                              (datetime.now() + relativedelta(months=+1, day=1, days=-1)).date()),
-                          states={'draft': [('readonly', False)]})
-    # this is chaos: 4 states are defined, 3 are used ('verify' isn't) and 5 exist ('confirm' seems to have existed)
     state = fields.Selection([
         ('draft', 'Draft'),
         ('verify', 'Waiting'),
