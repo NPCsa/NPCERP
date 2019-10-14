@@ -17,18 +17,30 @@
             <field eval="False" name="doall"/>
         </record>
 
+         <!-- Inherit Form View to Modify it -->
+        <record id="hr_leave_allocation_view_inherit" model="ir.ui.view">
+            <field name="name">hr.leave.allocation.inherit</field>
+            <field name="model">hr.leave.allocation</field>
+            <field name="inherit_id" ref="hr_holidays.hr_leave_allocation_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='number_of_days']" position="before">
+                    <field name="last_allocation_date"  attrs="{'required':[('leave_on_employee','=',True)],'invisible':[('leave_on_employee','=',False)]}" groups="hr_holidays.group_hr_holidays_user"/>
+                    <field name="date_change" invisible="1"/>
+                    <field name="leave_on_employee" invisible="1"/>
+                </xpath>
+            </field>
+        </record>
+
         <!-- Inherit Form View to Modify it -->
         <record id="hr_edit_holiday_new_inherit" model="ir.ui.view">
             <field name="name">hr.leave.form.inherit</field>
             <field name="model">hr.leave</field>
             <field name="inherit_id" ref="hr_holidays.hr_leave_view_form"/>
             <field name="arch" type="xml">
-                <xpath expr="//header//button[@name='action_approve']" position="before">
-                        <button string="Allocation" name="get_employee_balance_leave" attrs="{'invisible':['|',('state','!=','confirm')]}" type="object" groups="hr_holidays.group_hr_holidays_user" class="oe_highlight"/>
-                </xpath>
-                <xpath expr="//field[@name='leave_type_request_unit']" position="before">
-                    <field name="vacation_id" invisible="1"/>
-                    <field name="last_allocation_date" invisible="1"/>
+                <xpath expr="//field[@name='name']" position="before">
+                    <field name="leave_on_employee" invisible="1"/>
+                    <field name="reconcile_option" attrs="{'required':[('leave_on_employee','=',True)],'invisible':[('leave_on_employee','=',False)]}"/>
+                    <field name="is_reconciled"  attrs="{'readonly':1,'invisible':[('leave_on_employee','=',False)]}"/>
                 </xpath>
             </field>
         </record>

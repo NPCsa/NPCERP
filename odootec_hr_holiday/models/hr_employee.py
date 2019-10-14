@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-from odoo import models, fields
+from odoo import models, fields, api
+from odoo.tools.float_utils import float_round
 
 
 class hr_employee(models.Model):
@@ -16,7 +17,23 @@ class hr_employee(models.Model):
     last_return_date = fields.Date(string="Last Return Date", required=False, )
     allocation_method = fields.Many2one('hr.leave.allocation.method', 'Allocation Method',
                                         help='Allocation method for Settlement')
+    remaining_allocate_leaves = fields.Float(
+        compute='_compute_allocate_leaves', string='Remaining Annual Leaves',
+        help='Total number of legal leaves allocated to this employee, change this value to create allocation/leave request. '
+             'Total based on all the leave types on allocation Leaves.')
 
+    @api.multi
+    def _compute_allocate_leaves(self):
+        for employee in self:
+            leaves = employee.holiday_line_ids.mapped('leave_status_id').ids
+            leave_request = self.env['hr.leave'].search(
+                [('employee_id', '=', employee.id), ('state', '=', 'validate'), ('holiday_status_id', 'in', leaves)])
+            leave_allocate = self.env['hr.leave.allocation'].search(
+                [('employee_id', '=', employee.id), ('state', '=', 'validate'), ('holiday_status_id', 'in', leaves)])
+            allocate_days = sum(leave_allocate.mapped('number_of_days'))
+            request_days = sum(leave_request.mapped('number_of_days'))
+            days = allocate_days - request_days
+            employee.remaining_allocate_leaves = days if days > 0.0 else 0.0
 
 class HrEmployeeLeaveLineAuto(models.Model):
     _name = 'hr.employee.leave.line'
@@ -29,6 +46,7 @@ class HrEmployeeLeaveLineAuto(models.Model):
                                     help="In automatic allocation of leaves, " \
                                          "given days will be allocated every month / year.")
     employee_id = fields.Many2one('hr.employee', ondelete='cascade')
+
 
 class HrEmployeeLeaveLineMan(models.Model):
     _name = 'hr.employee.leave.line.manual'

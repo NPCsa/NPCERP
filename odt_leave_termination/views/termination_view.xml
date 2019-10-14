@@ -41,10 +41,14 @@
                                 <field name="company_id" groups="base.group_multi_company"/>
                             </group>
                             <group>
-                                <field name="leave_date"/>
+                                <field name="reconcile_date"/>
+                                <field name="vacation_days" attrs="{'invisible':[('reconcile_type','not in',['request','both'])],'readonly':1}"/>
+
                             </group>
                             <group>
-                                <field name="last_leave_date"/>
+                                <field name="reconcile_type"/>
+                                <field name="employee_balance_days" attrs="{'invisible':[('reconcile_type','not in',['balance','both'])],'readonly':1}"/>
+                                <field name="balance_days" attrs="{'invisible':[('reconcile_type','not in',['balance','both'])]}"/>
                             </group>
 
                             <group>
@@ -65,7 +69,8 @@
                                 <field name="approval_date"/>
                             </group>
                             <group class="o_group o_inner_group o_group_col_12">
-                                <field name="leave_amount" attrs="{'readonly':[('state','in',('approved2'))]}"/>
+                                <field name="salary_amount" readonly="1"/>
+                                <field name="leave_amount" readonly="1"/>
                                 <field name="ticket_amount" attrs="{'readonly':[('state','in',('approved2'))]}"/>
                                 <field name="total_amount"/>
                                 <field name="notes" attrs="{'readonly':[('state','in',('approved2'))]}"/>
@@ -73,14 +78,6 @@
                             </group>
 
                         </group>
-                        <notebook>
-                            <page string="Vacation Days">
-                                <group>
-                                    <field name="vacation_days"/>
-                                    <field name="salary_amount"/>
-                                </group>
-                            </page>
-                        </notebook>
                     </sheet>
                 </form>
             </field>
