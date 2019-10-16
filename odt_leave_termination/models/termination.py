@@ -28,8 +28,11 @@ class Settlement(models.Model):
     reconcile_type = fields.Selection(string="Reconcile Type",
                                       selection=[('request', 'Leave Request'), ('balance', 'Balance'),
                                                  ('both', 'Both'), ], required=True, default='request')
-    balance_days = fields.Float(string="Balance Days", required=False, )
-    employee_balance_days = fields.Float(string="Employee Balance Days", required=False,store=True)
+    balance_days = fields.Float(string="Reconcile Days", required=False, )
+    employee_balance_days = fields.Float(string="Current Balance Days", required=False, compute='_get_vacation_days')
+    vacation_days = fields.Float('Vacation Days', required=False, compute='_get_vacation_days')
+    vacation_days_comp = fields.Float('vacation days comp', required=False, )
+    balance_days_comp = fields.Float('balance days comp', required=False, )
     contract_id = fields.Many2one('hr.contract', 'Contract', required=True, readonly=True,
                                   states={'draft': [('readonly', False)]})
     job_id = fields.Many2one('hr.job', 'Job Title', readonly=True, states={'draft': [('readonly', False)]})
@@ -37,7 +40,6 @@ class Settlement(models.Model):
     approved_by = fields.Many2one('res.users', 'Approved By', default=lambda self: self.env.user, readonly=True,
                                   states={'draft': [('readonly', False)]})
     approval_date = fields.Date('Approval Date', readonly=True, states={'draft': [('readonly', False)]})
-    vacation_days = fields.Float('Vacation Days', readonly=True, states={'draft': [('readonly', False)]},compute='_compute_vacation_days',store=True)
     salary_amount = fields.Float('Salary Amount', readonly=True, states={'draft': [('readonly', False)]},compute='_onchange_contract_id')
     leave_amount = fields.Float(string="Leave Amount", required=False,compute='_onchange_contract_id')
     ticket_amount = fields.Float(string="Ticket Amount", required=False, )
@@ -55,18 +57,10 @@ class Settlement(models.Model):
                               ], _('Status'), readonly=True, copy=False, default='draft',
                              help=_("Gives the status of the Settlement"), select=True)
 
-
-
-
     @api.constrains('balance_days')
     def _constrain_balance_days(self):
         if self.balance_days > self.employee_id.remaining_allocate_leaves:
             raise ValidationError("You Can not reconcile days greater than balance of Employee")
-
-    @api.onchange('reconcile_type')
-    def _onchange_reconcile_type(self):
-        if self.reconcile_type in ['both','balance']:
-            self.employee_balance_days = self.employee_id.remaining_allocate_leaves
 
     @api.one
     def _compute_total_amount(self):
@@ -85,13 +79,20 @@ class Settlement(models.Model):
     @api.onchange('reconcile_type', 'reconcile_date')
     def _compute_vacation_days(self):
         for line in self:
+            line.balance_days_comp = self.employee_id.remaining_allocate_leaves
             leave_type = line.employee_id.holiday_line_ids.mapped('leave_status_id').ids
             domain = [('holiday_status_id', 'in', leave_type), ('state', '=', 'validate'),('employee_id', '=', line.employee_id.id),
                       ('request_date_from', '<=', line.reconcile_date), ('reconcile_option', '=', 'yes'),
                       ('is_reconciled', '=', False)]
             leave = self.env['hr.leave'].search(domain)
             leave_days = sum([l.number_of_days for l in leave])
-            line.vacation_days = leave_days
+            line.vacation_days_comp = leave_days
+
+    @api.onchange('reconcile_type', 'reconcile_date')
+    def _get_vacation_days(self):
+        for record in self:
+            record.employee_balance_days = record.balance_days_comp
+            record.vacation_days = record.vacation_days_comp
 
     @api.multi
     def validate_termination(self):
@@ -107,7 +108,8 @@ class Settlement(models.Model):
             }
             leave = self.env['hr.leave.allocation'].create(vals)
             leave.action_approve()
-            leave.action_validate()
+            if leave.holiday_status_id.double_validation:
+                leave.action_validate()
 
         leave_type = self.employee_id.holiday_line_ids.mapped('leave_status_id').ids
         domain = [('holiday_status_id', 'in', leave_type), ('state', '=', 'validate'),
