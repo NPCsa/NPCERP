@@ -29,7 +29,7 @@
     'maintainer': 'Cybrosys Techno Solutions',
     'website': 'https://www.cybrosys.com',
     'category': 'Generic Modules/Human Resources',
-    'depends': ['hr_payroll'],
+    'depends': ['hr_payroll','odt_zawaj_hr'],
     'license': 'LGPL-3',
     'data': [
         'security/ir.model.access.csv',

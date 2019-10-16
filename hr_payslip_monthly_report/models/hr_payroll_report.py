@@ -38,7 +38,7 @@ class PayrollReportView(models.Model):
 
     def _select(self):
         select_str = """
-        min(ps.id) as id,emp.id as name,jb.id as job_id,
+        min(ps.id) as id,emp.id as name,
         dp.id as department_id,cmp.id as company_id,
         ps.date_from, ps.date_to, sum(psl.total) as net, ps.state as state
         """
@@ -48,13 +48,13 @@ class PayrollReportView(models.Model):
         from_str = """
             hr_payslip_line psl  join hr_payslip ps on (ps.employee_id=psl.employee_id and ps.id=psl.slip_id)
             join hr_employee emp on (ps.employee_id=emp.id) join hr_department dp on (emp.department_id=dp.id)
-            join hr_job jb on (emp.department_id=jb.id) join res_company cmp on (cmp.id=ps.company_id) where psl.code='NET'
+            join res_company cmp on (cmp.id=ps.company_id) where psl.code='NET'
          """
         return from_str
 
     def _group_by(self):
         group_by_str = """
-            group by emp.id,psl.total,ps.date_from, ps.date_to, ps.state,jb.id,dp.id,cmp.id
+            group by emp.id,psl.total,ps.date_from, ps.date_to, ps.state,dp.id,cmp.id
         """
         return group_by_str
 

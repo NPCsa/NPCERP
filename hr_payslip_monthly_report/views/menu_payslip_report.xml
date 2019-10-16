@@ -40,7 +40,6 @@
                     <field name="department_id"/>
                     <group expand="1" string="Group By">
                         <filter string="Employee" name="Employee" context="{'group_by':'name'}"/>
-                        <filter string="Job" name="job" context="{'group_by':'job_id'}"/>
                         <filter string="Department" name="department" context="{'group_by':'department_id'}"/>
                         <filter name="status" string="Status" context="{'group_by':'state'}"/>
                         <filter string="Company" name="company" groups="base.group_multi_company" context="{'group_by':'company_id'}"/>
@@ -61,13 +60,9 @@
         </record>
 
         <menuitem
-                name="Reports"
-                id="menu_hr_payslip_reports"
-                parent="hr_payroll.menu_hr_payroll_root" />
-        <menuitem
                 id="menu_hr_payslip_view_report"
                 name="Payslip Report"
-                parent="menu_hr_payslip_reports"
+                parent="odt_zawaj_hr.action_payroll_reports_menu"
                 action="action_hr_payslip_view_report"
                 groups="hr.group_hr_manager"
                 sequence="10"/>
