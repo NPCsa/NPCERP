@@ -30,5 +30,25 @@
             <field name="perm_unlink" eval="0"/>
             <field name="perm_read" eval="1"/>
         </record>
+
+        <record id="rule_payroll" model="ir.rule">
+            <field name="name">Payroll Multi Company</field>
+            <field ref="hr_payroll.model_hr_payslip" name="model_id"/>
+            <field name="domain_force">['|',('company_id','=',False),('company_id','=',user.company_id.id)]</field>
+            <field name="groups" eval="[(4, ref('hr_payroll.group_hr_payroll_manager')),(4, ref('hr_payroll.group_hr_payroll_user'))]"/>
+            <!--<field name="global" eval="1"/> -->
+        </record>
+
+        <record id="hr_payroll.hr_payroll_rule_officer" model="ir.rule">
+            <field name="name">Officer and subordinates Payslip</field>
+            <field eval="0" name="active" />
+            <field ref="hr_payroll.model_hr_payslip" name="model_id"/>
+        </record>
+
+        <record id="hr_payroll.hr_payslip_rule_manager" model="ir.rule">
+            <field name="name">All Payslip</field>
+            <field eval="0" name="active" />
+            <field ref="hr_payroll.model_hr_payslip" name="model_id"/>
+        </record>
     </data>
 </odoo>

@@ -170,7 +170,7 @@ class Termination(models.Model):
     @api.onchange('job_ending_date')
     def onchange_ending_date(self):
         if self.employee_id:
-            remaining_vacation = self.employee_id.remaining_leaves + self.get_employee_balance_leave()
+            remaining_vacation = self.employee_id.remaining_allocate_leaves + self.get_employee_balance_leave()
             self.vacation_days = remaining_vacation
 
     @api.onchange('employee_id', 'job_ending_date')
@@ -179,7 +179,7 @@ class Termination(models.Model):
             vals = {'domain': {'contract_id': False}}
             self.job_id = self.employee_id.job_id.id
             self.hire_date = self.employee_id.joining_date
-            remaining_vacation = self.employee_id.remaining_leaves + self.get_employee_balance_leave()
+            remaining_vacation = self.employee_id.remaining_allocate_leaves + self.get_employee_balance_leave()
             self.vacation_days = remaining_vacation
             contracts = self.get_contracts()
             li = []
@@ -259,7 +259,7 @@ class Termination(models.Model):
 
             record.salary_amount = salary_amount
             record.basic_salary = basic_salary
-            remaining_vacation = record.employee_id.remaining_leaves + record.get_employee_balance_leave()
+            remaining_vacation = record.employee_id.remaining_allocate_leaves + record.get_employee_balance_leave()
             record.vacation_days = remaining_vacation
             record.deserve_salary_amount = (salary_amount / 30) * remaining_vacation
 
@@ -347,6 +347,19 @@ class Termination(models.Model):
 
     @api.multi
     def validate_termination(self):
+        if self.vacation_days:
+            leave_type = self.employee_id.holiday_line_ids.mapped('leave_status_id').ids[0]
+            vals = {
+                'name': 'Reconcile Balance Days',
+                'employee_id': self.employee_id.id,
+                'holiday_status_id': leave_type,
+                'last_allocation_date': self.job_ending_date,
+                'date_change': True,
+                'number_of_days': self.vacation_days * -1,
+            }
+            leave = self.env['hr.leave.allocation'].create(vals)
+            leave.action_approve()
+            leave.action_validate()
 
         if self.payment_method:
             move_obj = self.env['account.move']
