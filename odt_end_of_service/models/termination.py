@@ -286,7 +286,7 @@ class Termination(models.Model):
         if self.eos_reason in ['2', '20', '21']:  # for the zeros issues
             self.total_deserve = 0
         elif self.eos_reason in ['1', '10', '11', '12', '13', '14', '15']:  # for the normal issues
-            if self.working_period < 60:
+            if self.working_period <= 60:
                 self.total_deserve = self.working_period * 1 / 24 * self.basic_salary
             else:
                 total_severance = 60 * 1 / 24 * self.basic_salary
@@ -294,11 +294,11 @@ class Termination(models.Model):
                 total_severance = total_severance + (pass_duration * 1 / 12 * self.basic_salary)
                 self.total_deserve = total_severance
         elif self.eos_reason == '3':  # Worst case resignation
-            if self.working_period < 24:
+            if self.working_period <= 24:
                 self.total_deserve = 0
-            elif self.working_period < 60:
+            elif self.working_period <= 60:
                 self.total_deserve = self.working_period * 1 / 24 * 1 / 3 * self.basic_salary
-            elif self.working_period < 120:
+            elif self.working_period <= 120:
                 total_severance = 60 * 1 / 24 * 2 / 3 * self.basic_salary
                 pass_duration = self.working_period - 60
                 self.total_deserve = total_severance + (pass_duration * 1 / 12 * 2 / 3 * self.basic_salary)
