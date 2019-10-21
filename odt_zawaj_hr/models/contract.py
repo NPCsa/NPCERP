@@ -6,7 +6,7 @@ class EmployeeContract(models.Model):
     _inherit = 'hr.contract'
 
     name = fields.Char('Contract Reference', readonly=True, compute="get_ref")
-    gossi_reg_no = fields.Char('Gossi Registration Number')
+    gossi_reg_no = fields.Char('Gossi Registration Number',related='employee_id.gossi_reg_no',readonly=False)
     total_salary = fields.Monetary('Total Salary', digits=(4, 2), compute='_compute_total_salary',
                                    track_visibility="onchange", help="Employee's monthly Total Salary.")
     zw_idara = fields.Many2one(related='employee_id.zw_idara', string='Location')

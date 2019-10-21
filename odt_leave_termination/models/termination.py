@@ -50,6 +50,8 @@ class Settlement(models.Model):
                                      help='payment method for Settlement')
     journal_id = fields.Many2one('account.journal', 'Journal', help='Journal for journal entry')
     notes = fields.Text(string="Notes", required=False, )
+    emp_member = fields.Integer(string="Family Member", readonly=True, states={'draft': [('readonly', False)]})
+    emp_city = fields.Char(string="Employee City", readonly=True, states={'draft': [('readonly', False)]})
     state = fields.Selection([('draft', _('Draft')),
                               ('review', _('Review')),
                               ('approved', _('First Approve')),
@@ -233,6 +235,11 @@ class Settlement(models.Model):
         if self.employee_id:
             vals = {'domain': {'contract_id': False}}
             self.job_id = self.employee_id.job_id.id
+            self.emp_city = self.employee_id.emp_city
+            member = 0
+            if self.employee_id.family_member_ids:
+                member = len(self.employee_id.family_member_ids)
+            self.emp_member = member
             contracts = self.get_contracts()
             if contracts:
                 return {'domain': {'contract_id': [('id', 'in', contracts.ids)]}}
