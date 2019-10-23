@@ -14,8 +14,8 @@
                                 class="oe_highlight" type="object"/>
                         <button name="validate_termination" states="approved" string="Second Approve"
                                 groups="base.group_user" class="oe_highlight" type="object"/>
-                        <!--<button name="button_cancel" states="draft" string="Cancel" groups="base.group_user"-->
-                                <!--type="object"/>-->
+                        <button name="button_cancel" states="approved,approved2" string="Cancel" groups="base.group_user" type="object"/>
+
                         <field name="state" widget="statusbar" statusbar_visible="draft,approved,approved2,cancel"/>
                     </header>
                     <sheet>
@@ -40,19 +40,19 @@
                                 <field name="date"/>
                                 <field name="job_id"/>
                                 <field name="emp_member"/>
-                                <field name="company_id" groups="base.group_multi_company"/>
+                                <field name="company_id" groups="base.group_multi_company" attrs="{'readonly':[('state','in',('approved2'))]}"/>
                             </group>
                              <group>
-                                <field name="reconcile_date"/>
+                                <field name="reconcile_date" attrs="{'readonly':[('state','in',('approved2'))]}"/>
                                 <field name="vacation_days" attrs="{'invisible':[('reconcile_type','not in',['request','both'])]}"/>
                                 <field name="vacation_days_comp" invisible="1"/>
 
                             </group>
                             <group>
-                                <field name="reconcile_type"/>
+                                <field name="reconcile_type" attrs="{'readonly':[('state','in',('approved2'))]}"/>
                                 <field name="employee_balance_days" attrs="{'invisible':[('reconcile_type','not in',['balance','both'])]}"/>
                                 <field name="balance_days_comp" invisible="1"/>
-                                <field name="balance_days" attrs="{'invisible':[('reconcile_type','not in',['balance','both'])]}"/>
+                                <field name="balance_days" attrs="{'readonly':[('state','in',('approved2'))],'invisible':[('reconcile_type','not in',['balance','both'])]}"/>
                             </group>
 
                             <group>
@@ -79,6 +79,7 @@
                                 <field name="total_amount"/>
                                 <field name="notes" attrs="{'readonly':[('state','in',('approved2'))]}"/>
                                 <field name="move_id" invisible="1"/>
+                                <field name="leave_reconcile_id" invisible="1"/>
                             </group>
 
                         </group>

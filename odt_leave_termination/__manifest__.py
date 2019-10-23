@@ -23,7 +23,6 @@
         'security/ir.model.access.csv',
         'views/hr_termination_sequence.xml',
         'views/termination_view.xml',
-        'views/hr_employee_view.xml',
         'views/report.xml',
     ],
 

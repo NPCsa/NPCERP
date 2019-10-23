@@ -72,6 +72,8 @@
                                 <field name="total_deserve_amount" string="Total Deserved"/>
                                 <field name="notes" attrs="{'readonly':[('state','in',('approved2'))]}"/>
                                 <field name="move_id" invisible="1"/>
+                                <field name="leave_allocate_id" invisible="1"/>
+                                <field name="leave_reconcile_id" invisible="1"/>
                             </group>
                         </group>
                         <notebook>

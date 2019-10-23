@@ -8,12 +8,16 @@
             <field name="inherit_id" ref="hr_holidays.view_employee_form_leave_inherit"/>
             <field name="arch" type="xml">
                 <xpath expr="//page[@name='hr_settings']//group//group//label[@for='remaining_leaves']"
+                       position="replace">
+                    <label for="remaining_leaves" string="Remaining Allocation Leaves"/>
+                </xpath>
+                <xpath expr="//page[@name='hr_settings']//group//group//label[@for='remaining_leaves']"
                        position="before">
                     <label for="remaining_allocate_leaves"/>
                     <div>
                         <field name="remaining_allocate_leaves" class="oe_inline"/> days
                     </div>
-                    <field name="last_allocation_date"/>
+                    <field name="last_allocation_date" readonly="1"/>
                 </xpath>
             </field>
         </record>

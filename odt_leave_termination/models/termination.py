@@ -40,12 +40,13 @@ class Settlement(models.Model):
     approved_by = fields.Many2one('res.users', 'Approved By', default=lambda self: self.env.user, readonly=True,
                                   states={'draft': [('readonly', False)]})
     approval_date = fields.Date('Approval Date', readonly=True, states={'draft': [('readonly', False)]})
-    salary_amount = fields.Float('Salary Amount', readonly=True, states={'draft': [('readonly', False)]},compute='_onchange_contract_id')
-    leave_amount = fields.Float(string="Leave Amount", required=False,compute='_onchange_contract_id')
+    salary_amount = fields.Float('Salary Amount', readonly=True, states={'draft': [('readonly', False)]},
+                                 compute='_onchange_contract_id')
+    leave_amount = fields.Float(string="Leave Amount", required=False, compute='_onchange_contract_id')
     ticket_amount = fields.Float(string="Ticket Amount", required=False, )
     total_amount = fields.Float(string="Total Amount", required=False, compute='_compute_total_amount')
     move_id = fields.Many2one('account.move', 'Journal Entry', help='Journal Entry for Settlement')
-
+    leave_reconcile_id = fields.Many2one('hr.leave.allocation', 'Leave Reconcile')
     payment_method = fields.Many2one('termination.leave.payments', 'Payment Method',
                                      help='payment method for Settlement')
     journal_id = fields.Many2one('account.journal', 'Journal', help='Journal for journal entry')
@@ -54,15 +55,42 @@ class Settlement(models.Model):
     emp_city = fields.Char(string="Employee City", readonly=True, states={'draft': [('readonly', False)]})
     state = fields.Selection([('draft', _('Draft')),
                               ('review', _('Review')),
+                              ('cancel', _('Cancelled')),
                               ('approved', _('First Approve')),
                               ('approved2', _('Second Approve'))
                               ], _('Status'), readonly=True, copy=False, default='draft',
                              help=_("Gives the status of the Settlement"), select=True)
 
-    @api.constrains('balance_days')
+    @api.constrains('balance_days', 'reconcile_date')
     def _constrain_balance_days(self):
         if self.balance_days > self.employee_id.remaining_allocate_leaves:
             raise ValidationError("You Can not reconcile days greater than balance of Employee")
+        reconciles = self.search([('reconcile_date', '>=', self.reconcile_date), ('state', '!=', 'cancel'),
+                                  ('employee_id', '<=', self.employee_id.id)])
+        if len(reconciles) > 1:
+            raise ValidationError("You Can not reconcile more for same Time")
+
+    @api.multi
+    def button_cancel(self):
+        if self.state not in ['approved', 'approved2']:
+            self.state = 'cancel'
+        elif self.move_id and self.move_id.state == 'draft':
+            leave_type = self.employee_id.holiday_line_ids.mapped('leave_status_id').ids
+            domain = [('holiday_status_id', 'in', leave_type), ('state', '=', 'validate'),
+                      ('request_date_from', '<=', self.reconcile_date), ('reconcile_option', '=', 'yes'),
+                      ('is_reconciled', '=', True)]
+            leaves = self.env['hr.leave'].search(domain)
+            for l in leaves:
+                l.is_reconciled = False
+            if self.leave_reconcile_id:
+                self.leave_reconcile_id.action_refuse()
+                self.leave_reconcile_id.action_draft()
+                self.leave_reconcile_id.unlink()
+            self.move_id.unlink()
+            self.state = 'cancel'
+        else:
+            raise Warning(_('You cannot delete a termination document'
+                            ' which is posted Entries!'))
 
     @api.one
     def _compute_total_amount(self):
@@ -83,7 +111,8 @@ class Settlement(models.Model):
         for line in self:
             line.balance_days_comp = self.employee_id.remaining_allocate_leaves
             leave_type = line.employee_id.holiday_line_ids.mapped('leave_status_id').ids
-            domain = [('holiday_status_id', 'in', leave_type), ('state', '=', 'validate'),('employee_id', '=', line.employee_id.id),
+            domain = [('holiday_status_id', 'in', leave_type), ('state', '=', 'validate'),
+                      ('employee_id', '=', line.employee_id.id),
                       ('request_date_from', '<=', line.reconcile_date), ('reconcile_option', '=', 'yes'),
                       ('is_reconciled', '=', False)]
             leave = self.env['hr.leave'].search(domain)
@@ -112,6 +141,7 @@ class Settlement(models.Model):
             leave.action_approve()
             if leave.holiday_status_id.double_validation:
                 leave.action_validate()
+            self.write({'leave_reconcile_id': leave.id})
 
         leave_type = self.employee_id.holiday_line_ids.mapped('leave_status_id').ids
         domain = [('holiday_status_id', 'in', leave_type), ('state', '=', 'validate'),
@@ -207,7 +237,7 @@ class Settlement(models.Model):
 
         self.write(
             {'move_id': move_id.id, 'state': 'approved2', })
-        move_id.post()
+        # move_id.post()
         return True
 
     @api.multi
