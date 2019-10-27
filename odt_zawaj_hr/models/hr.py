@@ -18,7 +18,6 @@ class HrEmployee(models.Model):
     addition_no = fields.Char(string="Addition NO", required=False, )
     house_type = fields.Char(string="House Type", required=False, )
     zip_code = fields.Char(string="Zip Code", required=False, )
-    gosi_in_payslip = fields.Boolean(string="Gosi Not Appear In PaySlip", )
     courses_ids = fields.One2many(comodel_name="hr.training.course", inverse_name="employee_id",
                                   string="Training Courses", required=False, )
 

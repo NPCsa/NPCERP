@@ -21,7 +21,7 @@ class HrPayslip(models.Model):
     zw_idara = fields.Many2one(related='employee_id.zw_idara', string='Location', store=True)
     is_refund = fields.Boolean(string="Refund")
     employee_code = fields.Char('Employee ID', related='employee_id.employee_id', store=True)
-    gosi_in_payslip = fields.Boolean(string='Gosi Not Appear In PaySlip', related='employee_id.gosi_in_payslip',
+    gosi_in_payslip = fields.Boolean(string='Gosi Not Appear In PaySlip', related='contract_id.gosi_in_payslip',
                                   store=True)
 
     @api.multi

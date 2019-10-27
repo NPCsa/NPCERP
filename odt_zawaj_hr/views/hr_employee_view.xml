@@ -19,7 +19,6 @@
                     <field name="iban_number"/>
                     <field name="bank_name"/>
                     <field name="swift_number"/>
-                    <field name="gosi_in_payslip"/>
                 </field>
                 <xpath expr="//field[@name='family_member_ids']//field[@name='date_of_expiry']" position="after">
                     <field name="passport_no"/>
