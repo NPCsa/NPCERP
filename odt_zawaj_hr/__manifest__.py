@@ -6,7 +6,7 @@
     'website': '',
     'description': """
     """,
-    'depends': ['odt_hr_custom', 'hr_contract', 'hr_payroll_account', 'hr_payroll','odt_hr_shada', 'odt_employee_name'],
+    'depends': ['odt_hr_custom','hr','hr_contract', 'hr_payroll_account', 'hr_payroll','odt_hr_shada', 'odt_employee_name'],
     'data': [
         'views/hr_employee_view.xml',
         'views/hr_contract_view.xml',
