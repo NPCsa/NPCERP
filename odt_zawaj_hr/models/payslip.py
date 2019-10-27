@@ -15,13 +15,14 @@ from odoo.exceptions import UserError, ValidationError
 class HrPayslip(models.Model):
     _inherit = 'hr.payslip'
 
-    age = fields.Float('Age',compute='_compute_age_service')
-    service_period = fields.Float('Service Period',compute='_compute_age_service')
-    work = fields.Float('Working Period',compute='_compute_age_service')
-    zw_idara = fields.Many2one(related='employee_id.zw_idara', string='Location',store=True)
+    age = fields.Float('Age', compute='_compute_age_service')
+    service_period = fields.Float('Service Period', compute='_compute_age_service')
+    work = fields.Float('Working Period', compute='_compute_age_service')
+    zw_idara = fields.Many2one(related='employee_id.zw_idara', string='Location', store=True)
     is_refund = fields.Boolean(string="Refund")
-    employee_code = fields.Char('Employee ID', related='employee_id.employee_id',store=True)
-    gosi_in_payslip = fields.Char(string='Gosi Not Appear In PaySlip',related='employee_id.gosi_in_payslip',store=True)
+    employee_code = fields.Char('Employee ID', related='employee_id.employee_id', store=True)
+    gosi_in_payslip = fields.Char(string='Gosi Not Appear In PaySlip', related='employee_id.gosi_in_payslip',
+                                  store=True)
 
     @api.multi
     def refund_sheet(self):
@@ -77,7 +78,6 @@ class HrPayslip(models.Model):
             to_date = fields.Datetime.from_string(self.date_to)
             self.work = (to_date - from_date).days + 1
 
-
     @api.onchange('employee_id', 'date_from', 'date_to')
     def onchange_employee(self):
         self.contract_id = False
@@ -95,7 +95,6 @@ class HrPayslip(models.Model):
             date_from = fields.Datetime.from_string(self.date_from)
             self.date_to = str(date_from + relativedelta.relativedelta(months=+1, day=1, days=-1))[:10]
         return res
-
 
     @api.model
     def get_worked_day_lines(self, contract_ids, date_from, date_to):
