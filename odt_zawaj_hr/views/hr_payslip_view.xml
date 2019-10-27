@@ -22,7 +22,6 @@
                     <field name="work" invisible="1"/>
                     <field name="is_refund" invisible="1"/>
                     <field name="zw_idara" invisible="1"/>
-                    <field name="gossi_reg_no" invisible="1"/>
                 </field>
             </field>
         </record>
@@ -34,7 +33,7 @@
             <field name="arch" type="xml">
                 <field name="employee_id" position="after">
                     <field name="employee_code"/>
-                    <field name="gossi_reg_no"/>
+                    <field name="gosi_in_payslip"/>
                 </field>
             </field>
         </record>
@@ -47,7 +46,7 @@
             <field name="arch" type="xml">
                 <xpath expr="//group//filter[@name='payslip_run_id']" position="after">
                     <filter string="PaySlip Idara" name="zw_idara" context="{'group_by':'zw_idara'}"/>
-                    <filter string="Gossi Registration Number" name="gossi_reg_no" context="{'group_by':'gossi_reg_no'}"/>
+                    <filter string="Gosi Not Appear In PaySlip" name="gosi_in_payslip" context="{'group_by':'gosi_in_payslip'}"/>
                 </xpath>
             </field>
         </record>
