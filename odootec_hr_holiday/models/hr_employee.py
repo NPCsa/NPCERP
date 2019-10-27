@@ -18,7 +18,7 @@ class hr_employee(models.Model):
     allocation_method = fields.Many2one('hr.leave.allocation.method', 'Allocation Method',
                                         help='Allocation method for Settlement')
     remaining_allocate_leaves = fields.Float(
-        compute='_compute_allocate_leaves', string='Remaining Annual Leaves',
+        compute='_compute_allocate_leaves', string='Remaining Legal Leaves',
         help='Total number of legal leaves allocated to this employee, change this value to create allocation/leave request. '
              'Total based on all the leave types on allocation Leaves.')
 

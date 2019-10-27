@@ -21,6 +21,7 @@ class HrPayslip(models.Model):
     zw_idara = fields.Many2one(related='employee_id.zw_idara', string='Location',store=True)
     is_refund = fields.Boolean(string="Refund")
     employee_code = fields.Char('Employee ID', related='employee_id.employee_id',store=True)
+    gossi_reg_no = fields.Char('Gossi Registration Number',related='employee_id.gossi_reg_no',store=True)
 
     @api.multi
     def refund_sheet(self):

@@ -1,5 +1,6 @@
 import time
 from odoo import exceptions, models, fields, api, _
+from dateutil.relativedelta import relativedelta
 from datetime import datetime
 from .. import utils
 from odoo.exceptions import Warning
@@ -90,6 +91,8 @@ class Termination(models.Model):
     deserve_salary_amount = fields.Float('Leaves Amount', readonly=True, states={'draft': [('readonly', False)]},
                                          help="Calculation By (Total Salary - Transportation Allowance)/ 30 ")
     move_id = fields.Many2one('account.move', 'Journal Entry', help='Journal Entry for Termination')
+    leave_allocate_id = fields.Many2one('hr.leave.allocation', 'Leave Allocation')
+    leave_reconcile_id = fields.Many2one('hr.leave.allocation', 'Leave Reconcile')
     payment_method = fields.Many2one('termination.payments', 'Payment Method', help='Payment method for termination')
     journal_id = fields.Many2one('account.journal', 'Journal', help='Journal for journal entry')
     notes = fields.Text(string="Notes", required=False, )
@@ -125,47 +128,15 @@ class Termination(models.Model):
     @api.multi
     def get_employee_balance_leave(self):
         for holiday in self:
-            leave_days = 0.0
-            if holiday.employee_id.joining_date and holiday.job_ending_date and holiday.employee_id.last_allocation_date:
-                today = datetime.strptime(str(holiday.job_ending_date), '%Y-%m-%d')
-                join_date = datetime.strptime(str(holiday.employee_id.joining_date), '%Y-%m-%d')
-                last_allocation_date = datetime.strptime(str(holiday.employee_id.last_allocation_date), '%Y-%m-%d')
-                diff = today.date() - join_date.date()
-                allocation_days = (today.date() - last_allocation_date.date()).days
-                service_period = round((diff.days / 365) * 12, 2)
-                allocation_method = holiday.employee_id.allocation_method
-                day_allocate_lt = 0.0
-                day_allocate_gt = 0.0
-                day_allocate_eq = 0.0
-                if allocation_method:
-                    if allocation_method.type_state == 'two':
-                        day_allocate_lt = allocation_method.first_year / (365 - allocation_method.first_year)
-                        day_allocate_gt = allocation_method.second_year / (365 - allocation_method.second_year)
-                        if allocation_days:
-                            if service_period <= 60:
-                                leave_days = allocation_days * day_allocate_lt
-                            else:
-
-                                allocate_days = (last_allocation_date.date() - join_date.date()).days
-                                if allocate_days >= 1825:
-                                    leave_days = allocation_days * day_allocate_gt
-                                else:
-                                    day_to = 0
-                                    for n in range(0, allocation_days + 1):
-
-                                        if allocate_days <= 1825:
-                                            allocate_days += 1
-                                            day_to += 1
-                                        else:
-
-                                            days_gt = allocation_days - day_to
-                                            leave_days = (days_gt * day_allocate_gt) + (day_to * day_allocate_lt)
-                                            break
-                    if allocation_method.type_state == 'all':
-                        day_allocate_eq = allocation_method.all_year / (365 - allocation_method.all_year)
-                        if allocation_days:
-                            leave_days = allocation_days * day_allocate_eq
-            return leave_days
+            days_to_allocate = 0.0
+            if holiday.job_ending_date and holiday.employee_id.eligible and holiday.employee_id.holiday_line_ids:
+                date_end = fields.Datetime.from_string(holiday.job_ending_date)
+                allocate_date_dt = (date_end + relativedelta(day=1))
+                allocate_date = fields.Datetime.from_string(allocate_date_dt)
+                for line in holiday.employee_id.holiday_line_ids:
+                    days_to_allocate = (line.days_to_allocate / 30) * (
+                            date_end.day - allocate_date.day + 1)
+            return days_to_allocate
 
     @api.onchange('job_ending_date')
     def onchange_ending_date(self):
@@ -278,7 +249,7 @@ class Termination(models.Model):
             self.working_period = months
             self.period_in_years = years
 
-    @api.one 
+    @api.one
     @api.depends('working_period', 'eos_reason', 'basic_salary')
     def _calculate_severance(self):
         total_severance = 0
@@ -286,7 +257,7 @@ class Termination(models.Model):
         if self.eos_reason in ['2', '20', '21']:  # for the zeros issues
             self.total_deserve = 0
         elif self.eos_reason in ['1', '10', '11', '12', '13', '14', '15']:  # for the normal issues
-            if self.working_period < 60:
+            if self.working_period <= 60:
                 self.total_deserve = self.working_period * 1 / 24 * self.basic_salary
             else:
                 total_severance = 60 * 1 / 24 * self.basic_salary
@@ -294,11 +265,11 @@ class Termination(models.Model):
                 total_severance = total_severance + (pass_duration * 1 / 12 * self.basic_salary)
                 self.total_deserve = total_severance
         elif self.eos_reason == '3':  # Worst case resignation
-            if self.working_period < 24:
+            if self.working_period <= 24:
                 self.total_deserve = 0
-            elif self.working_period < 60:
+            elif self.working_period <= 60:
                 self.total_deserve = self.working_period * 1 / 24 * 1 / 3 * self.basic_salary
-            elif self.working_period < 120:
+            elif self.working_period <= 120:
                 total_severance = 60 * 1 / 24 * 2 / 3 * self.basic_salary
                 pass_duration = self.working_period - 60
                 self.total_deserve = total_severance + (pass_duration * 1 / 12 * 2 / 3 * self.basic_salary)
@@ -327,6 +298,14 @@ class Termination(models.Model):
             self.contract_id.date_end = self.contract_id.end_of_service
             self.contract_id.is_terminated = False
             self.contract_id.end_of_service = False
+            if self.leave_allocate_id:
+                self.leave_allocate_id.action_refuse()
+                self.leave_allocate_id.action_draft()
+                self.leave_allocate_id.unlink()
+            if self.leave_reconcile_id:
+                self.leave_reconcile_id.action_refuse()
+                self.leave_reconcile_id.action_draft()
+                self.leave_reconcile_id.unlink()
             self.move_id.unlink()
             self.state = 'cancel'
         elif self.state in ['approved']:
@@ -349,6 +328,21 @@ class Termination(models.Model):
     def validate_termination(self):
         if self.vacation_days:
             leave_type = self.employee_id.holiday_line_ids.mapped('leave_status_id').ids[0]
+            days_allocate = self.get_employee_balance_leave()
+            if days_allocate:
+                value = {
+                    'name': 'Termination Allocation Days',
+                    'employee_id': self.employee_id.id,
+                    'holiday_status_id': leave_type,
+                    'last_allocation_date': self.job_ending_date,
+                    'date_change': True,
+                    'number_of_days': days_allocate,
+                }
+                leave_allocate = self.env['hr.leave.allocation'].create(value)
+                leave_allocate.action_approve()
+                if leave_allocate.holiday_status_id.double_validation:
+                    leave_allocate.action_validate()
+                self.write({'leave_allocate_id': leave_allocate.id})
             vals = {
                 'name': 'Reconcile Balance Days',
                 'employee_id': self.employee_id.id,
@@ -359,8 +353,9 @@ class Termination(models.Model):
             }
             leave = self.env['hr.leave.allocation'].create(vals)
             leave.action_approve()
-            leave.action_validate()
-
+            if leave.holiday_status_id.double_validation:
+                leave.action_validate()
+            self.write({'leave_reconcile_id': leave.id})
         if self.payment_method:
             move_obj = self.env['account.move']
             timenow = time.strftime('%Y-%m-%d')

@@ -19,6 +19,7 @@
                     <field name="iban_number"/>
                     <field name="bank_name"/>
                     <field name="swift_number"/>
+                    <field name="gossi_reg_no"/>
                 </field>
                 <xpath expr="//field[@name='family_member_ids']//field[@name='date_of_expiry']" position="after">
                     <field name="passport_no"/>
@@ -69,6 +70,8 @@
             <field name="arch" type="xml">
                 <field name="name" position="after">
                     <field name="employee_id" string="Employee ID"/>
+                    <filter string="Gossi Registration Number" name="gossi_reg_no" context="{'group_by':'gossi_reg_no'}"/>
+
                 </field>
             </field>
         </record>

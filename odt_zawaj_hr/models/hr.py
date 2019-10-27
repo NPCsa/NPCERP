@@ -20,6 +20,7 @@ class HrEmployee(models.Model):
     zip_code = fields.Char(string="Zip Code", required=False, )
     courses_ids = fields.One2many(comodel_name="hr.training.course", inverse_name="employee_id",
                                 string="Training Courses", required=False, )
+    gossi_reg_no = fields.Char('Gossi Registration Number')
 
 class TrainingCourse(models.Model):
     _name = 'hr.training.course'

@@ -22,6 +22,7 @@
                     <field name="work" invisible="1"/>
                     <field name="is_refund" invisible="1"/>
                     <field name="zw_idara" invisible="1"/>
+                    <field name="gossi_reg_no" invisible="1"/>
                 </field>
             </field>
         </record>
@@ -31,8 +32,9 @@
             <field name="model">hr.payslip</field>
             <field name="inherit_id" ref="hr_payroll.view_hr_payslip_tree"/>
             <field name="arch" type="xml">
-                <field name="number" position="after">
+                <field name="employee_id" position="after">
                     <field name="employee_code"/>
+                    <field name="gossi_reg_no"/>
                 </field>
             </field>
         </record>
@@ -45,6 +47,7 @@
             <field name="arch" type="xml">
                 <xpath expr="//group//filter[@name='payslip_run_id']" position="after">
                     <filter string="PaySlip Idara" name="zw_idara" context="{'group_by':'zw_idara'}"/>
+                    <filter string="Gossi Registration Number" name="gossi_reg_no" context="{'group_by':'gossi_reg_no'}"/>
                 </xpath>
             </field>
         </record>
