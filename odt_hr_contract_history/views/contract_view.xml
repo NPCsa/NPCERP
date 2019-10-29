@@ -16,6 +16,7 @@
                             <field name="contract_id" attrs="{'readonly':[('state','=','done')]}"/>
                             <field name="date" attrs="{'readonly':[('state','=','done')]}"/>
                             <field name="user_id"/>
+                            <field name="company_id" groups="base.group_multi_company" attrs="{'readonly':[('state','in',('done'))]}"/>
                             <field name="wage" attrs="{'readonly':[('state','=','done')]}"/>
                             <field name="transportation_allowance" attrs="{'readonly':[('state','=','done')]}"/>
                             <field name="housing_allowance" attrs="{'readonly':[('state','=','done')]}"/>

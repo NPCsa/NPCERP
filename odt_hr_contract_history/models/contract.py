@@ -15,6 +15,7 @@ class HrContractReport(models.Model):
                               default=lambda self: self.env.user)
     state = fields.Selection(string="State", selection=[('draft', 'Draft'), ('done', 'Done'), ],default='draft', )
     contract_id = fields.Many2one(comodel_name="hr.contract", string="Contract", required=True, )
+    company_id = fields.Many2one('res.company', 'Company', default=lambda self: self.env.user.company_id)
     wage = fields.Float('Basic Salary', digits=(16, 2), )
     transportation_allowance = fields.Float('Transportation', )
     housing_allowance = fields.Float('Housing', )
