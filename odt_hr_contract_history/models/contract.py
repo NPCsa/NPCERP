@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from odoo import models, fields, api, _
+from odoo.exceptions import Warning
 
 
 class HrContractReport(models.Model):
@@ -23,6 +24,14 @@ class HrContractReport(models.Model):
     reward = fields.Float('Reward', )
     other_allowance = fields.Float('Other', )
     deduction = fields.Float('Deduction', )
+
+    @api.multi
+    def unlink(self):
+        for record in self:
+            if record.state in ['done']:
+                raise Warning(_('You cannot delete a history document'
+                                ' which is not draft!'))
+        return super(HrContractReport, self).unlink()
 
     @api.multi
     def assign_contract_values(self):
