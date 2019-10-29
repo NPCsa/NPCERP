@@ -53,8 +53,8 @@ class HrHolidays(models.Model):
                      ('date_to', '>=', date_from)])
                 if payslips:
                     raise Warning(_('The Employee Have Payslip On This Date'))
-            # else:
-            #     raise Warning(_('No Contract for This Employee or Check the Starting Date in Contract'))
+            else:
+                raise Warning(_('No Contract for This Employee or Check the Starting Date in Contract'))
             days = record._get_number_of_days(date_from, date_to, employee_id.id)
             if values.get('number_of_days'):
                 if days != record.number_of_days:
@@ -80,8 +80,8 @@ class HrHolidays(models.Model):
             if payslips:
                 raise Warning(_('The Employee Have Payslip On This Date'))
 
-        # else:
-        #     raise Warning(_('No Contract for This Employee or Check the Starting Date in Contract'))
+        else:
+            raise Warning(_('No Contract for This Employee or Check the Starting Date in Contract'))
         days = self._get_number_of_days(date_from, date_to, employee_id.id)
         if values.get('number_of_days'):
             if days != res.number_of_days:
