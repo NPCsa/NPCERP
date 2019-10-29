@@ -56,19 +56,6 @@ class Termination(models.Model):
         else:
             return 0
 
-    @api.one
-    def _calculate_loan_value(self):
-        for termination in self:
-            total = 0
-            if termination.employee_id:
-                loans = self.env['hr.loan'].search(
-                    [('employee_id', '=', termination.employee_id.id), ('state', '=', 'approved2')])
-                if loans:
-                    loan_lines = loans.mapped('balance')
-                    for line in loan_lines:
-                        total += line
-            termination.loan_value = total
-
     is_clearance = fields.Boolean(string="Is Clearance", )
     termination_code = fields.Char('Termination NO', readonly=True, states={'draft': [('readonly', False)]},
                                    default='Termination')
