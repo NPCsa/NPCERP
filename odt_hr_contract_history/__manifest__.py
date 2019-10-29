@@ -9,7 +9,7 @@
     'category': 'Hr',
     'version': '1.0.1',
     'depends': [
-        'base','odt_hr_shada', 'hr', 'hr_contract',git 
+        'base','odt_hr_shada', 'hr', 'hr_contract',
     ],
     'data': [
         'security/ir.model.access.csv',
