@@ -245,17 +245,8 @@ class Settlement(models.Model):
         contract_obj = self.env['hr.contract']
         contract_ids = []
         for termination in self:
-            date_to = termination.reconcile_date
-            date_from = termination.employee_id.contract_id.date_start
             employee = termination.employee_id
-            clause_1 = ['&', ('date_end', '<=', date_to), ('date_end', '>=', date_from)]
-            # OR if it starts between the given dates
-            clause_2 = ['&', ('date_start', '<=', date_to), ('date_start', '>=', date_from)]
-            # OR if it starts before the date_from and finish after the date_end (or never finish)
-            clause_3 = ['&', ('date_start', '<=', date_from), '|', ('date_end', '=', False),
-                        ('date_end', '>=', date_to)]
-            clause_final = [('employee_id', '=', employee.id), ('state', '=', 'open'), '|',
-                            '|'] + clause_1 + clause_2 + clause_3
+            clause_final = [('employee_id', '=', employee.id), ('state', '=', 'open')]
             contract_ids = contract_obj.search(clause_final)
         return contract_ids
 
@@ -270,9 +261,10 @@ class Settlement(models.Model):
             if self.employee_id.family_member_ids:
                 member = len(self.employee_id.family_member_ids)
             self.emp_member = member
-            contracts = self.get_contracts()
-            if contracts:
-                return {'domain': {'contract_id': [('id', 'in', contracts.ids)]}}
+            contract_ids = self.get_contracts()
+            if contract_ids:
+                contracts = sorted(contract_ids, key=lambda x: x.date_start, reverse=True)
+                self.contract_id = contracts[0].id
             return vals
 
     @api.onchange('contract_id', 'employee_id', 'payment_method', 'vacation_days', 'balance_days')
