@@ -63,12 +63,13 @@ class Settlement(models.Model):
 
     @api.constrains('balance_days', 'reconcile_date')
     def _constrain_balance_days(self):
-        if self.balance_days > self.employee_id.remaining_allocate_leaves:
-            raise ValidationError("You Can not reconcile days greater than balance of Employee")
-        reconciles = self.search([('reconcile_date', '>=', self.reconcile_date), ('state', '!=', 'cancel'),
-                                  ('employee_id', '<=', self.employee_id.id)])
-        if len(reconciles) > 1:
-            raise ValidationError("You Can not reconcile more for same Time")
+        for record in self:
+            if record.balance_days > record.employee_id.remaining_allocate_leaves:
+                raise ValidationError("You Can not reconcile days greater than balance of Employee")
+            reconciles = self.search([('reconcile_date', '>=', record.reconcile_date), ('state', '!=', 'cancel'),
+                                      ('employee_id', '<=', record.employee_id.id)])
+            if len(reconciles) > 1:
+                raise ValidationError("You Can not reconcile more for same Time")
 
     @api.multi
     def button_cancel(self):
