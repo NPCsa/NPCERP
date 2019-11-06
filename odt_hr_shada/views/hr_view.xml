@@ -8,28 +8,32 @@
             <field name="inherit_id" ref="hr_payroll.hr_contract_form_inherit"/>
             <field name="arch" type="xml">
                 <data>
+                    <!-- position values: after|before|replace|attributes|inside -->
+                    <xpath expr="//field[@name='wage']" position="attributes">
+                        <attribute name="readonly">1</attribute>
+                    </xpath>
                     <xpath expr="//sheet/group/group[2]" position="after">
                         <group>
                             <separator colspan="2" string="Allowance"/>
                            <field name="is_trans"/>
-                            <field name="transportation_allowance"/>
+                            <field name="transportation_allowance" readonly="1"/>
                             <field name="is_house"/>
-                            <field name="housing_allowance"/>
+                            <field name="housing_allowance" readonly="1"/>
                             <field name="is_mobile"/>
-                            <field name="mobile_allowance"/>
+                            <field name="mobile_allowance" readonly="1"/>
                             <field name="is_over"/>
                             <field name="is_total"/>
-                            <field name="overtime_allowance"/>
+                            <field name="overtime_allowance" readonly="1"/>
                             <field name="is_work"/>
-                            <field name="work_allowance"/>
+                            <field name="work_allowance" readonly="1"/>
                             <field name="is_reward"/>
-                            <field name="reward"/>
+                            <field name="reward" readonly="1"/>
                             <field name="is_other"/>
-                            <field name="other_allowance"/>
+                            <field name="other_allowance" readonly="1"/>
                         </group>
                         <group>
                             <separator colspan="2" string="Deduction"/>
-                            <field name="deduction"/>
+                            <field name="deduction" readonly="1"/>
                             <field name="abs_by_total"/>
                             <field name="late_by_total"/>
                         </group>

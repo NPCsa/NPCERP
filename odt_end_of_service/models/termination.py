@@ -27,17 +27,8 @@ class Termination(models.Model):
         contract_obj = self.env['hr.contract']
         contract_ids = []
         for termination in self:
-            date_to = termination.job_ending_date
-            date_from = termination.employee_id.contract_id.date_start
             employee = termination.employee_id
-            clause_1 = ['&', ('date_end', '<=', date_to), ('date_end', '>=', date_from)]
-            # OR if it starts between the given dates
-            clause_2 = ['&', ('date_start', '<=', date_to), ('date_start', '>=', date_from)]
-            # OR if it starts before the date_from and finish after the date_end (or never finish)
-            clause_3 = ['&', ('date_start', '<=', date_from), '|', ('date_end', '=', False),
-                        ('date_end', '>=', date_to)]
-            clause_final = [('employee_id', '=', employee.id), ('state', '=', 'open'), '|',
-                            '|'] + clause_1 + clause_2 + clause_3
+            clause_final = [('employee_id', '=', employee.id), ('state', '=', 'open')]
             contract_ids = contract_obj.search(clause_final)
         return contract_ids
 
@@ -152,12 +143,10 @@ class Termination(models.Model):
             self.hire_date = self.employee_id.joining_date
             remaining_vacation = self.employee_id.remaining_allocate_leaves + self.get_employee_balance_leave()
             self.vacation_days = remaining_vacation
-            contracts = self.get_contracts()
-            li = []
-            if contracts:
-                for i in contracts:
-                    li.append(i.id)
-                vals['domain'].update({'contract_id': [('id', 'in', li)]})
+            contract_ids = self.get_contracts()
+            if contract_ids:
+                contracts = sorted(contract_ids, key=lambda x: x.date_start, reverse=True)
+                self.contract_id = contracts[0].id
             return vals
 
     @api.onchange('contract_id', 'employee_id', 'payment_method')
