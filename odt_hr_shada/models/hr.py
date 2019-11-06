@@ -49,7 +49,7 @@ class HrContract(models.Model):
 
     emp_id = fields.Char(string="Employee ID", related='employee_id.employee_id', required=False, )
     gosi = fields.Float(string="Gosi Saudi", compute='_compute_gosi', readonly='0', required=False, default=0.0)
-    gosi_in_payslip = fields.Boolean(string="Gosi Not Appear In PaySlip", )
+    gosi_in_payslip = fields.Boolean(string="Gosi Not Appear In PaySlip")
     country_name = fields.Char(string="Nationality", related='employee_id.country_id.code', required=False, )
 
     @api.one

@@ -33,7 +33,6 @@
             <field name="arch" type="xml">
                 <field name="employee_id" position="after">
                     <field name="employee_code"/>
-                    <field name="gosi_in_payslip"/>
                 </field>
             </field>
         </record>
@@ -46,7 +45,6 @@
             <field name="arch" type="xml">
                 <xpath expr="//group//filter[@name='payslip_run_id']" position="after">
                     <filter string="PaySlip Idara" name="zw_idara" context="{'group_by':'zw_idara'}"/>
-                    <filter string="Gosi Not Appear In PaySlip" name="gosi_in_payslip" context="{'group_by':'gosi_in_payslip'}"/>
                 </xpath>
             </field>
         </record>
