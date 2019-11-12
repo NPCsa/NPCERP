@@ -5,7 +5,7 @@
                 id="hr_termination_report"
                 model="hr.holiday.termination"
                 report_type="qweb-pdf"
-                string="Termination"
+                string="Settlement"
                 name="odt_leave_termination.report_hr_termination_template"
                 file="odt_leave_termination.report_hr_termination_template"
         />
@@ -69,17 +69,17 @@
                             <br/>
                             <br/>
 
-                            <div style="width:100%">
-                                <div style="width:50%; float:left;">
-                                    <strong size="4">leave Date From:</strong>
-                                    <span t-field="o.leave_date"/>
-                                </div>
-                                <div style="width:50%; float:right;">
-                                    <strong size="4">leave Date To:</strong>
-                                    <span t-field="o.last_leave_date"/>
-                                </div>
+                            <!--<div style="width:100%">-->
+                                <!--<div style="width:50%; float:left;">-->
+                                    <!--<strong size="4">leave Date From:</strong>-->
+                                    <!--<span t-field="o.leave_date"/>-->
+                                <!--</div>-->
+                                <!--<div style="width:50%; float:right;">-->
+                                    <!--<strong size="4">leave Date To:</strong>-->
+                                    <!--<span t-field="o.last_leave_date"/>-->
+                                <!--</div>-->
 
-                            </div>
+                            <!--</div>-->
                             <p></p>
                             <div style="width:100%">
                                 <div style="width:50%; float:left;">
