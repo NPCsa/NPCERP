@@ -18,7 +18,7 @@
                     <field name="iban_number"/>
                     <field name="bank_name"/>
                     <field name="swift_number"/>
-                    <field name="gosi_in_payslip" invisible="1"/>
+<!--                    <field name="gosi_in_payslip" invisible="1"/>-->
                 </field>
                 <xpath expr="//field[@name='family_member_ids']//field[@name='date_of_expiry']" position="after">
                     <field name="passport_no"/>
@@ -70,9 +70,9 @@
                 <field name="name" position="after">
                     <field name="employee_id" string="Employee ID"/>
                 </field>
-                 <xpath expr="//group//filter[@name='group_job']" position="after">
-                    <filter string="Gosi Not Appear In PaySlip" name="gosi_in_payslip" context="{'group_by':'gosi_in_payslip'}"/>
-                 </xpath>
+<!--                 <xpath expr="//group//filter[@name='group_job']" position="after">-->
+<!--                    <filter string="Gosi Not Appear In PaySlip" name="gosi_in_payslip" context="{'group_by':'gosi_in_payslip'}"/>-->
+<!--                 </xpath>-->
             </field>
         </record>
 
