@@ -7,7 +7,8 @@ class HrEmployee(models.Model):
     _inherit = 'hr.employee'
 
     payment_method = fields.Selection(string="Payment Method",
-                                      selection=[('cash', 'Cash'), ('bank', 'Bank'),('other', 'Other'), ], required=False, default='cash')
+                                      selection=[('cash', 'Cash'), ('bank', 'Bank'), ('other', 'Other'), ],
+                                      required=False, default='cash')
 
     @api.model
     def create(self, values):
@@ -16,7 +17,8 @@ class HrEmployee(models.Model):
                                       values.get('second_name', res.second_name),
                                       values.get('third_name', res.third_name),
                                       values.get('last_name', res.last_name))
-        partner = self.env['res.partner'].sudo().create({'name': str(name), 'customer': False, 'employee': True})
+        partner = self.env['res.partner'].sudo().create(
+            {'name': str(name), 'company_id': res.company_id.id, 'customer': False, 'employee': True})
         res.address_home_id = partner.id
         return res
 
@@ -28,5 +30,5 @@ class HrEmployee(models.Model):
                                           vals.get('second_name', record.second_name),
                                           vals.get('third_name', record.third_name),
                                           vals.get('last_name', record.last_name))
-            record.address_home_id.update({'name': str(name)})
+            record.address_home_id.sudo().update({'name': str(name)})
         return res
