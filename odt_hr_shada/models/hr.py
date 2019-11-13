@@ -7,7 +7,7 @@ import odoo.addons.decimal_precision as dp
 class HrContract(models.Model):
     _inherit = 'hr.contract'
 
-    wage = fields.Monetary('Basic Salary', digits=(16, 2), required=True, track_visibility="onchange",
+    wage = fields.Monetary('Basic Salary',default=1.0, digits=(16, 2), required=True, track_visibility="onchange",
                            help="Employee's monthly gross Basic Salary.")
 
     transportation_allowance = fields.Float('Transportation',
