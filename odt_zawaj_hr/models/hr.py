@@ -20,7 +20,7 @@ class HrEmployee(models.Model):
     zip_code = fields.Char(string="Zip Code", required=False, )
     courses_ids = fields.One2many(comodel_name="hr.training.course", inverse_name="employee_id",
                                   string="Training Courses", required=False, )
-    gosi_in_payslip = fields.Boolean(string="Gosi Not Appear In PaySlip", related='contract_id.gosi_in_payslip',store=True)
+    # gosi_in_payslip = fields.Boolean(string="Gosi Not Appear In PaySlip", related='contract_id.gosi_in_payslip',store=True)
 
 
 class TrainingCourse(models.Model):
