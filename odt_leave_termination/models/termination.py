@@ -305,7 +305,7 @@ class Settlement(models.Model):
                         salary_amount += (basic * (
                                 record.contract_id.other_allowance / 100) if record.contract_id.is_other else record.contract_id.other_allowance)
                     elif field.name == 'gosi':
-                        salary_amount += record.contract_id.gosi
+                        salary_amount -= record.contract_id.gosi
             record.salary_amount = salary_amount
             remaining_vacation = 0.0
             if record.reconcile_type == 'request':
