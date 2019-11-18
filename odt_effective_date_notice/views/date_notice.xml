@@ -11,16 +11,19 @@
                                 class="oe_highlight"/>
                         <button name="button_submit" states="draft" string="Submited" type="object"
                                 class="oe_highlight"/>
-                        <button name="button_cancel" states="cancel" string="Cancel" type="object"
-                                attrs="{'invisible':[('state','=','confirm')]}"/>
+                        <button name="button_cancel" states="confirm" string="Cancel" type="object"
+                                class="oe_highlight"/>
+                        <button name="button_draft" states="cancel" string="Reset To Draft" type="object"
+                                class="oe_highlight"/>
                         <field name="state" widget="statusbar" statusbar_visible="draft,submit,confirm,cancel"
                                statusbar_colors="{}"/>
                     </header>
                     <sheet>
-                        <group col="2">
+                       <group col="2">
                             <field name="employee_id"
                                    attrs="{'readonly': [('state','in', ['submit','confirm','cancel'])]}"/>
                             <field name="department_id" readonly="1"/>
+                            <field name="vacation_id" attrs="{'readonly':1}"/>
                             <field name="start_work"
                                    attrs="{'readonly': [('state','in', ['submit','confirm','cancel'])]}"/>
                             <field name="note" attrs="{'readonly': [('state','in', ['submit','confirm','cancel'])]}"/>
@@ -50,7 +53,7 @@
             <field name="res_model">hr.effective.date</field>
             <field name="view_mode">tree,form</field>
         </record>
-        <menuitem name="Effective Date Notice" parent="hr.menu_hr_root" id="menu_hr_effective_date"
+        <menuitem name="Effective Date Notice" parent="hr_holidays.menu_hr_holidays_root" id="menu_hr_effective_date"
                   action="action_hr_effective_date"/>
     </data>
 </odoo>

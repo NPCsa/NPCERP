@@ -8,7 +8,7 @@
     'website': "www.odootec.com",
     'category': 'Hr',
     'version': '1.0.1',
-    'depends': ['base','hr_payroll','account','hr_holidays'],
+    'depends': ['base','hr_payroll','account','hr_holidays','odt_effective_date_notice'],
     'data': [
 
         # 'security/ir.model.access.csv',

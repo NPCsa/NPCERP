@@ -5,7 +5,9 @@ from dateutil import relativedelta
 from odoo import api, fields, models, tools, _
 from odoo.exceptions import UserError,Warning
 from datetime import datetime,date
-from datetime import date, datetime, time
+from datetime import date, datetime, timedelta
+from datetime import time as datetime_time
+
 from pytz import timezone
 
 class Payslip(models.Model):
@@ -125,9 +127,17 @@ class Payslip(models.Model):
     @api.model
     def get_worked_day_lines(self, contract_ids, date_from, date_to):
         res = super(Payslip, self).get_worked_day_lines(contract_ids, date_from, date_to)
+        def daterange(start_date, end_date):
+            for n in range(int((end_date - start_date).days)):
+                yield start_date + timedelta(n)
+        def daterangeleave(start_date, end_date):
+            for n in range(int((end_date - start_date).days + 1)):
+                yield start_date + timedelta(n)
+
+        return_work_days = 0.0
         working_days = 0.0
         hours_per_day = 8.0
-        for contract in contract_ids:
+        for contract in contract_ids.filtered(lambda contract: contract.resource_calendar_id):
             hours_per_day = contract.resource_calendar_id.hours_per_day or 8.0
             if str(contract.date_start) > str(date_from):
                 date_from = fields.Datetime.from_string(date_from)
@@ -139,11 +149,83 @@ class Payslip(models.Model):
                 end_date = fields.Datetime.from_string(contract.date_end)
                 diff = date_to - end_date
                 working_days += diff.days
+            day_from = datetime.combine(fields.Date.from_string(date_from), datetime_time.min)
+            day_to = datetime.combine(fields.Date.from_string(date_to), datetime_time.max)
+            holiday_id = []
+            day_leave_intervals = contract.employee_id.list_leaves(day_from, day_to,
+                                                                   calendar=contract.resource_calendar_id)
+            for day, hours, leave in day_leave_intervals:
+                holiday = leave.holiday_id
+                holiday_id.append(holiday.id)
+            holiday_id = list(set(holiday_id))
+            holidays = self.env['hr.leave'].browse(holiday_id)
+            date_from = fields.Datetime.from_string(date_from)
+            date_to = fields.Datetime.from_string(date_to)
+            for line in holidays:
+                ll_date_to = datetime.strptime(str(line.date_to)[:10], "%Y-%m-%d").date()
+                l_date_to = str(ll_date_to + timedelta(days=+1))
+                if line.return_date:
+                    if ll_date_to == line.return_date:
+                        return_work_days += 0.0
+                    elif ll_date_to < line.return_date:
+                        r_date_from = fields.Datetime.from_string(l_date_to)
+                        r_date_to = fields.Datetime.from_string(line.return_date)
+                        if r_date_from and r_date_to:
+                            for date in daterange(r_date_from, r_date_to):
+                                if date_from <= date <= date_to:
+                                    return_work_days -= 1
+                    elif ll_date_to > line.return_date:
+                        lr_date_from = fields.Datetime.from_string(line.return_date)
+                        lr_date_to = fields.Datetime.from_string(str(ll_date_to))
+                        if lr_date_from and lr_date_to:
+                            for date in daterange(lr_date_from, lr_date_to):
+                                if date_from <= date <= date_to:
+                                    return_work_days += 1
+                else:
+                    r_date_from = fields.Datetime.from_string(l_date_to)
+                    r_date_to = date_to
+                    if r_date_from and r_date_to:
+                        for date in daterangeleave(r_date_from, r_date_to):
+                            if date_from <= date <= date_to:
+                                return_work_days -= 1
+            clause_final = [('state', 'in', ['validate', 'validate1']),
+                            ('return_date', '!=', False),
+                            ('date_to', '<', date_from), ('employee_id', '=', self.employee_id.id)]
+            request_leaves = self.env['hr.leave'].search(clause_final)
+            if request_leaves:
+                for hl in request_leaves:
+                    hlh_date_to = datetime.strptime(str(hl.date_to)[:10], "%Y-%m-%d").date()
+                    hl_date_to = str(hlh_date_to + timedelta(days=+1))
+                    if hlh_date_to < hl.return_date:
+                        hr_date_from = fields.Datetime.from_string(hl_date_to)
+                        hr_date_to = fields.Datetime.from_string(hl.return_date)
+                        if hr_date_from and hr_date_to:
+                            for date in daterangeleave(hr_date_from, hr_date_to):
+                                if date_from <= date <= date_to:
+                                    return_work_days -= 1
+
+            clause_final = [('state', 'in', ['validate', 'validate1']),
+                            ('return_date', '=', False),
+                            ('date_to', '<', date_from), ('employee_id', '=', self.employee_id.id)]
+            request_leaves = self.env['hr.leave'].search(clause_final)
+            if request_leaves:
+                for hl in request_leaves:
+                    hl_date_to = str(datetime.strptime(str(hl.date_to)[:10], "%Y-%m-%d").date() + timedelta(days=+1))
+                    hr_date_from = fields.Datetime.from_string(hl_date_to)
+                    hr_date_to = date_to
+                    if hr_date_from and hr_date_to:
+                        for date in daterangeleave(hr_date_from, hr_date_to):
+                            if date_from <= date <= date_to:
+                                return_work_days -= 1
+        print('=========return_work_days=======',return_work_days)
+        print('=========working_days=======',working_days)
         for rule in res:
             if rule['code'] == 'WORK100':
-                rule['number_of_days'] = float(rule['number_of_days']) - working_days
-                rule['number_of_hours'] = float(rule['number_of_hours']) - (working_days * hours_per_day)
+                days = float(rule['number_of_days']) - working_days + return_work_days
+                rule['number_of_days'] = days
+                rule['number_of_hours'] = days * hours_per_day
         return res
+
 
 class PayslipRun(models.Model):
     _name = 'hr.payslip.run'
