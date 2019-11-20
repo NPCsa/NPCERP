@@ -21,7 +21,7 @@ class HrPayslip(models.Model):
                             ('employee_id', '=', res.employee_id.id), '|',
                             '|'] + clause_1 + clause_2 + clause_3
             request_leaves = self.env['hr.leave'].sudo().search(clause_final)
-            if any(res.date_from <= leave.date_to <= res.date_to and (
+            if any(res.date_from <= str(leave.date_to)[:10] <= res.date_to and (
                     not leave.effective_id or leave.effective_id.state != 'confirm') for leave in
                    request_leaves) and res.employee_id.on_vacation:
                 raise Warning(_('You Can not Create Payslip , This Employee %s On Vacation') % (res.employee_id.name))
@@ -44,7 +44,7 @@ class HrPayslip(models.Model):
                             '|'] + clause_1 + clause_2 + clause_3
             request_leaves = self.env['hr.leave'].sudo().search(clause_final)
 
-            if any(self.date_from <= leave.date_to <= self.date_to and (
+            if any(self.date_from <= str(leave.date_to)[:10] <= self.date_to and (
                     not leave.effective_id or leave.effective_id.state != 'confirm') for leave in
                    request_leaves) and self.employee_id.on_vacation:
                 raise Warning(_('You Can not Create Payslip , This Employee %s On Vacation') % (self.employee_id.name))
