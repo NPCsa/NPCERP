@@ -1,9 +1,12 @@
+from __future__ import division
+
 import time
 from odoo import exceptions, models, fields, api, _
 from dateutil.relativedelta import relativedelta
-from datetime import datetime,timedelta
+from datetime import datetime, timedelta
 from .. import utils
 from odoo.exceptions import Warning
+
 
 
 class AccountMove(models.Model):
@@ -11,9 +14,12 @@ class AccountMove(models.Model):
 
     termination_id = fields.Many2one('hr.termination', 'Termination', help='Termination Record')
 
+
 def daterangeleave(start_date, end_date):
     for n in range(int((end_date - start_date).days + 1)):
         yield start_date + timedelta(n)
+
+
 class Termination(models.Model):
     _name = 'hr.termination'
     _rec_name = 'termination_code'
@@ -77,8 +83,9 @@ class Termination(models.Model):
     to_years = fields.Float('To Years', readonly=True, states={'draft': [('readonly', False)]})
     basic_salary = fields.Float('Total Salary', readonly=True, states={'draft': [('readonly', False)]})
     min_months = fields.Float('Min Months', readonly=True, states={'draft': [('readonly', False)]})
-    working_period = fields.Float('Working Period', readonly=True, states={'draft': [('readonly', False)]})
-    period_in_years = fields.Float('Period in Years', readonly=True, states={'draft': [('readonly', False)]})
+    working_period = fields.Float('Working Period(months)',digits=(16, 4), readonly=True, states={'draft': [('readonly', False)]})
+    # period_in_years = fields.Float('Period in Years', readonly=True, states={'draft': [('readonly', False)]})
+    period_details = fields.Char('Period Details', readonly=True, states={'draft': [('readonly', False)]})
     vacation_days = fields.Float('Vacation Days', readonly=True, states={'draft': [('readonly', False)]})
     salary_amount = fields.Float('Salary Amount', readonly=True, states={'draft': [('readonly', False)]})
     deserve_salary_amount = fields.Float('Leaves Amount', readonly=True, states={'draft': [('readonly', False)]},
@@ -264,10 +271,16 @@ class Termination(models.Model):
         if self.job_ending_date and self.hire_date:
             start_date = datetime.strptime(str(self.hire_date), '%Y-%m-%d')
             end_date = datetime.strptime(str(self.job_ending_date), '%Y-%m-%d')
-            months = utils.months_between(start_date, end_date)
+            # months = utils.months_between(start_date, end_date)
             years = utils.years_between(start_date, end_date)
+            # self.period_in_years = years
+            diff = relativedelta(end_date + timedelta(days=1), start_date)
+            year = diff.years
+            month = diff.months
+            day = diff.days
+            months = (year * 12) + month + (day / 30)
             self.working_period = months
-            self.period_in_years = years
+            self.period_details = str(year) + ' Y ' + str(month) + ' M ' + str(day) + ' D '
 
     @api.one
     @api.depends('working_period', 'eos_reason', 'basic_salary')
