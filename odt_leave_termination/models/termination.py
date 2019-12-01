@@ -127,7 +127,7 @@ class Settlement(models.Model):
                   ('is_reconciled', '=', False)]
         leaves = self.env['hr.leave'].search(domain)
         for l in leaves:
-            l.is_reconciled = True
+            l.write({'is_reconciled':True})
         self.write({'termination_code': termination_code, 'state': 'approved'})
 
     @api.onchange('reconcile_type', 'reconcile_date')
