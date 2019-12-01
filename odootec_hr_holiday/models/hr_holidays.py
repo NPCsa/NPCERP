@@ -53,7 +53,10 @@ class HrHolidays(models.Model):
                 payslips = payslip_obj.search(
                     [('employee_id', '=', employee_id.id), ('is_refund', '=', False), ('date_from', '<=', date_from),
                      ('date_to', '>=', date_from)])
-                if payslips:
+                reconcile = False
+                if values['is_reconciled']:
+                    reconcile = True
+                if payslips and not reconcile:
                     raise Warning(_('The Employee Have Payslip On This Date'))
             else:
                 raise Warning(_('No Contract for This Employee or Check the Starting Date in Contract'))
