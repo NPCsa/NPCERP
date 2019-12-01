@@ -115,11 +115,11 @@ class Settlement(models.Model):
                 'date_change': True,
                 'number_of_days': self.balance_days * -1,
             }
-            leave = self.env['hr.leave.allocation'].create(vals)
+            leave = self.env['hr.leave.allocation'].sudo().create(vals)
             leave.action_approve()
             if leave.holiday_status_id.double_validation:
                 leave.action_validate()
-            self.write({'leave_reconcile_id': leave.id})
+            self.sudo().write({'leave_reconcile_id': leave.id})
 
         leave_type = self.employee_id.holiday_line_ids.mapped('leave_status_id').ids
         domain = [('holiday_status_id', 'in', leave_type), ('state', '=', 'validate'),
@@ -235,9 +235,9 @@ class Settlement(models.Model):
                 line_ids.append(credit_line)
 
         move.update({'line_ids': line_ids})
-        move_id = move_obj.create(move)
+        move_id = move_obj.sudo().create(move)
 
-        self.write(
+        self.sudo().write(
             {'move_id': move_id.id, 'state': 'approved2', })
         # move_id.post()
         return True
