@@ -28,6 +28,9 @@
                     <field name="date_change" invisible="1"/>
                     <field name="leave_on_employee" invisible="1"/>
                 </xpath>
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="company_id" groups="base.group_multi_company"/>
+                </xpath>
             </field>
         </record>
 
@@ -41,6 +44,9 @@
                     <field name="leave_on_employee" invisible="1"/>
                     <field name="reconcile_option" attrs="{'required':[('leave_on_employee','=',True)],'readonly':[('state','in',['validate','validate1'])],'invisible':[('leave_on_employee','=',False)]}"/>
                     <field name="is_reconciled"  attrs="{'readonly':1,'invisible':[('leave_on_employee','=',False)]}"/>
+                </xpath>
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="company_id" groups="base.group_multi_company"/>
                 </xpath>
             </field>
         </record>

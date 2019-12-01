@@ -2,7 +2,7 @@
 
 from dateutil.relativedelta import relativedelta
 from odoo.exceptions import Warning
-from datetime import date, datetime, timedelta,time as datetime_time
+from datetime import date, datetime, timedelta, time as datetime_time
 from odoo import api, fields, models
 from odoo.exceptions import UserError, AccessError, ValidationError
 from odoo.tools import float_compare
@@ -16,6 +16,8 @@ class HrHolidays(models.Model):
                                         required=False, )
     is_reconciled = fields.Boolean(string="Is Reconciled")
     leave_on_employee = fields.Boolean(string="Leave On Employee", compute='_compute_leave_on_employee')
+    company_id = fields.Many2one(comodel_name="res.company", string="Company", required=False,
+                                 default=lambda self: self.env.user.company_id)
 
     @api.multi
     def action_refuse(self):
@@ -129,14 +131,14 @@ class HrHolidays(models.Model):
                         date_from = fields.Datetime.from_string(str(date_from_dt)).date()
                         date_to = fields.Datetime.from_string(str(date_to_dt)).date()
                         allocate_ids = self.env['hr.leave.allocation'].sudo().search([
-                                                    ('last_allocation_date', '=', allocate_date),
-                                                    ('employee_id', '=', emp.id),
-                                                    ('holiday_status_id', '=', line.leave_status_id.id)])
+                            ('last_allocation_date', '=', allocate_date),
+                            ('employee_id', '=', emp.id),
+                            ('holiday_status_id', '=', line.leave_status_id.id)])
                         day_from = datetime.combine(fields.Date.from_string(date_from), datetime_time.min)
                         day_to = datetime.combine(fields.Date.from_string(date_to), datetime_time.max)
                         holiday_id = []
                         day_leave_intervals = emp.list_leaves(day_from, day_to,
-                                                                               calendar=emp.resource_calendar_id)
+                                                              calendar=emp.resource_calendar_id)
                         for day, hours, leave in day_leave_intervals:
                             holiday = leave.holiday_id
                             holiday_id.append(holiday.id)
@@ -204,6 +206,7 @@ class HrHolidays(models.Model):
                                 'number_of_days': days_to_allocate,
                                 'last_allocation_date': allocate_date,
                                 'employee_id': emp.id,
+                                'company_id': emp.company_id.id,
                                 'holiday_status_id': line.leave_status_id.id
                             }
 
@@ -213,10 +216,11 @@ class HrHolidays(models.Model):
                                      + relativedelta(month=12) + relativedelta(day=31)
                         date_from_dt = datetime.now() - relativedelta(years=1) + relativedelta(month=1) \
                                        + relativedelta(day=1)
-                        allocate_ids = self.env['hr.leave.allocation'].search([('last_allocation_date', '=', allocate_date),
-                                                                               ('employee_id', '=', emp.id),
-                                                                               ('holiday_status_id', '=',
-                                                                                line.leave_status_id.id)])
+                        allocate_ids = self.env['hr.leave.allocation'].search(
+                            [('last_allocation_date', '=', allocate_date),
+                             ('employee_id', '=', emp.id),
+                             ('holiday_status_id', '=',
+                              line.leave_status_id.id)])
                         if allocate_ids:
                             continue
                         if emp.joining_date:
@@ -228,7 +232,7 @@ class HrHolidays(models.Model):
                         if joining_date <= date_to_dt:
                             if date_from_dt < joining_date <= date_to_dt:
                                 days_to_allocate = (line.days_to_allocate / 360) * (
-                                    (date_to_dt - joining_date).days + 1)
+                                        (date_to_dt - joining_date).days + 1)
                             else:
                                 days_to_allocate = line.days_to_allocate
                             vals = {
@@ -236,6 +240,7 @@ class HrHolidays(models.Model):
                                 'number_of_days': days_to_allocate,
                                 'last_allocation_date': allocate_date,
                                 'employee_id': emp.id,
+                                'company_id': emp.company_id.id,
                                 'holiday_status_id': line.leave_status_id.id,
                             }
                     if vals:
@@ -243,7 +248,8 @@ class HrHolidays(models.Model):
                         leave.action_approve()
                         if leave.holiday_status_id.double_validation:
                             leave.action_validate()
-                        emp.update({'last_allocation_date':allocate_date})
+                        emp.update({'last_allocation_date': allocate_date})
+
 
 class LeaveAllocation(models.Model):
     _inherit = 'hr.leave.allocation'
@@ -253,6 +259,8 @@ class LeaveAllocation(models.Model):
     date_change = fields.Boolean(string="Make Allocation Change", )
 
     leave_on_employee = fields.Boolean(string="Leave On Employee", compute='_compute_leave_on_employee')
+    company_id = fields.Many2one(comodel_name="res.company", string="Company", required=False,
+                                 default=lambda self: self.env.user.company_id)
 
     @api.one
     @api.depends('employee_id', 'holiday_status_id')

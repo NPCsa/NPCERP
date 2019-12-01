@@ -45,7 +45,6 @@ class HrPayslip(models.Model):
                             ('employee_id', '=', self.employee_id.id), '|',
                             '|'] + clause_1 + clause_2 + clause_3
             request_leaves = self.env['hr.leave'].sudo().search(clause_final)
-
             if any(self.date_from <= datetime.strptime(str(leave.date_to)[:10], "%Y-%m-%d").date() <= self.date_to and (
                     not leave.effective_id or leave.effective_id.state != 'confirm') for leave in
                    request_leaves) and self.employee_id.on_vacation:
