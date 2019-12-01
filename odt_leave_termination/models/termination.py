@@ -105,29 +105,6 @@ class Settlement(models.Model):
     @api.multi
     def button_approve(self):
         termination_code = self.env['ir.sequence'].get('hr.termination.leave.code')
-        self.write({'termination_code': termination_code, 'state': 'approved'})
-
-    @api.onchange('reconcile_type', 'reconcile_date')
-    def _compute_vacation_days(self):
-        for line in self:
-            line.balance_days_comp = self.employee_id.remaining_allocate_leaves
-            leave_type = line.employee_id.holiday_line_ids.mapped('leave_status_id').ids
-            domain = [('holiday_status_id', 'in', leave_type), ('state', '=', 'validate'),
-                      ('employee_id', '=', line.employee_id.id),
-                      ('request_date_from', '<=', line.reconcile_date), ('reconcile_option', '=', 'yes'),
-                      ('is_reconciled', '=', False)]
-            leave = self.env['hr.leave'].search(domain)
-            leave_days = sum([l.number_of_days for l in leave])
-            line.vacation_days_comp = leave_days
-
-    @api.onchange('reconcile_type', 'reconcile_date')
-    def _get_vacation_days(self):
-        for record in self:
-            record.employee_balance_days = record.balance_days_comp
-            record.vacation_days = record.vacation_days_comp
-
-    @api.multi
-    def validate_termination(self):
         if self.reconcile_type in ['balance', 'both'] and self.balance_days:
             leave_type = self.employee_id.holiday_line_ids.mapped('leave_status_id').ids[0]
             vals = {
@@ -151,6 +128,29 @@ class Settlement(models.Model):
         leaves = self.env['hr.leave'].search(domain)
         for l in leaves:
             l.is_reconciled = True
+        self.write({'termination_code': termination_code, 'state': 'approved'})
+
+    @api.onchange('reconcile_type', 'reconcile_date')
+    def _compute_vacation_days(self):
+        for line in self:
+            line.balance_days_comp = self.employee_id.remaining_allocate_leaves
+            leave_type = line.employee_id.holiday_line_ids.mapped('leave_status_id').ids
+            domain = [('holiday_status_id', 'in', leave_type), ('state', '=', 'validate'),
+                      ('employee_id', '=', line.employee_id.id),
+                      ('request_date_from', '<=', line.reconcile_date), ('reconcile_option', '=', 'yes'),
+                      ('is_reconciled', '=', False)]
+            leave = self.env['hr.leave'].search(domain)
+            leave_days = sum([l.number_of_days for l in leave])
+            line.vacation_days_comp = leave_days
+
+    @api.onchange('reconcile_type', 'reconcile_date')
+    def _get_vacation_days(self):
+        for record in self:
+            record.employee_balance_days = record.balance_days_comp
+            record.vacation_days = record.vacation_days_comp
+
+    @api.multi
+    def validate_termination(self):
         move_obj = self.env['account.move']
         timenow = time.strftime('%Y-%m-%d')
         line_ids = []
