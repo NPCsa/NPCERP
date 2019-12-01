@@ -82,7 +82,7 @@ class Settlement(models.Model):
                       ('is_reconciled', '=', True)]
             leaves = self.env['hr.leave'].search(domain)
             for l in leaves:
-                l.is_reconciled = False
+                l.write({'is_reconciled':False})
             if self.leave_reconcile_id:
                 self.leave_reconcile_id.action_refuse()
                 self.leave_reconcile_id.action_draft()
@@ -115,17 +115,17 @@ class Settlement(models.Model):
                 'date_change': True,
                 'number_of_days': self.balance_days * -1,
             }
-            leave = self.env['hr.leave.allocation'].create(vals)
+            leave = self.env['hr.leave.allocation'].sudo().create(vals)
             leave.action_approve()
             if leave.holiday_status_id.double_validation:
                 leave.action_validate()
-            self.write({'leave_reconcile_id': leave.id})
+            self.sudo().write({'leave_reconcile_id': leave.id})
 
         leave_type = self.employee_id.holiday_line_ids.mapped('leave_status_id').ids
         domain = [('holiday_status_id', 'in', leave_type), ('state', '=', 'validate'),
                   ('request_date_from', '<=', self.reconcile_date), ('reconcile_option', '=', 'yes'),
                   ('is_reconciled', '=', False)]
-        leaves = self.env['hr.leave'].search(domain)
+        leaves = self.env['hr.leave'].sudo().search(domain)
         for l in leaves:
             l.write({'is_reconciled':True})
         self.write({'termination_code': termination_code, 'state': 'approved'})
@@ -139,7 +139,7 @@ class Settlement(models.Model):
                       ('employee_id', '=', line.employee_id.id),
                       ('request_date_from', '<=', line.reconcile_date), ('reconcile_option', '=', 'yes'),
                       ('is_reconciled', '=', False)]
-            leave = self.env['hr.leave'].search(domain)
+            leave = self.env['hr.leave'].sudo().search(domain)
             leave_days = sum([l.number_of_days for l in leave])
             line.vacation_days_comp = leave_days
 
@@ -234,9 +234,9 @@ class Settlement(models.Model):
                 line_ids.append(credit_line)
 
         move.update({'line_ids': line_ids})
-        move_id = move_obj.create(move)
+        move_id = move_obj.sudo().create(move)
 
-        self.write(
+        self.sudo().write(
             {'move_id': move_id.id, 'state': 'approved2', })
         # move_id.post()
         return True
