@@ -52,7 +52,7 @@ class HrHolidays(models.Model):
                     [('employee_id', '=', employee_id.id), ('is_refund', '=', False), ('date_from', '<=', date_from),
                      ('date_to', '>=', date_from)])
                 reconcile = False
-                if values.get('is_reconciled'):
+                if values.get('is_reconciled') != None and (values.get('is_reconciled') or not values.get('is_reconciled')):
                     reconcile = True
                 if payslips and not reconcile:
                     raise Warning(_('The Employee Have Payslip On This Date'))
