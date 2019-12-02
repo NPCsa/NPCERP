@@ -320,7 +320,7 @@ class Settlement(models.Model):
     @api.multi
     def unlink(self):
         for termination in self:
-            if termination.state not in ['draft', 'review']:
+            if termination.state not in ['draft', 'review','cancel']:
                 raise Warning(_('You cannot delete a Settlement document'
                                 ' which is not draft or cancelled!'))
         return super(Settlement, self).unlink()
