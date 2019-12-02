@@ -38,30 +38,31 @@ class HrHolidays(models.Model):
     @api.multi
     def write(self, values):
         res = super(HrHolidays, self).write(values)
+        reconcile = False
+        if values.get('is_reconciled') != None and (values.get('is_reconciled') or not values.get('is_reconciled')):
+            reconcile = True
         for record in self:
-            payslip_obj = self.env['hr.payslip']
-            date_from = record.date_from
-            date_to = record.date_to
-            employee_id = record.employee_id
-            contract_id = payslip_obj.get_contract(employee_id, date_from, date_from)
-            if contract_id:
-                contract = self.env['hr.contract'].browse(contract_id)
-                if contract and contract.date_end and str(contract.date_end) < str(date_from)[:10]:
-                    raise Warning(_('The Employee Out Of Work'))
-                payslips = payslip_obj.search(
-                    [('employee_id', '=', employee_id.id), ('is_refund', '=', False), ('date_from', '<=', date_from),
-                     ('date_to', '>=', date_from)])
-                reconcile = False
-                if values.get('is_reconciled') != None and (values.get('is_reconciled') or not values.get('is_reconciled')):
-                    reconcile = True
-                if payslips and not reconcile:
-                    raise Warning(_('The Employee Have Payslip On This Date'))
-            else:
-                raise Warning(_('No Contract for This Employee or Check the Starting Date in Contract'))
-            days = record._get_number_of_days(date_from, date_to, employee_id.id)
-            if values.get('number_of_days'):
-                if days != record.number_of_days:
-                    raise Warning(_('you Cannot Edit Leave Days'))
+            if not reconcile:
+                payslip_obj = self.env['hr.payslip']
+                date_from = record.date_from
+                date_to = record.date_to
+                employee_id = record.employee_id
+                contract_id = payslip_obj.get_contract(employee_id, date_from, date_from)
+                if contract_id:
+                    contract = self.env['hr.contract'].browse(contract_id)
+                    if contract and contract.date_end and str(contract.date_end) < str(date_from)[:10]:
+                        raise Warning(_('The Employee Out Of Work'))
+                    payslips = payslip_obj.search(
+                        [('employee_id', '=', employee_id.id), ('is_refund', '=', False), ('date_from', '<=', date_from),
+                        ('date_to', '>=', date_from)])
+                    if payslips:
+                        raise Warning(_('The Employee Have Payslip On This Date'))
+                else:
+                    raise Warning(_('No Contract for This Employee or Check the Starting Date in Contract'))
+                days = record._get_number_of_days(date_from, date_to, employee_id.id)
+                if values.get('number_of_days'):
+                    if days != record.number_of_days:
+                        raise Warning(_('you Cannot Edit Leave Days'))
         return res
 
     @api.model
