@@ -56,7 +56,7 @@ class DateNotice(models.Model):
 
     @api.multi
     def button_cancel(self):
-        if self.state == 'confirm':
+        if self.state == 'confirm' and self.vacation_id:
             start_w_date = datetime.strptime(str(self.vacation_id.date_to)[:10], "%Y-%m-%d").date()
             self.vacation_id.update({'return_date': False})
             self.employee_id.write({'on_vacation': True, 'return_work': start_w_date + timedelta(days=+1)})

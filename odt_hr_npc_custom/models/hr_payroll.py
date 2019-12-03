@@ -217,8 +217,6 @@ class Payslip(models.Model):
                         for date in daterangeleave(hr_date_from, hr_date_to):
                             if date_from <= date <= date_to:
                                 return_work_days -= 1
-        print('=========return_work_days=======',return_work_days)
-        print('=========working_days=======',working_days)
         for rule in res:
             if rule['code'] == 'WORK100':
                 days = float(rule['number_of_days']) - working_days + return_work_days

@@ -272,7 +272,7 @@ class Termination(models.Model):
             start_date = datetime.strptime(str(self.hire_date), '%Y-%m-%d')
             end_date = datetime.strptime(str(self.job_ending_date), '%Y-%m-%d')
             # months = utils.months_between(start_date, end_date)
-            years = utils.years_between(start_date, end_date)
+            # years = utils.years_between(start_date, end_date)
             # self.period_in_years = years
             diff = relativedelta(end_date + timedelta(days=1), start_date)
             year = diff.years
