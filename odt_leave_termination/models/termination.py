@@ -159,7 +159,7 @@ class Settlement(models.Model):
         move = {
             'narration': name,
             'ref': self.termination_code,
-            'date': self.approval_date or timenow,
+            'date': self.date or timenow,
             'termination_leave_id': self.id,
             'journal_id': self.journal_id.id,
         }
@@ -187,7 +187,7 @@ class Settlement(models.Model):
             if leave_debit_account_id:
                 debit_line = (0, 0, {
                     'name': 'Leaves',
-                    'date': self.approval_date or timenow,
+                    'date': self.date or timenow,
                     'partner_id': partner_id,
                     'account_id': leave_debit_account_id,
                     'journal_id': self.journal_id.id,
@@ -199,7 +199,7 @@ class Settlement(models.Model):
             if leave_credit_account_id:
                 credit_line = (0, 0, {
                     'name': 'Leaves',
-                    'date': self.approval_date or timenow,
+                    'date': self.date or timenow,
                     'partner_id': partner_id,
                     'account_id': leave_credit_account_id,
                     'journal_id': self.journal_id.id,
@@ -213,7 +213,7 @@ class Settlement(models.Model):
             if ticket_debit_account_id:
                 debit_line = (0, 0, {
                     'name': 'Ticket',
-                    'date': self.approval_date or timenow,
+                    'date': self.date or timenow,
                     'partner_id': partner_id,
                     'account_id': ticket_debit_account_id,
                     'journal_id': self.journal_id.id,
@@ -225,7 +225,7 @@ class Settlement(models.Model):
             if ticket_credit_account_id:
                 credit_line = (0, 0, {
                     'name': 'Ticket',
-                    'date': self.approval_date or timenow,
+                    'date': self.date or timenow,
                     'partner_id': partner_id,
                     'account_id': ticket_credit_account_id,
                     'journal_id': self.journal_id.id,

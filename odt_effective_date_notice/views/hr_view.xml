@@ -12,8 +12,8 @@
 
                     <group col="2">
                         <group string="Vacation" name="vacation_group">
-                            <field name="on_vacation"/>
-                            <field name="return_work"/>
+                            <field name="on_vacation" readonly="1"/>
+                            <field name="return_work" readonly="1"/>
                             <field name="absent_ids">
                                 <tree editable="bottom" create="false">
                                     <field name="absent_from"/>
