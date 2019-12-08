@@ -61,21 +61,23 @@ class Settlement(models.Model):
                               ], _('Status'), readonly=True, copy=False, default='draft',
                              help=_("Gives the status of the Settlement"), select=True)
 
-    @api.constrains('balance_days', 'reconcile_date')
-    def _constrain_balance_days(self):
-        for record in self:
-            if record.balance_days > record.employee_id.remaining_allocate_leaves:
-                raise ValidationError("You Can not reconcile days greater than balance of Employee")
-            reconciles = self.search([('reconcile_date', '>=', record.reconcile_date), ('state', '!=', 'cancel'),
-                                      ('employee_id', '<=', record.employee_id.id)])
-            if len(reconciles) > 1:
-                raise ValidationError("You Can not reconcile more for same Time")
-
+    @api.model
+    def create(self, values):
+        res = super(Settlement, self).create(values)
+        settlements = self.search([('employee_id', '=', res.employee_id.id)]).filtered(lambda Settl: Settl.state != 'cancel')
+        for Sett in settlements:
+            if Sett.id != res.id:
+                if Sett.reconcile_date >= res.reconcile_date:
+                    raise UserError(_('You Can not reconcile more for same Time.'))
+            if res.balance_days > res.employee_id.remaining_allocate_leaves:
+                raise UserError(_('You Can not reconcile days greater than balance of Employee.'))
+        return res
+        
     @api.multi
     def button_cancel(self):
         if self.state not in ['approved', 'approved2']:
             self.state = 'cancel'
-        elif self.move_id and self.move_id.state == 'draft':
+        elif (self.move_id and self.move_id.state == 'draft') or self.state == 'approved':
             leave_type = self.employee_id.holiday_line_ids.mapped('leave_status_id').ids
             domain = [('holiday_status_id', 'in', leave_type), ('state', '=', 'validate'),
                       ('request_date_from', '<=', self.reconcile_date), ('reconcile_option', '=', 'yes'),
