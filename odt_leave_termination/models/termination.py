@@ -65,10 +65,10 @@ class Settlement(models.Model):
     @api.model
     def create(self, values):
         res = super(Settlement, self).create(values)
-        settlements = self.search([('employee_id', '=', res.employee_id.id)]).filtered(lambda Settlement: Settlement.state != 'cancel')
-        for Settlement in settlements:
-            if Settlement.id != res.id:
-                if Settlement.reconcile_date >= res.reconcile_date:
+        settlements = self.search([('employee_id', '=', res.employee_id.id)]).filtered(lambda Settl: Settl.state != 'cancel')
+        for Sett in settlements:
+            if Sett.id != res.id:
+                if Sett.reconcile_date >= res.reconcile_date:
                     raise UserError(_('You Can not reconcile more for same Time.'))
             if res.balance_days > res.employee_id.remaining_allocate_leaves:
                 raise UserError(_('You Can not reconcile days greater than balance of Employee.'))
