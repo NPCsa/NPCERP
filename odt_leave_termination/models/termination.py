@@ -78,7 +78,7 @@ class Settlement(models.Model):
     def button_cancel(self):
         if self.state not in ['approved', 'approved2']:
             self.state = 'cancel'
-        elif self.move_id and self.move_id.state == 'draft':
+        elif (self.move_id and self.move_id.state == 'draft') or self.state == 'approved':
             leave_type = self.employee_id.holiday_line_ids.mapped('leave_status_id').ids
             domain = [('holiday_status_id', 'in', leave_type), ('state', '=', 'validate'),
                       ('request_date_from', '<=', self.reconcile_date), ('reconcile_option', '=', 'yes'),
