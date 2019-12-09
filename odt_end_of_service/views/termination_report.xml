@@ -187,8 +187,8 @@
                                 <span t-field="o.working_period"/>
                             </div>
                             <div style="width:50%; float:right;">
-                                <strong size="4">Period in Years:</strong>
-                                <span t-field="o.period_in_years"/>
+                                <strong size="4">Period in Details:</strong>
+                                <span t-field="o.period_details"/>
                             </div>
                         </div>
                         <br/>
