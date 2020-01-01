@@ -109,9 +109,9 @@ class Payslip(models.Model):
         for record in self:
             net = record.line_ids.filtered(lambda line: line.salary_rule_id.code == 'NET')
             if net:
-                if net.total <= 0.0:
+                if net.total < 0.0:
                     raise Warning(
-                        _('You Can not Create Payslip with NET equal or less Than Zero , Employee %s and Amount is %s') % (
+                        _('You Can not Create Payslip with NET less Than Zero , Employee %s and Amount is %s') % (
                             record.employee_id.name, net.total))
         return res
 
