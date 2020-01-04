@@ -41,10 +41,13 @@ class HrHolidays(models.Model):
     def write(self, values):
         res = super(HrHolidays, self).write(values)
         reconcile = False
+        return_work = False
         if values.get('is_reconciled') != None and (values.get('is_reconciled') or not values.get('is_reconciled')):
             reconcile = True
+        if values.get('return_date') != None and (values.get('return_date') or not values.get('return_date')):
+            return_work = True
         for record in self:
-            if not reconcile:
+            if not reconcile or not return_work:
                 payslip_obj = self.env['hr.payslip']
                 date_from = record.date_from
                 date_to = record.date_to
