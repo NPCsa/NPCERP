@@ -11,6 +11,7 @@
     'version': '1.0.1',
     'depends': ['account'],
     'data': [
+        "security/security_view.xml",
         "views/payment_view.xml",
     ],
     'installable': True,

@@ -23,12 +23,17 @@
                 <xpath expr="filter[@name='partner']" position="after">
                     <filter string="Collection by" name="collection" domain="[]" context="{'group_by': 'collection_by'}"/>
                 </xpath>
+
             </field>
         </record>
 
 
         <template id="report_payment_receipt_document_inherit" inherit_id="account.report_payment_receipt_document">
             <xpath expr="//div[@class='page']//div[@class='row mb64']//div[@t-if='o.communication']" position="before">
+                <div class="col-6" t-if="o.state">
+                    <strong>Payment status: </strong>
+                    <span t-field="o.state"/>
+                </div>
                 <div class="col-6" t-if="o.collection_by">
                     <strong>Collection by: </strong>
                     <span t-field="o.collection_by"/>

@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+
+        <record id="group_account_payment_confirm" model="res.groups">
+            <field name="name">Account Payment Confirm</field>
+        </record>
+    </data>
+</odoo>
