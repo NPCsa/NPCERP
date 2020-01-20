@@ -50,5 +50,9 @@
             <field eval="0" name="active" />
             <field ref="hr_payroll.model_hr_payslip" name="model_id"/>
         </record>
+
+         <record id="group_payslip_confirm" model="res.groups">
+            <field name="name">Patch Payslip and Employee Payslip</field>
+        </record>
     </data>
 </odoo>

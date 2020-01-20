@@ -38,6 +38,9 @@
             <field name="model">hr.payslip</field>
             <field name="inherit_id" ref="hr_payroll.view_hr_payslip_form"/>
             <field name="arch" type="xml">
+             <xpath expr="//header//button[@name='action_payslip_done']" position="attributes">
+                    <attribute name="groups">odt_hr_npc_custom.group_payslip_confirm</attribute>
+                </xpath>
                 <xpath expr="//group//field[@name='contract_id']" position="attributes">
                     <attribute name="domain">"[('employee_id','=',employee_id),('state','=','open'),('date_start','&lt;=',date_to),'|',('date_end','&gt;=',date_from),('date_end','=',False)]"</attribute>
                 </xpath>
@@ -69,7 +72,7 @@
                     <button string="Compute Sheet" name="compute_sheet" type="object" states="draft"
                             class="oe_highlight"/>
                     <button string="Confirm" name="action_payslip_done" type="object" states="draft"
-                            class="oe_highlight"/>
+                            groups="odt_hr_npc_custom.group_payslip_confirm" class="oe_highlight"/>
                 </xpath>
                 <xpath expr="//header//button[@name='%(hr_payroll.action_hr_payslip_by_employees)d']"
                        position="attributes">
