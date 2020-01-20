@@ -11,6 +11,7 @@
                 </xpath>
             </field>
         </record>
+
         <record id="view_order_form_inherit" model="ir.ui.view">
             <field name="name">sale.order.form</field>
             <field name="model">sale.order</field>
@@ -21,6 +22,7 @@
                 </xpath>
             </field>
         </record>
+
         <record id="invoice_form_inherit" model="ir.ui.view">
             <field name="name">account.invoice.form</field>
             <field name="model">account.invoice</field>
@@ -28,10 +30,9 @@
             <field name="arch" type="xml">
                 <xpath expr="//header//button[@name='action_invoice_open']" position="replace">
                     <button name="action_invoice_open" type="object" states="draft" string="Validate" class="oe_highlight o_invoice_validate" groups="odt_npc_custom_security.group_account_invoice_confirm"/>
-
                 </xpath>
-                <xpath expr="//header//button[@name='151']" position="replace">
-                    <button name="151" id="account_invoice_payment_btn" type="action" attrs="{'invisible': [('state', '!=', 'open')]}" string="Register Payment" groups="odt_npc_custom_security.group_account_invoice_confirm" class="oe_highlight"/>
+                <xpath expr="//header//button[@name='%(account.action_account_invoice_payment)d']" position="replace">
+                    <button name="%(account.action_account_invoice_payment)d" id="account_invoice_payment_btn" type="action" attrs="{'invisible': [('state', '!=', 'open')]}" string="Register Payment" groups="odt_npc_custom_security.group_account_invoice_confirm" class="oe_highlight"/>
                 </xpath>
             </field>
         </record>
@@ -44,8 +45,8 @@
                     <button name="action_invoice_open" type="object" states="draft" string="Validate" class="oe_highlight o_invoice_validate" groups="odt_npc_custom_security.group_account_invoice_confirm"/>
 
                 </xpath>
-                <xpath expr="//header//button[@name='151']" position="replace">
-                    <button name="151" id="account_invoice_payment_btn" type="action" attrs="{'invisible': [('state', '!=', 'open')]}" string="Register Payment" groups="odt_npc_custom_security.group_account_invoice_confirm" class="oe_highlight"/>
+                <xpath expr="//header//button[@name='%(account.action_account_invoice_payment)d']" position="replace">
+                    <button name="%(account.action_account_invoice_payment)d" id="account_invoice_payment_btn" type="action" attrs="{'invisible': [('state', '!=', 'open')]}" string="Register Payment" groups="odt_npc_custom_security.group_account_invoice_confirm" class="oe_highlight"/>
                 </xpath>
             </field>
         </record>
