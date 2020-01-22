@@ -39,11 +39,14 @@
                             <strong>Memo:</strong>
                             <span t-field="o.communication"/>
                         </div>
-                        <div class="col-6" t-if="o.state">
+                        
+                    </div>
+                    <div class="row mb64">
+                       <div class="col-4" t-if="o.state">
                             <strong>Payment status: </strong>
                             <span t-field="o.state"/>
                         </div>
-                        <div class="col-6" t-if="o.collection_by">
+                        <div class="col-4" t-if="o.collection_by">
                             <strong>Collection by: </strong>
                             <span t-field="o.collection_by"/>
                         </div>
