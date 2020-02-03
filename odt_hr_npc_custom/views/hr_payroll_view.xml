@@ -38,6 +38,9 @@
             <field name="model">hr.payslip</field>
             <field name="inherit_id" ref="hr_payroll.view_hr_payslip_form"/>
             <field name="arch" type="xml">
+                <xpath expr="//header//button[@name='action_payslip_done']" position="attributes">
+                    <attribute name="groups">odt_hr_npc_custom.group_payslip_confirm</attribute>
+                </xpath>
                 <xpath expr="//group//field[@name='contract_id']" position="attributes">
                     <attribute name="domain">"[('employee_id','=',employee_id),('state','=','open'),('date_start','&lt;=',date_to),'|',('date_end','&gt;=',date_from),('date_end','=',False)]"</attribute>
                 </xpath>
@@ -47,8 +50,7 @@
                 <xpath expr="//field[@name='input_line_ids']//tree//field[@name='contract_id']" position="attributes">
                     <attribute name="domain">"[('id','=',parent.contract_id)]"</attribute>
                 </xpath>
-                <xpath expr="//field[@name='worked_days_line_ids']//tree//field[@name='contract_id']"
-                       position="attributes">
+                <xpath expr="//field[@name='worked_days_line_ids']//tree//field[@name='contract_id']" position="attributes">
                     <attribute name="domain">"[('id','=',parent.contract_id)]"</attribute>
                 </xpath>
                 <xpath expr="//field[@name='credit_note']" position="after">
@@ -66,13 +68,10 @@
                     <attribute name="states">done</attribute>
                 </xpath>
                 <xpath expr="//header//button[@name='close_payslip_run']" position="before">
-                    <button string="Compute Sheet" name="compute_sheet" type="object" states="draft"
-                            class="oe_highlight"/>
-                    <button string="Confirm" name="action_payslip_done" type="object" states="draft"
-                            class="oe_highlight"/>
+                    <button string="Compute Sheet" name="compute_sheet" type="object" states="draft" class="oe_highlight"/>
+                    <button string="Confirm" name="action_payslip_done" type="object" states="draft" groups="odt_hr_npc_custom.group_payslip_confirm" class="oe_highlight"/>
                 </xpath>
-                <xpath expr="//header//button[@name='%(hr_payroll.action_hr_payslip_by_employees)d']"
-                       position="attributes">
+                <xpath expr="//header//button[@name='%(hr_payroll.action_hr_payslip_by_employees)d']" position="attributes">
                     <attribute name="states">draft</attribute>
                 </xpath>
                 <xpath expr="//header//field[@name='state']" position="attributes">

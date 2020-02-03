@@ -8,25 +8,16 @@
             <field name="arch" type="xml">
                 <form string="Settlement">
                     <header>
-                        <button name="button_review" states="draft" string="Review" groups="base.group_user"
-                                class="oe_highlight" type="object"/>
-                        <button name="button_approve" states="review" string="Approve" groups="base.group_user"
-                                class="oe_highlight" type="object"/>
-                        <button name="validate_termination" states="approved" string="Second Approve"
-                                groups="base.group_user" class="oe_highlight" type="object"/>
+                        <button name="button_review" states="draft" string="Review" groups="base.group_user" class="oe_highlight" type="object"/>
+                        <button name="button_approve" states="review" string="Approve" groups="base.group_user" class="oe_highlight" type="object"/>
+                        <button name="validate_termination" states="approved" string="Second Approve" groups="odt_leave_termination.group_leaves_confirm" class="oe_highlight" type="object"/>
                         <button name="button_cancel" states="approved,approved2" string="Cancel" groups="base.group_user" type="object"/>
 
                         <field name="state" widget="statusbar" statusbar_visible="draft,approved,approved2,cancel"/>
                     </header>
                     <sheet>
                         <div class="oe_button_box" name="button_box">
-                            <button type="object"
-                                    class="oe_stat_button"
-                                    id="journal_entries"
-                                    icon="fa-pencil"
-                                    name="open_entries"
-                                    groups="hr.group_hr_manager,account.group_account_manager"
-                                    attrs="{'invisible': [('move_id', '=', False )]}" string="Journal Entries">
+                            <button type="object" class="oe_stat_button" id="journal_entries" icon="fa-pencil" name="open_entries" groups="hr.group_hr_manager,account.group_account_manager" attrs="{'invisible': [('move_id', '=', False )]}" string="Journal Entries">
                             </button>
                         </div>
                         <group>
@@ -42,7 +33,7 @@
                                 <field name="emp_member"/>
                                 <field name="company_id" groups="base.group_multi_company" attrs="{'readonly':[('state','in',('approved2'))]}"/>
                             </group>
-                             <group>
+                            <group>
                                 <field name="reconcile_date" attrs="{'readonly':[('state','in',('approved2'))]}"/>
                                 <field name="vacation_days" attrs="{'invisible':[('reconcile_type','not in',['request','both'])]}"/>
                                 <field name="vacation_days_comp" invisible="1"/>
@@ -56,12 +47,10 @@
                             </group>
 
                             <group>
-                                 <field name="payment_method" widget="selection"
-                                       attrs="{'readonly':[('state','in',('approved2'))],'required':1}"/>
+                                <field name="payment_method" widget="selection" attrs="{'readonly':[('state','in',('approved2'))],'required':1}"/>
                             </group>
                             <group>
-                                <field name="journal_id" widget="selection"
-                                       attrs="{'readonly':[('state','in',('approved2'))],'required':1}"/>
+                                <field name="journal_id" widget="selection" attrs="{'readonly':[('state','in',('approved2'))],'required':1}"/>
                             </group>
 
                         </group>
@@ -140,9 +129,9 @@
                             <field name="ticket_debit_account_id"/>
                             <field name="ticket_credit_account_id"/>
                         </group>
-                         <notebook>
+                        <notebook>
                             <page string="Calculation Lines">
-                               <field name="field_ids" nolabel="1">
+                                <field name="field_ids" nolabel="1">
                                     <tree editable="top">
                                         <field name="name" readonly="1"/>
                                         <field name="ttype" readonly="1"/>
@@ -165,10 +154,8 @@
         </record>
 
 
-        <menuitem action="action_hr_holiday_termination" id="hr_menu_hr_termination" parent="odootec_hr_holiday.menu_hr_leave_termination_root"
-                  groups="hr.group_hr_manager" sequence="1"/>
-        <menuitem id="termination_payments_menu" name="Configuration" parent="odootec_hr_holiday.menu_hr_leave_termination_root"
-                  action="action_termination_leave_payments_tree_view" sequence="2"/>
+        <menuitem action="action_hr_holiday_termination" id="hr_menu_hr_termination" parent="odootec_hr_holiday.menu_hr_leave_termination_root" groups="hr.group_hr_manager" sequence="1"/>
+        <menuitem id="termination_payments_menu" name="Configuration" parent="odootec_hr_holiday.menu_hr_leave_termination_root" action="action_termination_leave_payments_tree_view" sequence="2"/>
 
 
         <record model="ir.ui.view" id="account_move_termination_leave_form_view">

@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+        <record id="group_leaves_confirm" model="res.groups">
+            <field name="name">Leaves and Settlement </field>
+        </record>
+    </data>
+</odoo>

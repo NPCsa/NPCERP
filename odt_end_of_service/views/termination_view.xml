@@ -10,7 +10,7 @@
                     <header>
                         <button name="button_review" states="draft" string="Review" groups="base.group_user" class="oe_highlight" type="object"/>
                         <button name="button_approve" states="review" string="Approve" groups="base.group_user" class="oe_highlight" type="object"/>
-                        <button name="validate_termination" states="approved" string="Second Approve" groups="base.group_user" class="oe_highlight" type="object"/>
+                        <button name="validate_termination" states="approved" string="Second Approve" groups="odt_end_of_service.group_termination_validate" class="oe_highlight" type="object"/>
                         <button name="button_cancel" states="approved,approved2" string="Cancel" groups="base.group_user" type="object"/>
                         <field name="state" widget="statusbar" statusbar_visible="draft,approved,approved2,cancel"/>
                     </header>

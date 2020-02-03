@@ -30,6 +30,7 @@
     'website': "www.odootec.com",
     "depends": ['hr_payroll'],
     "data": [
+        'security/security_view.xml',
         'views/termination_view.xml',
         'views/hr_termination_sequence.xml',
         'views/hr_employee.xml',
