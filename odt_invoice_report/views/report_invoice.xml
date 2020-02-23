@@ -1,0 +1,40 @@
+<odoo>
+    <data>
+        <template id="account_invoice_report_edit" inherit_id="account.report_invoice_document">
+            <xpath expr="//t[@t-set='address']//div[@t-if='o.partner_id.vat']" position="replace">
+                <div t-if="o.partner_id.vat" class="mt16">
+                    <t t-esc="'VAT ID'"/>
+:                    <span t-field="o.partner_id.vat"/>
+                </div>
+
+            </xpath>
+
+            <xpath expr="//table[@name='invoice_line_table']//thead//tr//th[5]//span" position="replace">
+                <span>VAT</span>
+            </xpath>
+            <xpath expr="//div[@id='total']" position="after">
+                <div id="words" class="row">
+                    <div t-attf-class="#{'col-4' if report_type != 'html' else 'col-sm-7 col-md-5'} ml-auto">
+                        <table class="table table-sm">
+                            <tr class="border-black o_subtotal" style="">
+
+                                <td class="text-right" colspan="2">
+                                    <span class="m-0" t-esc="o.convert_number_to_words(o.amount_total,'ar')"/>
+ريال فقط
+                                </td>
+                            </tr>
+
+                            <tr class="border-black o_total">
+                                <td class="text-right" colspan="2">
+                                    <p class="m-0" t-esc="o.convert_number_to_words(o.amount_total,'en')"/>
+ riyal only
+
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </xpath>
+        </template>
+    </data>
+</odoo>
