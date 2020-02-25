@@ -2,7 +2,6 @@ from num2words import num2words
 import re
 from odoo import api, fields, models
 
-
 class AccountInvoice(models.Model):
     _inherit = 'account.invoice'
 
@@ -26,7 +25,7 @@ class AccountInvoice(models.Model):
                 post_fix = " من المائة"
 
         if d_num > 0:
-            post_fix = " فاصل " + self.convert_long(d_num) + post_fix
+            post_fix = " & " + self.convert_long(d_num) + post_fix
 
         result = self.convert_long(split[0]) + post_fix
 

@@ -1,13 +1,128 @@
 <odoo>
     <data>
         <template id="account_invoice_report_edit" inherit_id="account.report_invoice_document">
-            <xpath expr="//t[@t-set='address']//div[@t-if='o.partner_id.vat']" position="replace">
-                <div t-if="o.partner_id.vat" class="mt16">
-                    <t t-esc="'VAT ID'"/>
-:                    <span t-field="o.partner_id.vat"/>
+            <xpath expr="//div[@id='total']" position="replace">
+                <div id="total" class="row">
+                    <div t-attf-class="#{'col-4' if report_type != 'html' else 'col-sm-7 col-md-5'} ml-auto">
+                        <table class="table table-sm">
+                            <tr class="border-black o_subtotal" style="">
+                                <td>
+                                    <strong>المجموع الفرعي</strong>
+                                    <strong>Subtotal</strong>
+                                </td>
+                                <td class="text-right">
+                                    <span t-field="o.amount_untaxed"/>
+                                </td>
+                            </tr>
+                            <t t-foreach="o.amount_by_group" t-as="amount_by_group">
+                                <tr style="">
+                                    <t t-if="len(o.tax_line_ids) == 1 and o.amount_untaxed == amount_by_group[2]">
+                                        <td>
+                                        <strong>ضريبه القيمه المضافه</strong>
+                                            <span t-esc="amount_by_group[0]"/>
+                                        </td>
+                                        <td class="text-right o_price_total">
+                                            <span t-esc="amount_by_group[3]"/>
+                                        </td>
+                                    </t>
+                                    <t t-else="">
+                                        <td>
+                                        <strong>ضريبه القيمه المضافه</strong>
+                                            <span t-esc="amount_by_group[0]"/>
+                                            <span>&amp;nbsp;<span>on</span>
+                                                <t t-esc="amount_by_group[4]"/>
+                                            </span>
+                                        </td>
+                                        <td class="text-right o_price_total">
+                                            <span t-esc="amount_by_group[3]"/>
+                                        </td>
+                                    </t>
+                                </tr>
+                            </t>
+                            <tr class="border-black o_total">
+                                <td>
+                                    <strong>المجموع</strong>
+                                    <strong>Total</strong>
+                                </td>
+                                <td class="text-right">
+                                    <span t-field="o.amount_total"/>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
                 </div>
+            </xpath>
+            <xpath expr="//div[@class='page']//h2" position="replace">
+                <span t-if="o.type == 'out_invoice' and o.state in ('open', 'in_payment', 'paid')">Invoice</span>
+                <span t-if="o.type == 'out_invoice' and o.state == 'draft'">Draft Invoice</span>
+                <span t-if="o.type == 'out_invoice' and o.state == 'cancel'">Cancelled Invoice</span>
+                <span t-if="o.type == 'out_refund'">Credit Note</span>
+                <span t-if="o.type == 'in_refund'">Vendor Credit Note</span>
+                <span t-if="o.type == 'in_invoice'">Vendor Bill</span>
+                <span t-field="o.number"/>
+ : فاتوره ضريبيه رقم
+            </xpath>
+
+            <xpath expr="//t[@t-set='address']" position="replace">
+                <t t-set="address">
+                    <div t-if="o.partner_id" class="mt16">
+                        <strong> اسم العميل custmer name :</strong>
+:                        <span t-field="o.partner_id.name"/>
+                    </div>
+                    <div t-if="o.partner_id" class="mt16">
+                        <strong> عنوان العميل custmer address :</strong>
+                        <address t-field="o.partner_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;], &quot;no_marker&quot;: True}"/>
+                    </div>
+
+                    <div t-if="o.partner_id.vat" class="mt16">
+                        <t t-esc="o.company_id.country_id.vat_label or 'رقم التعريف الضريبي للعميل Customer VAT'"/>
+:                        <span t-field="o.partner_id.vat"/>
+                    </div>
+                </t>
 
             </xpath>
+
+            <xpath expr="//div[@id='informations']" position="replace">
+                <div id="informations" class="row mt32 mb32">
+                    <div class="col-auto mw-100 mb-2" t-if="o.name" name="description">
+                        <strong>رقم الطلب والسفينه</strong>
+                        <br/>
+                        <strong>Description:</strong>
+                        <p class="m-0" t-field="o.name"/>
+                    </div>
+                    <div class="col-auto mw-100 mb-2" t-if="o.date_invoice" name="invoice_date">
+                        <strong>تاريخ الفاتوره</strong>
+                        <br/>
+                        <strong>Invoice Date:</strong>
+                        <p class="m-0" t-field="o.date_invoice"/>
+                    </div>
+                    <div class="col-auto mw-100 mb-2" t-if="o.date_due and o.type == 'out_invoice' and o.state in ('open', 'in_payment', 'paid')" name="due_date">
+                        <strong>تاريخ الاستحقاق</strong>
+                        <br/>
+                        <strong>Due Date:</strong>
+                        <p class="m-0" t-field="o.date_due"/>
+                    </div>
+                    <div class="col-auto mw-100 mb-2" t-if="o.origin" name="origin">
+                        <strong>المصدر</strong>
+                        <br/>
+                        <strong>Source:</strong>
+                        <p class="m-0" t-field="o.origin"/>
+                    </div>
+                    <div class="col-auto mw-100 mb-2" t-if="o.partner_id.ref" name="customer_code">
+                        <strong>كود العميل</strong>
+                        <br/>
+                        <strong>Customer Code:</strong>
+                        <p class="m-0" t-field="o.partner_id.ref"/>
+                    </div>
+                    <div name="reference" class="col-auto mw-100 mb-2" t-if="o.reference">
+                        <strong>رقم المرجع</strong>
+                        <br/>
+                        <strong>Reference:</strong>
+                        <p class="m-0" t-field="o.reference"/>
+                    </div>
+                </div>
+            </xpath>
+
 
             <xpath expr="//table[@name='invoice_line_table']//thead//tr//th[5]//span" position="replace">
                 <span>VAT</span>
@@ -20,14 +135,14 @@
 
                                 <td class="text-right" colspan="2">
                                     <span class="m-0" t-esc="o.convert_number_to_words(o.amount_total,'ar')"/>
-ريال فقط
+ فقط
                                 </td>
                             </tr>
 
                             <tr class="border-black o_total">
                                 <td class="text-right" colspan="2">
                                     <p class="m-0" t-esc="o.convert_number_to_words(o.amount_total,'en')"/>
- riyal only
+  only
 
                                 </td>
                             </tr>
