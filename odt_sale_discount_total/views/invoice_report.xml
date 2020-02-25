@@ -5,7 +5,10 @@
         <template id="report_invoice_customized" inherit_id="account.report_invoice_document">
             <xpath expr="//tr[hasclass('border-black')]" position="after">
                 <tr>
-                    <td>Discount</td>
+                   <td>
+                    <strong>الخصم</strong>
+                    <strong>Discount</strong>
+                    </td>
                     <td class="text-right">
                         <span t-field="o.amount_discount"/>
                     </td>
