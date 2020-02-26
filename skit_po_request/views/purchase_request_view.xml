@@ -17,6 +17,8 @@
 					<button name="button_rejected" states="to_approve,approved"
 						string="Reject" type="object"
 						groups="skit_po_request.group_purchase_request_manager" />
+					<button string="New Quotation" states="approved" name="make_purchase_quotation" type="object"
+                        />
 					<field name="state" widget="statusbar"
 						statusbar_visible="draft,to_approve,approved,rejected"
 						statusbar_colors='{"approved":"blue"}' />
@@ -77,8 +79,7 @@
 													<field name="product_uom_id" groups="product.group_uom"
 														class="oe_inline" attrs="{'readonly': [('is_editable','=', False)]}" />
 												</div>
-												<field name="analytic_account_id" groups="analytic.group_analytic_accounting"
-													domain="[('account_type','=','normal')]" attrs="{'readonly': [('is_editable','=', False)]}" />
+												<field name="analytic_account_id" groups="analytic.group_analytic_accounting" attrs="{'readonly': [('is_editable','=', False)]}" />
 												<field name="date_required"
 													attrs="{'readonly': [('is_editable','=', False)]}" />
 												<field name="procurement_id" />

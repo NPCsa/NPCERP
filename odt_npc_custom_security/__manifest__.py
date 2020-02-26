@@ -9,7 +9,7 @@
     'website': "www.odootec.com",
     'category': 'access',
     'version': '1.0.1',
-    'depends': ['purchase','sale','account'],
+    'depends': ['purchase','sale','account','hr_payroll','hr_expense','account'],
     'data': [
         "security/security_view.xml",
         "views/button_access_view.xml",

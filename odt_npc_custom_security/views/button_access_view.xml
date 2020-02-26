@@ -35,10 +35,15 @@
             <field name="inherit_id" ref="account.invoice_form"/>
             <field name="arch" type="xml">
                 <xpath expr="//header//button[@name='action_invoice_open']" position="replace">
-                    <button name="action_invoice_open" type="object" states="draft" string="Validate" class="oe_highlight o_invoice_validate" groups="odt_npc_custom_security.group_account_invoice_confirm"/>
+                    <button name="action_invoice_open" type="object" states="draft" string="Validate"
+                            class="oe_highlight o_invoice_validate"
+                            groups="odt_npc_custom_security.group_account_invoice_confirm"/>
                 </xpath>
                 <xpath expr="//header//button[@name='%(account.action_account_invoice_payment)d']" position="replace">
-                    <button name="%(account.action_account_invoice_payment)d" id="account_invoice_payment_btn" type="action" attrs="{'invisible': [('state', '!=', 'open')]}" string="Register Payment" groups="odt_npc_custom_security.group_account_invoice_register_payment" class="oe_highlight"/>
+                    <button name="%(account.action_account_invoice_payment)d" id="account_invoice_payment_btn"
+                            type="action" attrs="{'invisible': [('state', '!=', 'open')]}" string="Register Payment"
+                            groups="odt_npc_custom_security.group_account_invoice_register_payment"
+                            class="oe_highlight"/>
                 </xpath>
             </field>
         </record>
@@ -48,14 +53,128 @@
             <field name="inherit_id" ref="account.invoice_supplier_form"/>
             <field name="arch" type="xml">
                 <xpath expr="//header//button[@name='action_invoice_open']" position="replace">
-                    <button name="action_invoice_open" type="object" states="draft" string="Validate" class="oe_highlight o_invoice_validate" groups="odt_npc_custom_security.group_account_bill_confirm"/>
+                    <button name="action_invoice_open" type="object" states="draft" string="Validate"
+                            class="oe_highlight o_invoice_validate"
+                            groups="odt_npc_custom_security.group_account_bill_confirm"/>
 
                 </xpath>
                 <xpath expr="//header//button[@name='%(account.action_account_invoice_payment)d']" position="replace">
-                    <button name="%(account.action_account_invoice_payment)d" id="account_invoice_payment_btn" type="action" attrs="{'invisible': [('state', '!=', 'open')]}" string="Register Payment" groups="odt_npc_custom_security.group_account_invoice_register_payment" class="oe_highlight"/>
+                    <button name="%(account.action_account_invoice_payment)d" id="account_invoice_payment_btn"
+                            type="action" attrs="{'invisible': [('state', '!=', 'open')]}" string="Register Payment"
+                            groups="odt_npc_custom_security.group_account_invoice_register_payment"
+                            class="oe_highlight"/>
                 </xpath>
             </field>
         </record>
+        <!--        /////////////////////////////////////////////////////-->
+        <record id="create_payslip_tree_view_inhirite" model="ir.ui.view">
+            <field name="model">hr.payslip</field>
+            <field name="groups_id" eval="[(6, 0, [ref('odt_npc_custom_security.group_create_payslip')])]"/>
+            <field name="inherit_id" ref="hr_payroll.view_hr_payslip_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//tree"
+                       position="attributes">
+                    <attribute name="create">false</attribute>
+                </xpath>
+            </field>
+        </record>
+        <record id="create_payslip_kanban_view_inhirite" model="ir.ui.view">
+            <field name="model">hr.payslip</field>
+            <field name="groups_id" eval="[(6, 0, [ref('odt_npc_custom_security.group_create_payslip')])]"/>
+            <field name="inherit_id" ref="hr_payroll.hr_payslip_view_kanban"/>
+            <field name="arch" type="xml">
+                <xpath expr="//kanban"
+                       position="attributes">
+                    <attribute name="create">false</attribute>
+                </xpath>
+            </field>
+        </record>
+        <record id="cancel_effective_date_notice_view_inhirite" model="ir.ui.view">
+            <field name="name">hr.effective.date.form</field>
+            <field name="model">hr.effective.date</field>
+            <field name="inherit_id" ref="odt_effective_date_notice.form_view_for_effective_date"/>
+            <field name="arch" type="xml">
+                <xpath expr="//header//button[@name='button_cancel']" position="replace">
+                    <button name="button_cancel" states="confirm" string="Cancel" type="object" class="oe_highlight"
+                            groups="odt_npc_custom_security.group_cancel_effective_date"/>
+                </xpath>
+            </field>
+        </record>
+        <record id="refuse_hr_leaves_requests_view_inhirite" model="ir.ui.view">
+            <field name="name">hr.leave.request.form</field>
+            <field name="model">hr.leave</field>
+            <field name="inherit_id" ref="hr_holidays.hr_leave_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//header//button[@name='action_refuse']" position="replace">
+                    <button string="Refuse" name="action_refuse" type="object"
+                            attrs="{'invisible': ['|', ('can_approve', '=', False), ('state', 'not in', ('confirm','validate','validate1'))]}"
+                    groups="odt_npc_custom_security.return_leave_request"/>
+                </xpath>
+            </field>
+        </record>
+        <record id="confirm_effective_date_notice_view_inhirite" model="ir.ui.view">
+            <field name="name">hr.effective.date.form</field>
+            <field name="model">hr.effective.date</field>
+            <field name="inherit_id" ref="odt_effective_date_notice.form_view_for_effective_date"/>
+            <field name="arch" type="xml">
+                <xpath expr="//header//button[@name='button_confirm']" position="replace">
+                    <button name="button_confirm" states="submit" string="Confirm" type="object" class="oe_highlight"
+                            groups="odt_npc_custom_security.group_confirm_effective_date"/>
+                </xpath>
+            </field>
+        </record>
+        <record id="approve_button_employee_expense_view_inhirite" model="ir.ui.view">
+            <field name="name">approve.employee.expense.form</field>
+            <field name="model">hr.expense.sheet</field>
+            <field name="inherit_id" ref="hr_expense.view_hr_expense_sheet_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//header//button[@name='approve_expense_sheets']" position="replace">
+                    <button name="approve_expense_sheets" states="submit" string="Approve" type="object"
+                            groups="odt_npc_custom_security.approve_expense_employee"
+                            class="oe_highlight o_expense_sheet_approve"/>
+                </xpath>
+            </field>
+        </record>
+        <record id="account_invoice_ask_credit_note_view_inhirite" model="ir.ui.view">
+            <field name="name">account.invoice.credit.note.form</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='%(account.action_account_invoice_refund)d']" position="replace">
+                    <button name="%(account.action_account_invoice_refund)d" type='action'
+                            string='Ask for a Credit Note'
+                            groups="odt_npc_custom_security.refund_credit_note"
+                            attrs="{'invisible': ['|',('type', 'in', ['in_refund','out_refund']),('state','not in',('open','in_payment','paid'))]}"/>
+                </xpath>
+            </field>
+        </record>
+        <record id="account_invoice_ask_credit_note_view_inhirite_vendor" model="ir.ui.view">
+            <field name="name">account.invoice.credit.note.form.vendor</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_supplier_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='%(account.action_account_invoice_refund)d']" position="replace">
+                    <button name="%(account.action_account_invoice_refund)d" type='action'
+                            string='Ask for a Credit Note'
+                            groups="odt_npc_custom_security.refund_credit_note_vendor_bill"
+                            attrs="{'invisible': ['|',('type', 'in', ['in_refund','out_refund']),('state','not in',('open','in_payment','paid'))]}"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="return_stock_delevary_view_inhirite" model="ir.ui.view">
+            <field name="name">stock.picking.retur.form</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='%(stock.act_stock_return_picking)d']" position="replace">
+                    <button name="%(stock.act_stock_return_picking)d" string="Return"
+                            attrs="{'invisible': ['|', ('state', '!=', 'done'), ('is_locked', '=', False)]}"
+                            type="action" groups="odt_npc_custom_security.return_deleviry_order"/>
+                </xpath>
+            </field>
+        </record>
+
 
     </data>
 </odoo>

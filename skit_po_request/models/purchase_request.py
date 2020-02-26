@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
-from odoo import api, fields, models
+from odoo import api, fields, models, _ , SUPERUSER_ID
 from odoo.addons import decimal_precision as dp
 from datetime import datetime
-
+from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT
 _STATES = [
     ('draft', 'Draft'),
     ('to_approve', 'To be approved'),
@@ -18,6 +18,40 @@ class PurchaseRequest(models.Model):
     _description = 'Purchase Request'
     _inherit = ['mail.thread']
 
+    @api.multi
+    def make_purchase_quotation(self):
+        view_id = self.env.ref('purchase.purchase_order_form')
+        order_line = []
+        for line in self.line_ids:
+            product = line.product_id
+            fpos = self.env['account.fiscal.position']
+
+            product_line = (0, 0, {'product_id': line.product_id.id,
+                                   'state': 'draft',
+                                   'product_uom': line.product_id.uom_po_id.id,
+                                   'price_unit': 0,
+                                   'date_planned': datetime.today().strftime(DEFAULT_SERVER_DATETIME_FORMAT),
+                                   # 'taxes_id' : ((6,0,[taxes_id.id])),
+                                   'product_qty': line.product_qty,
+                                   'name': line.product_id.name
+                                   })
+            order_line.append(product_line)
+
+        return {
+            'name': _('New Quotation'),
+            'type': 'ir.actions.act_window',
+            'res_model': 'purchase.order',
+            'view_type': 'form',
+            'view_mode': 'form',
+            'target': 'new',
+            'view_id': view_id.id,
+            'views': [(view_id.id, 'form')],
+            'context': {
+                'default_order_line': order_line,
+                'default_state': 'draft',
+
+            }
+        }
     @api.model
     def _company_get(self):
         company_id = self.env['res.company']._company_default_get(self._name)
@@ -225,7 +259,7 @@ class PurchaseRequestLine(models.Model):
                                  string='Company',
                                  store=True, readonly=True)
     analytic_account_id = fields.Many2one('account.analytic.account',
-                                          'Analytic Account',
+                                          'Analytic Account',required=True,
                                           track_visibility='onchange')
     requested_by = fields.Many2one('res.users',
                                    related='request_id.requested_by',
