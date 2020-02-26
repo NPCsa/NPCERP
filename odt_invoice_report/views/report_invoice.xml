@@ -1,6 +1,120 @@
 <odoo>
     <data>
         <template id="account_invoice_report_edit" inherit_id="account.report_invoice_document">
+            <xpath expr="//table[@name='invoice_line_table']" position="replace">
+
+                <table class="table table-sm o_main_table" name="invoice_line_table">
+                    <thead>
+                        <tr>
+                                <t t-set="colspan" t-value="6"/>
+                                <th class="text-right"><span>مسلسل</span></th>
+                                <th class="text-left"><span>الوصف</span></th>
+                                <th class="d-none text-left"><span>مصدر المستند</span></th>
+                                <th class="text-right"><span>الكميه</span></th>
+                                <th t-attf-class="text-right {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}"><span>سعر الوحده</span></th>
+                                <th t-if="display_discount" t-attf-class="text-right {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}">
+                                    <span>الخصم.(%)</span>
+                                    <t t-set="colspan" t-value="colspan+1"/>
+                                </th>
+                                <th t-attf-class="text-left {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}"><span>Taxes</span></th>
+                                <th class="text-right">
+                                    <span groups="account.group_show_line_subtotals_tax_excluded">القيمه</span>
+                                    <span groups="account.group_show_line_subtotals_tax_included">الاجمالي</span>
+                                </th>
+                            
+                        </tr>
+                        <tr>
+                                <t t-set="colspan" t-value="6"/>
+                                <th class="text-left"><span>Serial</span></th>
+                                <th class="text-left"><span>Description</span></th>
+                                <th class="d-none text-left"><span>Source Document</span></th>
+                                <th class="text-right"><span>Quantity</span></th>
+                                <th t-attf-class="text-right {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}"><span>Unit Price</span></th>
+                                <th t-if="display_discount" t-attf-class="text-right {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}">
+                                    <span>Disc.(%)</span>
+                                    <t t-set="colspan" t-value="colspan+1"/>
+                                </th>
+                                <th t-attf-class="text-left {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}"><span>Taxes</span></th>
+                                <th class="text-right">
+                                    <span groups="account.group_show_line_subtotals_tax_excluded">Amount</span>
+                                    <span groups="account.group_show_line_subtotals_tax_included">Total Price</span>
+                                </th>
+
+                            </tr>
+
+                    </thead>
+                    <tbody class="invoice_tbody">
+                        <t t-set="current_subtotal" t-value="0"/>
+
+                        <t t-foreach="o.invoice_line_ids" t-as="line">
+
+                            <t t-set="current_subtotal" t-value="current_subtotal + line.price_subtotal" groups="account.group_show_line_subtotals_tax_excluded"/>
+                            <t t-set="current_subtotal" t-value="current_subtotal + line.price_total" groups="account.group_show_line_subtotals_tax_included"/>
+
+                            <tr t-att-class="'bg-200 font-weight-bold o_line_section' if line.display_type == 'line_section' else 'font-italic o_line_note' if line.display_type == 'line_note' else ''">
+                                <t t-if="not line.display_type" name="account_invoice_line_accountable">
+
+                                    <td class="text-right">
+                                        <span t-esc="line_index + 1"/>
+                                    </td>
+                                    <td name="account_invoice_line_name">
+                                        <span t-field="line.name"/>
+                                    </td>
+                                    <td class="d-none">
+                                        <span t-field="line.origin"/>
+                                    </td>
+                                    <td class="text-right">
+                                        <span t-field="line.quantity"/>
+                                        <span t-field="line.uom_id" groups="uom.group_uom"/>
+                                    </td>
+                                    <td t-attf-class="text-right {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}">
+                                        <span t-field="line.price_unit"/>
+                                    </td>
+                                    <td t-if="display_discount" t-attf-class="text-right {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}">
+                                        <span t-field="line.discount"/>
+                                    </td>
+                                    <td t-attf-class="text-left {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}">
+                                        <span t-esc="', '.join(map(lambda x: (x.description or x.name), line.invoice_line_tax_ids))"/>
+                                    </td>
+                                    <td class="text-right o_price_total">
+                                        <span t-field="line.price_subtotal" groups="account.group_show_line_subtotals_tax_excluded"/>
+                                        <span t-field="line.price_total" groups="account.group_show_line_subtotals_tax_included"/>
+                                    </td>
+                                    
+
+                                </t>
+                                <t t-if="line.display_type == 'line_section'">
+                                    <td t-att-colspan="colspan">
+                                        <span t-field="line.name"/>
+                                    </td>
+                                    <t t-set="current_section" t-value="line"/>
+                                    <t t-set="current_subtotal" t-value="0"/>
+                                </t>
+                                <t t-if="line.display_type == 'line_note'">
+                                    <td t-att-colspan="colspan">
+                                        <span t-field="line.name"/>
+                                    </td>
+                                </t>
+                            </tr>
+
+                            <t t-if="current_section and (line_last or o.invoice_line_ids[line_index+1].display_type == 'line_section')">
+                                <tr class="is-subtotal text-right">
+                                    <td t-att-colspan="colspan">
+                                        <strong class="mr16">Subtotal</strong>
+                                        <span t-esc="current_subtotal" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/>
+                                    </td>
+                                </tr>
+                            </t>
+                        </t>
+                    </tbody>
+                </table>
+            </xpath>
+            <xpath expr="//table[@name='invoice_line_table']//thead//tr[1]//th[7]//span" position="replace">
+                <span>ض.ق مضافه</span>
+            </xpath>
+             <xpath expr="//table[@name='invoice_line_table']//thead//tr[2]//th[7]//span" position="replace">
+                <span>VAT</span>
+            </xpath>
             <xpath expr="//div[@id='total']" position="replace">
                 <div id="total" class="row">
                     <div t-attf-class="#{'col-4' if report_type != 'html' else 'col-sm-7 col-md-5'} ml-auto">
@@ -18,7 +132,7 @@
                                 <tr style="">
                                     <t t-if="len(o.tax_line_ids) == 1 and o.amount_untaxed == amount_by_group[2]">
                                         <td>
-                                        <strong>ضريبه القيمه المضافه</strong>
+                                            <strong>ض.ق مضافه</strong>
                                             <span t-esc="amount_by_group[0]"/>
                                         </td>
                                         <td class="text-right o_price_total">
@@ -27,7 +141,7 @@
                                     </t>
                                     <t t-else="">
                                         <td>
-                                        <strong>ضريبه القيمه المضافه</strong>
+                                            <strong>ض.ق مضافه</strong>
                                             <span t-esc="amount_by_group[0]"/>
                                             <span>&amp;nbsp;<span>on</span>
                                                 <t t-esc="amount_by_group[4]"/>
@@ -39,6 +153,15 @@
                                     </t>
                                 </tr>
                             </t>
+                            <tr>
+                                <td>
+                                    <strong>الخصم</strong>
+                                    <strong>Discount</strong>
+                                </td>
+                                <td class="text-right">
+                                    <span t-field="o.amount_discount"/>
+                                </td>
+                            </tr>
                             <tr class="border-black o_total">
                                 <td>
                                     <strong>المجموع</strong>
@@ -124,9 +247,7 @@
             </xpath>
 
 
-            <xpath expr="//table[@name='invoice_line_table']//thead//tr//th[5]//span" position="replace">
-                <span>VAT</span>
-            </xpath>
+           
             <xpath expr="//div[@id='total']" position="after">
                 <div id="words" class="row">
                     <div t-attf-class="#{'col-4' if report_type != 'html' else 'col-sm-7 col-md-5'} ml-auto">
@@ -135,14 +256,14 @@
 
                                 <td class="text-right" colspan="2">
                                     <span class="m-0" t-esc="o.convert_number_to_words(o.amount_total,'ar')"/>
- فقط
+ <strong t-esc="o.currency_id.name"/> 
                                 </td>
                             </tr>
 
                             <tr class="border-black o_total">
                                 <td class="text-right" colspan="2">
                                     <p class="m-0" t-esc="o.convert_number_to_words(o.amount_total,'en')"/>
-  only
+ <strong t-esc="o.currency_id.name"/>
 
                                 </td>
                             </tr>
