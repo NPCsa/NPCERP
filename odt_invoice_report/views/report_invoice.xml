@@ -6,41 +6,65 @@
                 <table class="table table-sm o_main_table" name="invoice_line_table">
                     <thead>
                         <tr>
-                                <t t-set="colspan" t-value="6"/>
-                                <th class="text-right"><span>مسلسل</span></th>
-                                <th class="text-left"><span>الوصف</span></th>
-                                <th class="d-none text-left"><span>مصدر المستند</span></th>
-                                <th class="text-right"><span>الكميه</span></th>
-                                <th t-attf-class="text-right {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}"><span>سعر الوحده</span></th>
-                                <th t-if="display_discount" t-attf-class="text-right {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}">
-                                    <span>الخصم.(%)</span>
-                                    <t t-set="colspan" t-value="colspan+1"/>
-                                </th>
-                                <th t-attf-class="text-left {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}"><span>Taxes</span></th>
-                                <th class="text-right">
-                                    <span groups="account.group_show_line_subtotals_tax_excluded">القيمه</span>
-                                    <span groups="account.group_show_line_subtotals_tax_included">الاجمالي</span>
-                                </th>
-                            
+                            <t t-set="colspan" t-value="6"/>
+                            <th class="text-right">
+                                <span>مسلسل</span>
+                            </th>
+                            <th class="text-left">
+                                <span>الوصف</span>
+                            </th>
+                            <th class="d-none text-left">
+                                <span>مصدر المستند</span>
+                            </th>
+                            <th class="text-right">
+                                <span>الكميه</span>
+                            </th>
+                            <th t-attf-class="text-right {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}">
+                                <span>سعر الوحده</span>
+                            </th>
+                            <th t-if="display_discount" t-attf-class="text-right {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}">
+                                <span>الخصم.(%)</span>
+                                <t t-set="colspan" t-value="colspan+1"/>
+                            </th>
+                            <th t-attf-class="text-left {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}">
+                                <span>Taxes</span>
+                            </th>
+                            <th class="text-right">
+                                <span groups="account.group_show_line_subtotals_tax_excluded">القيمه</span>
+                                <span groups="account.group_show_line_subtotals_tax_included">الاجمالي</span>
+                            </th>
+
                         </tr>
                         <tr>
-                                <t t-set="colspan" t-value="6"/>
-                                <th class="text-left"><span>Serial</span></th>
-                                <th class="text-left"><span>Description</span></th>
-                                <th class="d-none text-left"><span>Source Document</span></th>
-                                <th class="text-right"><span>Quantity</span></th>
-                                <th t-attf-class="text-right {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}"><span>Unit Price</span></th>
-                                <th t-if="display_discount" t-attf-class="text-right {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}">
-                                    <span>Disc.(%)</span>
-                                    <t t-set="colspan" t-value="colspan+1"/>
-                                </th>
-                                <th t-attf-class="text-left {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}"><span>Taxes</span></th>
-                                <th class="text-right">
-                                    <span groups="account.group_show_line_subtotals_tax_excluded">Amount</span>
-                                    <span groups="account.group_show_line_subtotals_tax_included">Total Price</span>
-                                </th>
+                            <t t-set="colspan" t-value="6"/>
+                            <th class="text-left">
+                                <span>Serial</span>
+                            </th>
+                            <th class="text-left">
+                                <span>Description</span>
+                            </th>
+                            <th class="d-none text-left">
+                                <span>Source Document</span>
+                            </th>
+                            <th class="text-right">
+                                <span>Quantity</span>
+                            </th>
+                            <th t-attf-class="text-right {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}">
+                                <span>Unit Price</span>
+                            </th>
+                            <th t-if="display_discount" t-attf-class="text-right {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}">
+                                <span>Disc.(%)</span>
+                                <t t-set="colspan" t-value="colspan+1"/>
+                            </th>
+                            <th t-attf-class="text-left {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}">
+                                <span>Taxes</span>
+                            </th>
+                            <th class="text-right">
+                                <span groups="account.group_show_line_subtotals_tax_excluded">Amount</span>
+                                <span groups="account.group_show_line_subtotals_tax_included">Total Price</span>
+                            </th>
 
-                            </tr>
+                        </tr>
 
                     </thead>
                     <tbody class="invoice_tbody">
@@ -80,7 +104,7 @@
                                         <span t-field="line.price_subtotal" groups="account.group_show_line_subtotals_tax_excluded"/>
                                         <span t-field="line.price_total" groups="account.group_show_line_subtotals_tax_included"/>
                                     </td>
-                                    
+
 
                                 </t>
                                 <t t-if="line.display_type == 'line_section'">
@@ -112,7 +136,7 @@
             <xpath expr="//table[@name='invoice_line_table']//thead//tr[1]//th[7]//span" position="replace">
                 <span>ض.ق مضافه</span>
             </xpath>
-             <xpath expr="//table[@name='invoice_line_table']//thead//tr[2]//th[7]//span" position="replace">
+            <xpath expr="//table[@name='invoice_line_table']//thead//tr[2]//th[7]//span" position="replace">
                 <span>VAT</span>
             </xpath>
             <xpath expr="//div[@id='total']" position="replace">
@@ -247,7 +271,7 @@
             </xpath>
 
 
-           
+
             <xpath expr="//div[@id='total']" position="after">
                 <div id="words" class="row">
                     <div t-attf-class="#{'col-4' if report_type != 'html' else 'col-sm-7 col-md-5'} ml-auto">
@@ -256,14 +280,14 @@
 
                                 <td class="text-right" colspan="2">
                                     <span class="m-0" t-esc="o.convert_number_to_words(o.amount_total,'ar')"/>
- <strong t-esc="o.currency_id.name"/> 
+                                    <strong t-esc="o.currency_id.name"/>
                                 </td>
                             </tr>
 
                             <tr class="border-black o_total">
                                 <td class="text-right" colspan="2">
                                     <p class="m-0" t-esc="o.convert_number_to_words(o.amount_total,'en')"/>
- <strong t-esc="o.currency_id.name"/>
+                                    <strong t-esc="o.currency_id.name"/>
 
                                 </td>
                             </tr>
