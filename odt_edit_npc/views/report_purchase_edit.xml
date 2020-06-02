@@ -252,8 +252,8 @@
                 id="report_purchase_order"
                 model="purchase.order"
                 report_type="qweb-pdf"
-                name="report_draft_quotation"
-                file="report_draft_quotation"
+                name="odt_edit_npc.report_draft_quotation"
+                file="odt_edit_npc.report_draft_quotation"
                 print_report_name="'Draft Purchase Order - %s' % (object.name)"
         />
 
