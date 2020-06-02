@@ -1,7 +1,7 @@
 <odoo>
     <data>
         <template id="edit_delivery_order" inherit_id="stock.report_delivery_document">
-            <xpath expr="//div[@class='page']" position="after">
+            <xpath expr="//div[@class='page']" position="replace">
                 <div class="page">
                     <h1 align="center">
                         <strong>Delivery Note</strong>
@@ -145,15 +145,7 @@
                 </div>
             </xpath>
         </template>
-        <report
-                string="Draft Purchase Order"
-                id="report_purchase_order"
-                model="purchase.order"
-                report_type="qweb-pdf"
-                name="report_draft_quotation"
-                file="report_draft_quotation"
-                print_report_name="'Draft Purchase Order - %s' % (object.name)"
-        />
+
 
         <template id="report_draft_quotation_document">
             <t t-call="web.external_layout">
@@ -250,10 +242,20 @@
         <template id="report_draft_quotation">
             <t t-call="web.html_container">
                 <t t-foreach="docs" t-as="o">
-                    <t t-call="purchase.report_draft_quotation_document" t-lang="o.partner_id.lang"/>
+                    <t t-call="report_draft_quotation_document" t-lang="o.partner_id.lang"/>
                 </t>
             </t>
         </template>
+
+        <report
+                string="Draft Purchase Order"
+                id="report_purchase_order"
+                model="purchase.order"
+                report_type="qweb-pdf"
+                name="report_draft_quotation"
+                file="report_draft_quotation"
+                print_report_name="'Draft Purchase Order - %s' % (object.name)"
+        />
 
         <template id="rfq_edit_report_request" inherit_id="purchase.report_purchasequotation_document">
             <xpath expr="//t[@t-set='address']" position="after">
