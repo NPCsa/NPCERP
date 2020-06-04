@@ -158,7 +158,7 @@
                         <span t-field="o.partner_id.vat"/>
                     </p>
                 </t>
-                <t t-if="o.dest_address_id">
+                <t>
                     <t t-set="information_block">
                         <strong>Shipping address:</strong>
                         <div t-field="o.dest_address_id"
