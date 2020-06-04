@@ -158,6 +158,14 @@
                         <span t-field="o.partner_id.vat"/>
                     </p>
                 </t>
+                <t t-if="o.dest_address_id">
+                    <t t-set="information_block">
+                        <strong>Shipping address:</strong>
+                        <div t-field="o.dest_address_id"
+                             t-options='{"widget": "contact", "fields": ["address", "name", "phone"], "no_marker": True, "phone_icons": True}'
+                             name="purchase_shipping_address"/>
+                    </t>
+                </t>
                 <div class="row mt32 mb32" id="informations">
                     <div t-if="o.partner_ref" class="col-auto mw-100 mb-2">
                         <strong>Reference:</strong>
@@ -184,14 +192,7 @@
                         </div>
                     </t>
                 </div>
-                <t t-if="o.dest_address_id">
-                    <t t-set="information_block">
-                        <strong>Shipping address:</strong>
-                        <div t-field="o.dest_address_id"
-                             t-options='{"widget": "contact", "fields": ["address", "name", "phone"], "no_marker": True, "phone_icons": True}'
-                             name="purchase_shipping_address"/>
-                    </t>
-                </t>
+
                 <div class="page">
                     <h1 align="center">
                         <strong>Draft Purchase Order</strong>
