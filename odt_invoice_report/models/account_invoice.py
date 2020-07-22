@@ -5,6 +5,8 @@ from odoo import api, fields, models
 class AccountInvoice(models.Model):
     _inherit = 'account.invoice'
 
+    vessel = fields.Char(string="Vessel")
+
     def convert_number_to_words(self,number,lang):
         if lang == 'ar':
             return self.convert_number(number)

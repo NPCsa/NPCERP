@@ -3,7 +3,7 @@
         <template id="account_invoice_report_edit" inherit_id="account.report_invoice_document">
             <xpath expr="//table[@name='invoice_line_table']" position="replace">
 
-                <table class="table table-sm o_main_table" name="invoice_line_table">
+                <table class="table table-striped table-sm o_main_table" name="invoice_line_table">
                     <thead>
                         <tr>
                             <t t-set="colspan" t-value="6"/>
@@ -13,8 +13,14 @@
                             <th class="text-left">
                                 <span>الوصف</span>
                             </th>
+                            <th class="text-left">
+                                <span>وصف </span>
+                            </th>
                             <th class="d-none text-left">
                                 <span>مصدر المستند</span>
+                            </th>
+                            <th class="text-right">
+                                <span>الكميه</span>
                             </th>
                             <th class="text-right">
                                 <span>الكميه</span>
@@ -43,11 +49,17 @@
                             <th class="text-left">
                                 <span>Description</span>
                             </th>
+                            <th class="text-left">
+                                <span>Description(Arabic)</span>
+                            </th>
                             <th class="d-none text-left">
                                 <span>Source Document</span>
                             </th>
                             <th class="text-right">
                                 <span>Quantity</span>
+                            </th>
+                            <th class="text-right">
+                                <span>UOM</span>
                             </th>
                             <th t-attf-class="text-right {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}">
                                 <span>Unit Price</span>
@@ -88,7 +100,9 @@
                                         <span t-field="line.origin"/>
                                     </td>
                                     <td class="text-right">
-                                        <span t-field="line.quantity"/>
+                                        <span t-esc="round(line.quantity,2)"/>
+                                    </td>
+                                    <td class="text-right">
                                         <span t-field="line.uom_id" groups="uom.group_uom"/>
                                     </td>
                                     <td t-attf-class="text-right {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}">
@@ -177,15 +191,17 @@
                                     </t>
                                 </tr>
                             </t>
-                            <tr>
-                                <td>
-                                    <strong>الخصم</strong>
-                                    <strong>Discount</strong>
-                                </td>
-                                <td class="text-right">
-                                    <span t-field="o.amount_discount"/>
-                                </td>
-                            </tr>
+                            <t t-if="o.company_id.name != 'National Pioneers Contracting Co. (Ltd)'">
+                                <tr>
+                                    <td>
+                                        <strong>الخصم</strong>
+                                        <strong>Discount</strong>
+                                    </td>
+                                    <td class="text-right">
+                                        <span t-field="o.amount_discount"/>
+                                    </td>
+                                </tr>
+                            </t>
                             <tr class="border-black o_total">
                                 <td>
                                     <strong>المجموع</strong>
