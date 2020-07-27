@@ -39,17 +39,26 @@
                     <table class="table table-sm mt48" t-if="o.state!='done'">
                         <thead>
                             <tr>
+                                <th class="text-left">
+                                    <span>Serial</span>
+                                </th>
                                 <th>
                                     <strong>Product</strong>
                                 </th>
                                 <th>
                                     <strong>Quantity</strong>
                                 </th>
+                                <th>
+                                    <strong>Uom</strong>
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
                             <t t-set="lines" t-value="o.move_lines.filtered(lambda x: x.product_uom_qty)"/>
                             <tr t-foreach="lines" t-as="move">
+                                <td class="text-right">
+                                    <span t-esc="line_index + 1"/>
+                                </td>
                                 <td>
                                     <span t-field="move.product_id"/>
                                     <p t-if="o.picking_type_code == 'outgoing'">
@@ -60,7 +69,9 @@
                                     </p>
                                 </td>
                                 <td>
-                                    <span t-field="move.product_uom_qty"/>
+                                    <span t-esc="round(move.product_uom_qty,2)"/>
+                                </td>
+                                <td>
                                     <span t-field="move.product_uom"/>
                                 </td>
                             </tr>
@@ -70,6 +81,9 @@
                         <t t-set="has_serial_number" t-value="o.move_line_ids.mapped('lot_id')"/>
                         <thead>
                             <tr>
+                                <th class="text-left">
+                                    <span>Serial</span>
+                                </th>
                                 <th>
                                     <strong>Product</strong>
                                 </th>
@@ -80,10 +94,16 @@
                                 <th class="text-center">
                                     <strong>Quantity</strong>
                                 </th>
+                                <th class="text-center">
+                                    <strong>Uom</strong>
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr t-foreach="o.move_line_ids" t-as="move_line">
+                                <td class="text-right">
+                                    <span t-esc="line_index + 1"/>
+                                </td>
                                 <td>
                                     <span t-field="move_line.product_id"/>
                                     <p t-if="o.picking_type_code == 'outgoing'">
@@ -101,7 +121,9 @@
                                     <span t-field="move_line.lot_id.name"/>
                                 </td>
                                 <td class="text-center">
-                                    <span t-field="move_line.qty_done"/>
+                                    <span t-esc="round(move_line.qty_done,2)"/>
+                                </td>
+                                <td class="text-center">
                                     <span t-field="move_line.product_uom_id"/>
                                 </td>
                             </tr>
