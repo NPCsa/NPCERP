@@ -208,3 +208,10 @@ class AccountInvoice(models.Model):
             return num_names[int(number)][:-4] + "مائة" + result
         else:
             return num_names[int(number)][:-1] + "مائة" + result
+
+
+class AccountInvoiceLine(models.Model):
+    _inherit = 'account.invoice.line'
+
+    arabic_description = fields.Char(string="Arabic Description")
+

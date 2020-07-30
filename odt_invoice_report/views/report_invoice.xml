@@ -96,6 +96,9 @@
                                     <td name="account_invoice_line_name">
                                         <span t-field="line.name"/>
                                     </td>
+                                    <td name="account_invoice_line_name">
+                                        <span t-field="line.arabic_description"/>
+                                    </td>
                                     <td class="d-none">
                                         <span t-field="line.origin"/>
                                     </td>
@@ -218,6 +221,7 @@
             <xpath expr="//div[@class='page']//h2" position="replace">
                     <h1 align="center">
                         <strong>VAT Invoice</strong>
+                         : فاتوره ضريبيه رقم
                     </h1>
 <!--                <span t-if="o.type == 'out_invoice' and o.state in ('open', 'in_payment', 'paid')">Invoice</span>-->
 <!--                <span t-if="o.type == 'out_invoice' and o.state == 'draft'">Draft Invoice</span>-->
@@ -226,7 +230,6 @@
 <!--                <span t-if="o.type == 'in_refund'">Vendor Credit Note</span>-->
 <!--                <span t-if="o.type == 'in_invoice'">Vendor Bill</span>-->
 <!--                <span t-field="o.number"/>-->
- : فاتوره ضريبيه رقم
             </xpath>
 
             <xpath expr="//t[@t-set='address']" position="replace">
@@ -255,6 +258,12 @@
                         <br/>
                         <strong>Description:</strong>
                         <p class="m-0" t-field="o.name"/>
+                    </div>
+                    <div class="col-auto mw-100 mb-2" t-if="o.vessel" name="description">
+                        <strong>السفنية</strong>
+                        <br/>
+                        <strong>Vessel:</strong>
+                        <p class="m-0" t-field="o.vessel"/>
                     </div>
                     <div class="col-auto mw-100 mb-2" t-if="o.date_invoice" name="invoice_date">
                         <strong>تاريخ الفاتوره</strong>
