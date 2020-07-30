@@ -5,7 +5,7 @@
 
                 <table class="table table-striped table-sm o_main_table" name="invoice_line_table">
                     <thead>
-                        <tr>
+                        <tr style="background-color:rgb(105,105,105);">
                             <t t-set="colspan" t-value="6"/>
                             <th class="text-right">
                                 <span>مسلسل</span>
@@ -41,7 +41,7 @@
                             </th>
 
                         </tr>
-                        <tr>
+                        <tr style="background-color:rgb(105,105,105);">
                             <t t-set="colspan" t-value="6"/>
                             <th class="text-left">
                                 <span>Serial</span>
@@ -216,13 +216,16 @@
                 </div>
             </xpath>
             <xpath expr="//div[@class='page']//h2" position="replace">
-                <span t-if="o.type == 'out_invoice' and o.state in ('open', 'in_payment', 'paid')">Invoice</span>
-                <span t-if="o.type == 'out_invoice' and o.state == 'draft'">Draft Invoice</span>
-                <span t-if="o.type == 'out_invoice' and o.state == 'cancel'">Cancelled Invoice</span>
-                <span t-if="o.type == 'out_refund'">Credit Note</span>
-                <span t-if="o.type == 'in_refund'">Vendor Credit Note</span>
-                <span t-if="o.type == 'in_invoice'">Vendor Bill</span>
-                <span t-field="o.number"/>
+                    <h1 align="center">
+                        <strong>VAT Invoice</strong>
+                    </h1>
+<!--                <span t-if="o.type == 'out_invoice' and o.state in ('open', 'in_payment', 'paid')">Invoice</span>-->
+<!--                <span t-if="o.type == 'out_invoice' and o.state == 'draft'">Draft Invoice</span>-->
+<!--                <span t-if="o.type == 'out_invoice' and o.state == 'cancel'">Cancelled Invoice</span>-->
+<!--                <span t-if="o.type == 'out_refund'">Credit Note</span>-->
+<!--                <span t-if="o.type == 'in_refund'">Vendor Credit Note</span>-->
+<!--                <span t-if="o.type == 'in_invoice'">Vendor Bill</span>-->
+<!--                <span t-field="o.number"/>-->
  : فاتوره ضريبيه رقم
             </xpath>
 
