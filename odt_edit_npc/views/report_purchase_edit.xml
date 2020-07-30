@@ -102,7 +102,7 @@
                         <tbody>
                             <tr t-foreach="o.move_line_ids" t-as="move_line">
                                 <td class="text-right">
-                                    <span t-esc="line_index + 1"/>
+                                    <span t-esc="move_line_index + 1"/>
                                 </td>
                                 <td>
                                     <span t-field="move_line.product_id"/>
