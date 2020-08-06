@@ -3,9 +3,9 @@
         <template id="account_invoice_report_edit" inherit_id="account.report_invoice_document">
             <xpath expr="//table[@name='invoice_line_table']" position="replace">
 
-                <table class="table table-striped table-sm o_main_table" name="invoice_line_table">
+                <table class="table table-bordered table-sm o_main_table" name="invoice_line_table">
                     <thead>
-                        <tr style="background-color:rgb(105,105,105);">
+                        <tr style="background-color:rgb(144,144,144);">
                             <t t-set="colspan" t-value="6"/>
                             <th class="text-right">
                                 <span>مسلسل</span>
@@ -221,8 +221,12 @@
             <xpath expr="//div[@class='page']//h2" position="replace">
                     <h1 align="center">
                         <strong>VAT Invoice</strong>
-                         : فاتوره ضريبيه رقم
+                         : فاتوره ضريبيه
                     </h1>
+                    <h3 align="center">
+                        <strong>Invoice No</strong>
+                        <span t-field="o.number"/>
+                    </h3>
 <!--                <span t-if="o.type == 'out_invoice' and o.state in ('open', 'in_payment', 'paid')">Invoice</span>-->
 <!--                <span t-if="o.type == 'out_invoice' and o.state == 'draft'">Draft Invoice</span>-->
 <!--                <span t-if="o.type == 'out_invoice' and o.state == 'cancel'">Cancelled Invoice</span>-->
@@ -259,7 +263,7 @@
                         <strong>Description:</strong>
                         <p class="m-0" t-field="o.name"/>
                     </div>
-                    <div class="col-auto mw-100 mb-2" t-if="o.vessel" name="description">
+                    <div class="col-auto mw-100 mb-2" t-if="o.vessel" name="vessel">
                         <strong>السفنية</strong>
                         <br/>
                         <strong>Vessel:</strong>
@@ -294,6 +298,12 @@
                         <br/>
                         <strong>Reference:</strong>
                         <p class="m-0" t-field="o.reference"/>
+                    </div>
+                    <div class="col-auto mw-100 mb-2" t-if="o.partner_id.ref" name="customer_code">
+                        <strong>كود العميل</strong>
+                        <br/>
+                        <strong>Customer Code:</strong>
+                        <p class="m-0" t-field="o.partner_id.ref"/>
                     </div>
                 </div>
             </xpath>
