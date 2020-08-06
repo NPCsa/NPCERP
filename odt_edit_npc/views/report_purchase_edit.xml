@@ -105,7 +105,7 @@
                                     <span t-esc="move_line_index + 1"/>
                                 </td>
                                 <td>
-                                    <span t-field="move_line.name"/>
+                                    <span t-esc="move_line.name"/>
 <!--                                    <p t-if="o.picking_type_code == 'outgoing'">-->
 <!--                                        <span t-field="move_line.product_id.sudo().description_pickingout"/>-->
 <!--                                    </p>-->
