@@ -105,13 +105,13 @@
                                     <span t-esc="move_line_index + 1"/>
                                 </td>
                                 <td>
-                                    <span t-field="move_line.product_id"/>
-                                    <p t-if="o.picking_type_code == 'outgoing'">
-                                        <span t-field="move_line.product_id.sudo().description_pickingout"/>
-                                    </p>
-                                    <p t-if="o.picking_type_code == 'incoming'">
-                                        <span t-field="move_line.product_id.sudo().description_pickingin"/>
-                                    </p>
+                                    <span t-field="move_line.name"/>
+<!--                                    <p t-if="o.picking_type_code == 'outgoing'">-->
+<!--                                        <span t-field="move_line.product_id.sudo().description_pickingout"/>-->
+<!--                                    </p>-->
+<!--                                    <p t-if="o.picking_type_code == 'incoming'">-->
+<!--                                        <span t-field="move_line.product_id.sudo().description_pickingin"/>-->
+<!--                                    </p>-->
                                 </td>
                                 <td t-if="has_serial_number and move_line.lot_name"
                                     groups="stock.group_lot_on_delivery_slip">
