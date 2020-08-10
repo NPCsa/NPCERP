@@ -299,11 +299,12 @@
                         <strong>Reference:</strong>
                         <p class="m-0" t-field="o.reference"/>
                     </div>
-                    <div class="col-auto mw-100 mb-2" t-if="o.partner_id.ref" name="customer_code">
-                        <strong>كود العميل</strong>
+                    <t t-set="delivery_orders" t-value="', '.join(o.get_delivery_note())"/>
+                    <div class="col-auto mw-100 mb-2" t-if="delivery_orders" name="delivery_number">
+                        <strong></strong>
                         <br/>
-                        <strong>Customer Code:</strong>
-                        <p class="m-0" t-field="o.partner_id.ref"/>
+                        <strong>Delivery Note:</strong>
+                        <p class="m-0" t-esc="delivery_orders"/>
                     </div>
                 </div>
             </xpath>
