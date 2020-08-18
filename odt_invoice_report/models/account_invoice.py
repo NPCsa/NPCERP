@@ -2,8 +2,18 @@ from num2words import num2words
 import re
 from odoo import api, fields, models
 
+
 class AccountInvoice(models.Model):
     _inherit = 'account.invoice'
+
+    vessel = fields.Char(string="Vessel")
+
+    def get_delivery_note(self):
+        delivery_list = self.env['stock.picking'].search([('origin', '=', self.origin)])
+        print_list = []
+        for rec in delivery_list:
+            print_list.append(rec.name)
+        return print_list
 
     def convert_number_to_words(self,number,lang):
         if lang == 'ar':
@@ -204,3 +214,10 @@ class AccountInvoice(models.Model):
             return num_names[int(number)][:-4] + "مائة" + result
         else:
             return num_names[int(number)][:-1] + "مائة" + result
+
+
+class AccountInvoiceLine(models.Model):
+    _inherit = 'account.invoice.line'
+
+    arabic_description = fields.Char(string="Arabic Description")
+
