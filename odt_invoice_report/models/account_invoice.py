@@ -9,11 +9,14 @@ class AccountInvoice(models.Model):
     vessel = fields.Char(string="Vessel")
 
     def get_delivery_note(self):
-        delivery_list = self.env['stock.picking'].search([('origin', '=', self.origin)])
-        print_list = []
-        for rec in delivery_list:
-            print_list.append(rec.name)
-        return print_list
+        if self.origin:
+            delivery_list = self.env['stock.picking'].search([('origin', '=', self.origin)])
+            print_list = []
+            for rec in delivery_list:
+                print_list.append(rec.name)
+            return print_list
+        else:
+            return []
 
     def convert_number_to_words(self,number,lang):
         if lang == 'ar':
